@@ -4,114 +4,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Droit Gabonais</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --vert:#006B3F;
-  --or:#C8A951;
-  --ivoire:#FAF8F2;
-  --texte:#102A43;
-  --gris:#6B7C93;
+:root {
+  --vert: #006B3F;
+  --or: #C8A951;
+  --ivoire: #FAF8F2;
+  --texte: #102A43;
+  --gris: #6B7C93;
 }
-
-body{
-  margin:0;
-  font-family:Inter, sans-serif;
-  background:var(--ivoire);
-  color:var(--texte);
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  background: var(--ivoire);
+  color: var(--texte);
 }
-
-header{
-  background:var(--vert);
-  color:white;
-  padding:20px;
+header {
+  background: var(--vert);
+  color: white;
+  padding: 20px;
 }
-
-header h1{
-  margin:0;
-  font-family:Merriweather, serif;
-  font-weight:700;
+header h1 {
+  margin: 0;
+  font-family: Merriweather, serif;
+  font-weight: 700;
 }
-
-nav{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  padding:10px 20px;
-  background:#0b3d2e;
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #0b3d2e;
 }
-
-nav button{
-  background:none;
-  border:1px solid rgba(255,255,255,0.2);
-  color:white;
-  padding:6px 10px;
-  cursor:pointer;
-  font-size:12px;
+nav button {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
 }
-
-nav button:hover{
-  background:rgba(255,255,255,0.1);
+nav button:hover {
+  background: rgba(255,255,255,0.1);
 }
-
-.hero{
-  padding:60px 20px;
-  text-align:center;
+.hero {
+  padding: 60px 20px;
+  text-align: center;
 }
-
-.hero h2{
-  font-size:32px;
-  font-family:Merriweather, serif;
+.hero h2 {
+  font-size: 32px;
+  font-family: Merriweather, serif;
 }
-
-.search{
-  margin-top:20px;
+.search {
+  margin-top: 20px;
 }
-
-.search input{
-  width:60%;
-  padding:12px;
-  border:1px solid #ddd;
+.search input {
+  width: 60%;
+  padding: 12px;
+  border: 1px solid #ddd;
 }
-
-.search button{
-  padding:12px;
-  background:var(--vert);
-  color:white;
-  border:none;
-  cursor:pointer;
+.search button {
+  padding: 12px;
+  background: var(--vert);
+  color: white;
+  border: none;
+  cursor: pointer;
 }
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
-  padding:20px;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  padding: 20px;
 }
-
-.card{
-  background:white;
-  padding:15px;
-  border:1px solid #eee;
-  cursor:pointer;
+.card {
+  background: white;
+  padding: 15px;
+  border: 1px solid #eee;
+  cursor: pointer;
 }
-
-.card:hover{
-  border-color:var(--or);
+.card:hover {
+  border-color: var(--or);
 }
-
-footer{
-  background:#0b3d2e;
-  color:white;
-  padding:30px;
-  margin-top:40px;
-  text-align:center;
+footer {
+  background: #0b3d2e;
+  color: white;
+  padding: 30px;
+  margin-top: 40px;
+  text-align: center;
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -133,33 +115,31 @@ footer{
 </footer>
 
 <script>
-
 const data = {
-  codes:[
-    {t:"Constitution gabonaise",d:"Texte fondamental de la République"},
-    {t:"Code civil",d:"Droit des personnes et des biens"},
-    {t:"Code pénal",d:"Infractions et sanctions"},
-    {t:"Code du travail",d:"Relations employeur-employé"}
+  codes: [
+    {t: "Constitution gabonaise", d: "Texte fondamental de la République"},
+    {t: "Code civil", d: "Droit des personnes et des biens"},
+    {t: "Code pénal", d: "Infractions et sanctions"},
+    {t: "Code du travail", d: "Relations employeur-employé"}
   ]
 };
 
-function show(page){
+function show(page) {
   const app = document.getElementById("app");
+  if (!app) return;
 
-  if(page==="home"){
-    app.innerHTML=`
+  if (page === "home") {
+    app.innerHTML = `
       <div class="hero">
         <h2>Tout le droit gabonais en un seul endroit</h2>
         <p>Constitution, codes, lois, OHADA et archives juridiques.</p>
-
         <div class="search">
           <input id="q" placeholder="Rechercher un texte...">
           <button onclick="search()">Rechercher</button>
         </div>
       </div>
-
       <div class="grid">
-        ${data.codes.map(c=>`
+        ${data.codes.map(c => `
           <div class="card">
             <h3>${c.t}</h3>
             <p>${c.d}</p>
@@ -169,11 +149,11 @@ function show(page){
     `;
   }
 
-  if(page==="codes"){
-    app.innerHTML=`
+  if (page === "codes") {
+    app.innerHTML = `
       <h2 style="padding:20px">Codes et lois</h2>
       <div class="grid">
-        ${data.codes.map(c=>`
+        ${data.codes.map(c => `
           <div class="card">
             <h3>${c.t}</h3>
             <p>${c.d}</p>
@@ -183,17 +163,17 @@ function show(page){
     `;
   }
 
-  if(page==="histoire"){
-    app.innerHTML=`
+  if (page === "histoire") {
+    app.innerHTML = `
       <div style="padding:20px">
         <h2>Histoire constitutionnelle</h2>
-        <p>1958 → 1960 → 1991 → 2003 → 2023</p>
+        <p>1958 &rarr; 1960 &rarr; 1991 &rarr; 2003 &rarr; 2023</p>
       </div>
     `;
   }
 
-  if(page==="ohada"){
-    app.innerHTML=`
+  if (page === "ohada") {
+    app.innerHTML = `
       <div style="padding:20px">
         <h2>OHADA</h2>
         <p>Droit des affaires harmonisé en Afrique francophone.</p>
@@ -201,8 +181,8 @@ function show(page){
     `;
   }
 
-  if(page==="sources"){
-    app.innerHTML=`
+  if (page === "sources") {
+    app.innerHTML = `
       <div style="padding:20px">
         <h2>Sources</h2>
         <ul>
@@ -215,13 +195,13 @@ function show(page){
   }
 }
 
-function search(){
-  const q=document.getElementById("q").value;
-  alert("Recherche : " + q + " (version à connecter à une base de données ensuite)");
+function search() {
+  const q = document.getElementById("q").value;
+  alert("Recherche : " + q);
 }
 
+// Lancement automatique de la page d'accueil
 show("home");
-
 </script>
 
 </body>
