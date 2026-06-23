@@ -18,10 +18,15 @@
   --shadow:0 4px 12px rgba(26,60,110,0.08);
   --rouge:#D93838;--rouge-pale:#FDEBEB;
 }
-body{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:var(--encre);background:var(--fond);-webkit-font-smoothing:antialiased}
+body{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:var(--encre);background:var(--fond);-webkit-font-smoothing:antialiased;scroll-behavior: smooth;}
 button{cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
 
 [v-cloak] { display: none !important; }
+
+/* NAV RAPIDE HAUT/BAS */
+.nav-fast{position:fixed;bottom:90px;right:25px;display:flex;flex-direction:column;gap:8px;z-index:999}
+.btn-fast{width:40px;height:40px;border-radius:50%;background:var(--bleu-deep);color:#fff;border:none;box-shadow:0 4px 10px rgba(0,0,0,0.2);font-weight:bold;font-size:16px;display:flex;align-items:center;justify-content:center}
+.btn-fast:hover{background:var(--or);color:var(--bleu-deep)}
 
 /* HEADER */
 .hdr{background:var(--bleu-deep);padding:0 24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
@@ -66,7 +71,7 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .cat-jurisprudence{background:var(--bleu-pale);color:var(--bleu)}
 .cat-doctrine{background:#F0EBF5;color:#6A4093}
 
-/* REACTIONS EMOJIS */
+/* REACTIONS */
 .reactions-bar{display:flex;gap:10px;margin:20px 0;padding:10px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
 .btn-reaction{background:var(--fond);border:1px solid var(--line);padding:6px 12px;border-radius:20px;font-size:13px;display:flex;align-items:center;gap:6px;font-weight:600}
 .btn-reaction:hover{background:var(--bleu-pale);border-color:var(--bleu)}
@@ -83,17 +88,6 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 
 .btn-suppr{background:var(--rouge-pale);color:var(--rouge);border:1px solid var(--rouge);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer}
 .btn-suppr:hover{background:var(--rouge);color:#fff}
-
-/* CHATBOT */
-.bot-container{position:fixed;bottom:25px;right:25px;width:350px;background:var(--blanc);border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,0.2);border:1px solid var(--line);z-index:1000;overflow:hidden;display:flex;flex-direction:column}
-.bot-header{background:var(--bleu-deep);color:#fff;padding:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
-.bot-body{height:250px;padding:15px;overflow-y:auto;font-size:13px;display:flex;flex-direction:column;gap:10px;background:#fcfdfe}
-.bot-msg{padding:10px;border-radius:8px;max-width:85%}
-.bot-msg.bot{background:var(--bleu-pale);color:var(--bleu-deep);align-self:flex-start}
-.bot-msg.user{background:var(--or-pale);color:var(--encre);align-self:flex-end}
-.bot-options{padding:10px;display:flex;gap:6px;flex-wrap:wrap;background:var(--fond)}
-.bot-opt-btn{background:var(--blanc);border:1px solid var(--line);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600}
-.bot-opt-btn:hover{border-color:var(--bleu);color:var(--bleu)}
 
 .momo-btn{background:#FFCC00;color:#000;border:none;padding:12px;border-radius:var(--r2);font-weight:800;font-size:13px;width:100%;margin-top:auto;text-align:center;display:block}
 .momo-btn:hover{background:#E8B820}
@@ -122,8 +116,14 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
 <div id="app" v-cloak>
   
+  <!-- BOUTONS COMMANDE EN 1 CLIC (HAUT / BAS) -->
+  <div class="nav-fast">
+    <button class="btn-fast" @click="allerEnHaut" title="Retourner tout en haut">▲</button>
+    <button class="btn-fast" @click="allerEnBas" title="Aller tout en bas">▼</button>
+  </div>
+
   <!-- HEADER -->
-  <header class="hdr">
+  <header class="hdr" id="page-top">
     <div class="hdr-in">
       <div class="brand" @click="setView('home')">
         <div class="logo">⚖️</div>
@@ -133,7 +133,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         </div>
       </div>
       <nav>
-        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">🏛️ Bibliothèque & Forum</button>
+        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">🏛️ Accueil</button>
         <button :class="{act: currentView === 'offres'}" @click="setView('offres')">💼 Services & Tarifs</button>
         <button :class="{act: currentView === 'contact'}" @click="setView('contact')">📞 Contact</button>
       </nav>
@@ -160,7 +160,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
     
     <!-- VUE DETAIL DOCUMENT -->
     <div v-if="currentView === 'detail' && activeItem" class="detail-view">
-      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px; display:inline-flex; align-items:center;">← Retour à la bibliothèque</button>
+      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px; display:inline-flex; align-items:center;">← Retour à l'accueil</button>
       <br>
       <span class="acard-cat" :class="'cat-'+activeItem.cat">{{activeItem.catL}}</span>
       <h1 style="margin:10px 0; color:var(--bleu-deep);">{{activeItem.titre}}</h1>
@@ -174,7 +174,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <button class="btn-reaction" @click="ajouterReaction('surpris')">😮 <span>{{activeItem.reactions.surpris}}</span></button>
       </div>
 
-      <!-- ACHAT PDF (Seulement pour les lois/jurisprudences/doctrines si souhaité) -->
+      <!-- ACHAT PDF -->
       <div v-if="activeItem.cat !== 'fiche'" style="margin:25px 0; padding:20px; background:var(--or-pale); border-radius:var(--r); border:1px solid var(--or);">
         <h4>📥 Télécharger la version numérique officielle / l'Arrêt complet PDF</h4>
         <p style="font-size:13px; color:var(--muted); margin-top:4px;">L'analyse en ligne est libre. La copie PDF certifiée et exploitable est facturée 1 000 FCFA.</p>
@@ -207,11 +207,11 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       </div>
     </div>
 
-    <!-- VUE ACCUEIL : LA GRANDE BIBLIOTHÈQUE FILTRABLE -->
+    <!-- VUE ACCUEIL -->
     <div v-if="currentView === 'home'">
       <div class="section-title">Grande Bibliothèque Juridique du Gabon</div>
       
-      <!-- ONGLETS DE TRI DE LA BIBLIOTHÈQUE -->
+      <!-- ONGLETS DE TRI -->
       <div class="biblio-tabs">
         <button class="biblio-tab-btn" :class="{active: filterCat === 'tous'}" @click="filterCat = 'tous'">📚 Tout voir</button>
         <button class="biblio-tab-btn" :class="{active: filterCat === 'fiche'}" @click="filterCat = 'fiche'">📝 Fiches Pratiques</button>
@@ -220,7 +220,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <button class="biblio-tab-btn" :class="{active: filterCat === 'doctrine'}" @click="filterCat = 'doctrine'">📚 Doctrine</button>
       </div>
 
-      <!-- GRILLE DES ELEMENTS DE LA BIBLIOTHEQUE FILTRÉE -->
+      <!-- GRILLE ACCUEIL -->
       <div class="art-grid">
         <div class="acard" v-for="item in filteredBibliotheque" :key="item.id" @click="openItem(item)">
           <span class="acard-cat" :class="'cat-'+item.cat">{{item.catL}}</span>
@@ -264,7 +264,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       </div>
     </div>
 
-    <!-- VUE OFFRES & PRESTATIONS -->
+    <!-- VUE OFFRES & PRESTATIONS (MISES À JOUR) -->
     <div v-if="currentView === 'offres'">
       <div class="section-title">Prestations & Solutions Sur-Mesure</div>
       
@@ -305,43 +305,37 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
           <p style="margin-top:5px;">📱 <strong>WhatsApp :</strong> Airtel / Moov Money disponibles.</p>
         </div>
         <div class="comment-input-wrap" style="margin-top:0;">
-          <h4>Discussion cryptée directe</h4>
+          <h4>Discussion directe</h4>
           <button @click="ouvrirWhatsAppDirect" style="background:#25D366;">Lancer la discussion WhatsApp Directe</button>
         </div>
       </div>
     </div>
 
-    <!-- PANNEAU D'ADMINISTRATION CORRIGÉ ET ENRICHI -->
-    <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);">
+    <!-- PANNEAU D'ADMINISTRATION -->
+    <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);" id="page-bottom-anchor">
       <center><button class="admin-login-btn" @click="basculerAdmin">🔑 {{ adminConnecte ? 'Fermer le Panel Admin' : 'Mode Administrateur (Ajouter / Rangement)' }}</button></center>
       
       <div v-if="adminConnecte" class="admin-panel">
         <h3>🛠️ Hyper-Administration & Rangement de la Bibliothèque</h3>
         
         <div class="admin-tabs">
-          <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'">📝 Gérer la Bibliothèque Juridique</button>
+          <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'"> Gérer l'accueil & les Documents</button>
           <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer Tarifs & Services</button>
         </div>
         
-        <!-- MODULE DE RANGEMENT DE LA BIBLIOTHÈQUE -->
         <div v-if="adminTab === 'articles'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
             <h4>Ajouter un nouveau document classifié</h4>
-            
-            <!-- ICI LE CHOIX DES RADIOS/SELECTS POUR LE TRIPTYQUE DEMANDÉ -->
-            <label style="font-size:12px; font-weight:700; color:var(--bleu-deep);">Ranger dans la catégorie :</label>
             <select v-model="nouvelItem.type">
               <option value="fiche">📝 Fiche Pratique / Orientation</option>
               <option value="loi">⚖️ Texte de Loi / Code officiel</option>
               <option value="jurisprudence">🏛️ Jurisprudence / Décision de justice</option>
               <option value="doctrine">📚 Doctrine / Analyse d'expert</option>
             </select>
-
-            <input type="text" v-model="nouvelItem.titre" placeholder="Titre complet (ex: Arrêt n°12/2024 de la Cour de Cassation ou Code Pénal)">
-            <input type="text" v-model="nouvelItem.intro" placeholder="Court résumé visible sur la page d'accueil">
-            <textarea v-model="nouvelItem.body" rows="6" placeholder="Contenu textuel ou HTML détaillé du document..."></textarea>
-            
-            <button class="admin-btn" @click="publierContenuManuel">🚀 Classer et Injecter dans la bibliothèque</button>
+            <input type="text" v-model="nouvelItem.titre" placeholder="Titre complet">
+            <input type="text" v-model="nouvelItem.intro" placeholder="Court résumé">
+            <textarea v-model="nouvelItem.body" rows="6" placeholder="Contenu textuel ou HTML détaillé..."></textarea>
+            <button class="admin-btn" @click="publierContenuManuel">🚀 Injecter en base de données</button>
           </div>
 
           <h4>Liste de vos documents en base (Pour suppression)</h4>
@@ -354,7 +348,6 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         </div>
 
         <div v-if="adminTab === 'services'">
-          <!-- GESTION DE PRIX SIMPLE -->
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
             <h4>Créer une offre commerciale</h4>
             <select v-model="nouveauService.cible">
@@ -378,32 +371,17 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
 </div>
 
-<!-- SECURITE DOUBLE CANAL VERCEL -->
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script>
-  if (typeof Vue === 'undefined') {
-    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"><\/script>');
-  }
-</script>
-
 <script>
 const CONFIG_WHATSAPP = "+24107000000"; 
 
-// Base de données par défaut typée
 const BASE_DOCUMENTS = [
   {
     id: 'l1', cat: 'loi', catL: 'Texte de Loi',
     titre: 'Loi n° 021/2021 du Code du Travail Gabonais',
-    intro: 'Découvrez le texte officiel encadrant le licenciement et les ruptures de contrats au Gabon.',
+    intro: 'Découvrez le texte officiel encadrant le licienciement et les ruptures de contrats au Gabon.',
     body: '<h2>Dispositions Générales</h2><p>Le nouveau Code du Travail gabonais régit les relations de travail...</p>',
     reactions: { pouce: 12, justice: 24, idee: 5, surpris: 1 }, commentaires: []
-  },
-  {
-    id: 'j1', cat: 'jurisprudence', catL: 'Jurisprudence',
-    titre: 'Arrêt de la Cour de Cassation sur les licenciements abusifs (2023)',
-    intro: 'Décision majeure protégeant les employés en l’absence de cause réelle et sérieuse.',
-    body: '<h2>Attendu que...</h2><p>La haute cour rappelle les critères stricts de la faute lourde...</p>',
-    reactions: { pouce: 8, justice: 15, idee: 3, surpris: 0 }, commentaires: []
   }
 ];
 
@@ -413,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function() {
     data() {
       return {
         currentView: 'home',
-        filterCat: 'tous', // Système d'onglets pour le tri public
+        filterCat: 'tous',
         activeItem: null,
         adminConnecte: false,
         adminTab: 'articles',
@@ -423,12 +401,19 @@ document.addEventListener("DOMContentLoaded", function() {
         nouveauCommArticle: { nom: '', message: '' },
         
         bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
+        
+        // INTEGRATION DESCRIPTIONS DEMANDEES
         svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || [
-          { nom: "Analyse initiale de dossier juridique", desc: "Étude complète de vos quittances ou contrats.", prix: 0 }
+          { nom: "Analyse initiale & Audit de dossier", desc: "Étude critique de vos contrats de bail, quittances de loyer, ou bulletins de paie.", prix: 0 },
+          { nom: "Rédaction d'actes juridiques", desc: "Élaboration de contrats personnalisés, lettres de réclamation ou réponses formelles.", prix: 25000 },
+          { nom: "Assistance litiges (Amiable)", desc: "Stratégie pas à pas pour résoudre vos différends professionnels ou de voisinage sans tribunal.", prix: 50000 }
         ],
         svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || [
-          { nom: "Externalisation Administrative & Paie", desc: "Production des fiches de paie et CNSS.", prix: 10000 }
+          { nom: "Audit de conformité sociale", desc: "Analyse complète des risques liés aux contrats de travail et procédures internes au Gabon.", prix: 0 },
+          { nom: "Externalisation Administrative & Paie", desc: "Gestion mensuelle de vos fiches de paie conformes au nouveau code du travail.", prix: 150000 },
+          { nom: "Accompagnement Organismes (CNSS / CNAMGS)", desc: "Gestion des déclarations, réponses aux redressements et optimisation des charges.", prix: 0 }
         ],
+        
         forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
           { auteur: "Christian M.", texte: "Le préavis de logement minimum au Gabon est-il fixe ?", reponse: "Oui, il est fixé par défaut à 3 mois.", tempReponse: "" }
         ],
@@ -436,7 +421,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     },
     computed: {
-      // Filtrage intelligent sur l'interface publique
       filteredBibliotheque() {
         if (this.filterCat === 'tous') return this.bibliotheque;
         return this.bibliotheque.filter(item => item.cat === this.filterCat);
@@ -446,6 +430,10 @@ document.addEventListener("DOMContentLoaded", function() {
       setView(view) { this.currentView = view; window.scrollTo(0, 0); },
       openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
       
+      // DEPLACEMENT EN 1 CLIC
+      allerEnHaut() { document.getElementById('page-top').scrollIntoView({ behavior: 'smooth' }); },
+      allerEnBas() { document.getElementById('page-bottom-anchor').scrollIntoView({ behavior: 'smooth' }); },
+
       basculerAdmin() {
         if (this.adminConnecte) {
           this.adminConnecte = false;
@@ -454,45 +442,31 @@ document.addEventListener("DOMContentLoaded", function() {
           if(mdp === "gabon2026") { this.adminConnecte = true; } else { alert("Code erroné."); }
         }
       },
-      
       publierContenuManuel() {
-        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Veuillez remplir le titre et le contenu principal.");
-        
-        // Mappage automatique des labels de rangement
-        let labels = {
-          fiche: 'Fiche Pratique',
-          loi: 'Texte de Loi',
-          jurisprudence: 'Jurisprudence',
-          doctrine: 'Doctrine'
-        };
-
+        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Veuillez remplir le titre et le contenu.");
+        let labels = { fiche: 'Fiche Pratique', loi: 'Texte de Loi', jurisprudence: 'Jurisprudence', doctrine: 'Doctrine' };
         let art = {
           id: 'art_' + Date.now(),
           cat: this.nouvelItem.type,
           catL: labels[this.nouvelItem.type],
           titre: this.nouvelItem.titre,
-          intro: this.nouvelItem.intro || "Consultez ce document juridique analysé par le Cabinet.",
+          intro: this.nouvelItem.intro || "Consultez ce document.",
           body: this.nouvelItem.body.replace(/\n/g, '<br>'),
           reactions: { pouce: 0, justice: 0, idee: 0, surpris: 0 },
           commentaires: []
         };
-        
         this.bibliotheque.unshift(art);
         localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
-        alert("Le document a été classé et intégré à votre bibliothèque !");
-        
-        // Reset du formulaire d'ajout
+        alert("Enregistré.");
         this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
       },
-      
       supprimerArticle(index) {
-        if(confirm("Supprimer définitivement ce document de la base de données ?")) {
+        if(confirm("Supprimer ?")) {
           this.bibliotheque.splice(index, 1);
           localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
           if(this.activeItem) this.setView('home');
         }
       },
-      
       publierServiceManuel() {
         if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
         let s = { nom: this.nouveauService.nom, desc: this.nouveauService.desc, prix: Number(this.nouveauService.prix) || 0 };
@@ -506,7 +480,6 @@ document.addEventListener("DOMContentLoaded", function() {
         alert("Service ajouté.");
         this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
       },
-
       ajouterReaction(type) { this.activeItem.reactions[type]++; localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
       ajouterCommentaireArticle() {
         if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Champs obligatoires.");
@@ -532,7 +505,7 @@ document.addEventListener("DOMContentLoaded", function() {
         comm.reponse = comm.tempReponse; comm.tempReponse = '';
         localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
       },
-      commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Commande service : ' + n + ' ('+p+' FCFA)')}`, '_blank'); },
+      commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Commande : ' + n + ' ('+(p == 0 ? 'Sur devis / Gratuit' : p + ' FCFA')+')')}`, '_blank'); },
       ouvrirWhatsAppDirect() { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=Bonjour Docteur, je souhaite une consultation.`, '_blank'); }
     }
   }).mount('#app');
