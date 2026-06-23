@@ -1,14 +1,654 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Guides, textes et prestations juridiques solidaires au Gabon.">
-    <meta name="theme-color" content="#0F2547">
-    <title>Cabinet Juridique Solidaire - Gabon</title>
-    <!-- ... le reste de votre CSS ici ... -->
+<html lang="fr"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Guides, textes et prestations juridiques solidaires au Gabon.">
+<meta name="theme-color" content="#0F2547">
+<title>Cabinet Juridique Solidaire - Gabon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bleu:#1A3C6E;--bleu-deep:#0F2547;--bleu-soft:#EBF1FA;
+  --vert:#1A7A4A;--vert-soft:#E8F5EE;
+  --or:#D4A017;--or-soft:#FDF6E3;
+  --fond:#F8F9FC;--blanc:#FFFFFF;
+  --encre:#1C1E26;--muted:#5A6070;
+  --line:#E2E5ED;--radius:8px;--radius-sm:6px;
+  --shadow:0 10px 28px rgba(15,37,71,0.08);
+  --shadow-hover:0 16px 34px rgba(15,37,71,0.13);
+  --rouge:#D93838;--rouge-soft:#FDEBEB;
+  --focus:0 0 0 3px rgba(212,160,23,0.34);
+}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;overflow-x:hidden;background:var(--fond);color:var(--encre);
+  font-family:"Plus Jakarta Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+button:disabled,select:disabled{cursor:not-allowed;opacity:.72}
+button,input,textarea,select{transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease,color .18s ease,transform .18s ease}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.brand:focus-visible,.acard:focus-visible{outline:none;box-shadow:var(--focus)}
+input,textarea,select{width:100%;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;color:var(--encre)}
+textarea{resize:vertical}
+[v-cloak]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.nav-fast{position:fixed;right:18px;bottom:86px;display:flex;flex-direction:column;gap:8px;z-index:120}
+.btn-fast{
+  width:42px;height:42px;border:0;border-radius:50%;display:grid;place-items:center;
+  background:var(--bleu-deep);color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.2);font-weight:800
+}
+.btn-fast:hover{background:var(--or);color:var(--bleu-deep);transform:translateY(-1px)}
+
+.hdr{position:sticky;top:0;z-index:100;background:var(--bleu-deep);padding:0 24px;box-shadow:0 2px 16px rgba(0,0,0,.16)}
+.hdr-in{max-width:1200px;min-height:66px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;border:0;background:transparent;color:inherit;text-align:left;border-radius:var(--radius);padding:4px}
+.logo{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--or),#E8B820);color:var(--bleu-deep);font-size:17px;font-weight:800;flex:0 0 auto}
+.brand-txt .name{color:#fff;font-size:16px;font-weight:800}
+.brand-txt .tag{color:var(--or);font-size:10px;font-weight:700;text-transform:uppercase}
+.top-nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.top-nav button{border:0;border-radius:var(--radius-sm);background:transparent;color:rgba(255,255,255,.72);padding:8px 12px;font-size:13px;font-weight:700}
+.top-nav button:hover,.top-nav button.act{background:rgba(255,255,255,.14);color:#fff}
+
+.hero{background:linear-gradient(135deg,var(--bleu-deep),#163562);color:#fff;padding:48px 24px;border-bottom:4px solid var(--or)}
+.hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,380px);gap:34px;align-items:center}
+.hero-text h1{max-width:760px;margin:0 0 14px;font-size:clamp(28px,4vw,40px);font-weight:800;line-height:1.15}
+.hero-text p{max-width:720px;color:rgba(255,255,255,.84);font-size:15px;line-height:1.65}
+.dr-badge{display:inline-block;margin-bottom:14px;border:1px solid var(--or);border-radius:999px;background:rgba(212,160,23,.18);color:var(--or);padding:6px 12px;font-size:11px;font-weight:800;text-transform:uppercase}
+.dr-card{border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);background:rgba(255,255,255,.07);padding:22px;backdrop-filter:blur(10px)}
+.dr-card h2{margin-bottom:9px;color:var(--or);font-size:18px}
+.dr-card p{color:rgba(255,255,255,.82);font-size:13px;line-height:1.55}
+
+.main{max-width:1200px;margin:0 auto;padding:38px 24px 76px}
+.section-title{margin-bottom:20px;border-left:5px solid var(--or);padding-left:12px;color:var(--bleu-deep);font-size:22px;font-weight:800}
+.section-title.flat{border-left:0;padding-left:0;font-size:20px}
+.section-subtitle{margin-bottom:20px;color:var(--muted);font-size:14px}
+.section-block{margin-bottom:44px}
+.section-heading{margin-bottom:12px;border-bottom:1px solid var(--line);padding-bottom:7px;font-size:18px;font-weight:800}
+.section-heading.green{color:var(--vert)}
+.section-heading.blue{color:var(--bleu)}
+
+.biblio-tabs{display:flex;gap:10px;margin-bottom:25px;flex-wrap:wrap}
+.biblio-tab-btn{border:1px solid var(--line);border-radius:999px;background:var(--blanc);color:var(--muted);padding:10px 16px;font-size:13.5px;font-weight:700}
+.biblio-tab-btn.active{border-color:var(--bleu-deep);background:var(--bleu-deep);color:#fff;box-shadow:var(--shadow)}
+
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px;margin-bottom:38px}
+.acard{
+  min-height:190px;border:1px solid var(--line);border-radius:var(--radius);background:var(--blanc);
+  padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;text-align:left;color:inherit
+}
+.acard[role="button"]{cursor:pointer}
+.acard:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.acard-title{margin-bottom:8px;color:var(--bleu-deep);font-size:16px;font-weight:800;line-height:1.35}
+.acard-copy{margin-bottom:16px;color:var(--muted);font-size:13px;line-height:1.55}
+.acard-link{margin-top:auto;color:var(--bleu);font-size:13px;font-weight:800}
+.acard-cat{display:inline-block;align-self:flex-start;margin-bottom:12px;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:800;text-transform:uppercase}
+.cat-fiche{background:var(--vert-soft);color:var(--vert)}
+.cat-loi{background:var(--or-soft);color:#8A6300}
+.cat-textes{background:var(--bleu-soft);color:var(--bleu)}
+
+.forum-box,.detail-view{border:1px solid var(--line);border-radius:var(--radius);background:var(--blanc);box-shadow:var(--shadow)}
+.forum-box{padding:28px;margin-bottom:38px}
+.detail-view{padding:30px}
+.detail-title{margin:10px 0 20px;color:var(--bleu-deep);font-size:24px;line-height:1.25}
+.back-btn{border:0;background:transparent;color:var(--bleu);font-size:14px;font-weight:800;margin-bottom:20px;padding:0}
+.detail-content{padding:10px 0;background:#fff}
+.detail-content h2{margin:20px 0 10px;color:var(--bleu-deep);font-size:18px}
+.detail-content h3{margin:15px 0 6px;color:var(--encre);font-size:15px}
+.detail-content p,.detail-content li{margin-bottom:12px;font-size:14.5px;line-height:1.65}
+.detail-content ul,.detail-content ol{padding-left:22px}
+.detail-offer{margin:25px 0;border:1px solid var(--or);border-radius:var(--radius);background:var(--or-soft);padding:20px}
+.detail-offer p{margin-top:5px;color:var(--muted);font-size:13.5px}
+.detail-offer .momo-btn{width:auto;margin-top:12px;background:var(--bleu);color:#fff;padding:10px 20px}
+.comments-section{margin-top:40px;border-top:2px solid var(--line);padding-top:20px}
+.comments-list{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+.comments-list.compact{border:0;padding:0;margin-top:15px}
+.empty-state{color:var(--muted);font-size:13.5px;font-style:italic}
+.comment-item{margin-bottom:12px;border-left:3px solid var(--or);border-radius:var(--radius-sm);background:var(--fond);padding:15px}
+.comment-meta{margin-bottom:4px;color:var(--bleu);font-size:12px;font-weight:800}
+.comment-body{font-size:13.5px}
+.official-reply{margin-top:8px;border-left:2px solid var(--vert);padding-left:12px;color:var(--vert);font-size:13px;font-style:italic}
+.admin-reply-row{display:flex;gap:8px;margin-top:10px}
+.admin-reply-row input{flex:1;padding:8px}
+.admin-reply-row button{border:0;border-radius:var(--radius-sm);background:var(--bleu);color:#fff;padding:8px 11px;font-weight:800}
+.comment-input-wrap{margin-top:20px;display:flex;flex-direction:column;gap:10px}
+.comment-input-wrap.panel{border-radius:var(--radius);background:var(--fond);padding:20px}
+.comment-input-wrap input,.comment-input-wrap textarea{padding:12px}
+.comment-input-wrap button{border:0;border-radius:var(--radius-sm);background:var(--bleu);color:#fff;padding:12px;font-weight:800}
+.comment-input-wrap button:hover{background:var(--bleu-deep)}
+.comment-input-wrap .green{background:var(--vert)}
+
+.reactions-bar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line);padding:10px 0}
+.btn-reaction{border:1px solid var(--line);border-radius:999px;background:var(--fond);padding:7px 12px;font-size:13px;font-weight:800}
+.btn-reaction:hover{border-color:var(--bleu);background:var(--bleu-soft)}
+
+.momo-btn{display:block;width:100%;margin-top:auto;border:0;border-radius:var(--radius-sm);background:#FFCC00;color:#000;padding:12px;text-align:center;font-size:13px;font-weight:900}
+.momo-btn:hover{background:#E8B820}
+.price{margin-bottom:12px;font-size:18px;font-weight:900;color:var(--vert)}
+.price.blue{color:var(--bleu)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,360px);gap:20px;align-items:center}
+.contact-grid p{line-height:1.65}
+.muted{color:var(--muted);font-size:13.5px}
+.whatsapp-btn{background:#25D366!important;font-size:15px}
+
+.admin-zone{margin-top:40px;border-top:1px solid var(--line);padding-top:20px}
+.admin-login{text-align:center}
+.admin-login-btn{border:0;background:transparent;color:var(--muted);font-size:11px;text-decoration:underline}
+.admin-panel{margin-top:28px;border:2px dashed var(--or);border-radius:var(--radius);background:#fff;padding:20px}
+.admin-panel h3{margin-bottom:14px}
+.admin-tabs{display:flex;gap:10px;margin-bottom:15px;border-bottom:1px solid var(--line);padding-bottom:10px;flex-wrap:wrap}
+.admin-tab-btn{border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--fond);padding:8px 12px;font-size:13px;font-weight:800}
+.admin-tab-btn.active{border-color:var(--bleu);background:var(--bleu);color:#fff}
+.admin-form{display:flex;flex-direction:column;gap:10px;margin:15px 0 20px;border-radius:var(--radius);background:var(--fond);padding:15px}
+.admin-form input,.admin-form textarea,.admin-form select{padding:10px;font-size:14px}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-btn{border:0;border-radius:var(--radius-sm);background:var(--or);color:var(--bleu-deep);padding:12px 14px;font-size:14px;font-weight:900}
+.admin-btn.primary{flex:1;background:var(--vert);color:#fff}
+.admin-btn.neutral{background:var(--muted);color:#fff}
+.admin-list{max-height:260px;margin-top:10px;overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
+.admin-list-item{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:10px;font-size:13px}
+.admin-list-item:last-child{border-bottom:0}
+.admin-list-actions{display:flex;gap:5px;flex:0 0 auto}
+.btn-edit,.btn-suppr{border-radius:4px;padding:5px 8px;font-size:11px;font-weight:900}
+.btn-edit{border:1px solid var(--bleu);background:var(--bleu-soft);color:var(--bleu)}
+.btn-edit:hover{background:var(--bleu);color:#fff}
+.btn-suppr{border:1px solid var(--rouge);background:var(--rouge-soft);color:var(--rouge)}
+.btn-suppr:hover{background:var(--rouge);color:#fff}
+.admin-sublist{margin-top:10px;border-radius:var(--radius);background:#fafafa;padding:10px}
+.admin-subtitle{margin:4px 0 6px;font-size:12px;font-weight:900}
+.admin-subtitle.green{color:var(--vert)}
+.admin-subtitle.blue{color:var(--bleu)}
+
+footer{margin-top:40px;background:var(--bleu-deep);color:rgba(255,255,255,.66);padding:30px;text-align:center;font-size:13px}
+
+@media(max-width:850px){
+  .hero-in{grid-template-columns:1fr}
+  .dr-card{max-width:620px}
+  .hdr-in{align-items:flex-start;flex-direction:column;padding:12px 0}
+  .top-nav{width:100%;justify-content:flex-start}
+}
+@media(max-width:700px){
+  .hdr{padding:0 16px}
+  .hero{padding:38px 18px}
+  .main{padding:28px 16px 64px}
+  .forum-box,.detail-view{padding:20px}
+  .contact-grid{grid-template-columns:1fr}
+  .admin-reply-row,.admin-list-item{align-items:stretch;flex-direction:column}
+  .admin-list-actions{width:100%}
+  .admin-list-actions button{flex:1}
+  .nav-fast{right:12px;bottom:70px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+}
+</style>
 </head>
 <body>
-    <!-- ... votre contenu HTML ici ... -->
-</body>
-</html>
+<div id="app" data-v-app=""><div class="nav-fast" aria-label="Navigation rapide"><button type="button" class="btn-fast" aria-label="Aller en haut" title="Haut">▲</button><button type="button" class="btn-fast" aria-label="Aller en bas" title="Bas">▼</button></div><header class="hdr"><div class="hdr-in"><button type="button" class="brand" aria-label="Retour à l'accueil"><span class="logo" aria-hidden="true">⚖️</span><span class="brand-txt"><span class="name">Dr. Juriste Gabon</span><span class="tag">Le Droit accessible à tous</span></span></button><nav class="top-nav" aria-label="Navigation principale"><button type="button" class="act">🏠 Guides &amp; Lois</button><button type="button" class="">💼 Prestations &amp; Tarifs</button><button type="button" class="">📞 Contact WhatsApp</button></nav></div></header><section class="hero"><div class="hero-in"><div class="hero-text"><span class="dr-badge">🇬🇦 Information Juridique Concrète</span><h1>Bailleur, contrat de travail, licenciement ?</h1><p>Ne restez pas dans le doute. Découvrez vos droits clairement expliqués, consultez les textes officiels du Gabon ou posez votre question.</p></div><aside class="dr-card" aria-label="Assistance"><h2>💡 Assistance claire &amp; solidaire</h2><p>Consultez nos fiches ou bénéficiez d'une première étude de dossier gratuite en privé pour savoir où vous situer juridiquement.</p></aside></div></section><main class="main"><!----><section aria-labelledby="home-title"><h2 id="home-title" class="section-title">Documentation et bibliothèque juridique</h2><div class="biblio-tabs" role="tablist" aria-label="Filtres de la bibliothèque"><button type="button" class="biblio-tab-btn active">📚 Tout voir</button><button type="button" class="biblio-tab-btn">🏠 Rapports de Loyer &amp; Voisinage</button><button type="button" class="biblio-tab-btn">💼 Code du Travail &amp; Licenciements</button><button type="button" class="biblio-tab-btn">📜 Textes de Lois Officiels</button></div><div class="art-grid"><article class="acard" role="button" tabindex="0"><span class="acard-cat cat-fiche">Loyer</span><h3 class="acard-title">Expulsion pour impayés de loyer : obligations strictes du propriétaire</h3><p class="acard-copy">Votre bailleur menace de sortir vos effets ou de couper l'eau et l'électricité ? Découvrez comment la législation gabonaise protège le locataire contre les voies de fait.</p><span class="acard-link">Lire la suite →</span></article><article class="acard" role="button" tabindex="0"><span class="acard-cat cat-loi">Travail</span><h3 class="acard-title">Licenciement verbal ou sans motif : vos recours immédiats</h3><p class="acard-copy">Votre employeur vous a demandé de ne plus revenir travailler sans vous remettre de notification écrite ? Il s'agit d'une rupture abusive du contrat.</p><span class="acard-link">Lire la suite →</span></article><article class="acard" role="button" tabindex="0"><span class="acard-cat cat-textes">Textes de Loi</span><h3 class="acard-title">Loi n° 003/2011 du 11 mai 2011 portant Code du Logement (extraits)</h3><p class="acard-copy">Consultez les articles officiels encadrant le montant de la caution légale et le paiement des loyers au Gabon.</p><span class="acard-link">Lire la suite →</span></article></div><section class="forum-box" aria-labelledby="forum-title"><h2 id="forum-title" class="section-title flat">💬 Espace d'Entraide &amp; Forum Public</h2><p class="section-subtitle">Une question d'ordre général ? Posez-la ici de manière anonyme. Les réponses aident toute la communauté.</p><div class="comments-list"><article class="comment-item"><div class="comment-meta">Boris (Libreville)</div><p class="comment-body">Mon bailleur me demande d'augmenter le loyer de 20 000 F du jour au lendemain sans travaux dans la maison. En a-t-il le droit ?</p><div class="official-reply"><strong>Réponse du Cabinet :</strong> Non, toute réévaluation de loyer obéit à des règles strictes basées sur la valeur locative réelle et requiert un accord préalable écrit ou une réévaluation d'expert.</div><!----></article></div><div class="comment-input-wrap"><h3>Décrivez votre situation générale</h3><input type="text" aria-label="Votre prénom ou quartier" placeholder="Votre prénom ou quartier (Ex: Un citoyen de Port-Gentil)"><textarea rows="3" aria-label="Votre situation générale" placeholder="Ex: Est-ce que le préavis de logement est obligatoire si on s'est mis d'accord verbalement ?"></textarea><button type="button">Publier sur le forum public</button></div></section></section><!----><!----><section class="admin-zone" id="page-bottom-anchor" aria-labelledby="admin-title"><div class="admin-login"><button type="button" class="admin-login-btn">🔑 Espace d'Administration</button></div><!----></section></main><footer><p>© 2026 Cabinet Juridique Solidaire Gabon. Information et assistance conformes aux textes en vigueur.</p></footer></div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script>
+const CONFIG_WHATSAPP = "+24107000000";
+const ADMIN_PASSWORD = "gabon2026";
+
+const STORAGE_KEYS = {
+  docs: "mes_docs_gabon_v3",
+  citoyens: "svc_citoyens_gabon_v3",
+  entreprises: "svc_entreprises_gabon_v3",
+  forum: "mes_comments_forum_v3"
+};
+
+const CATEGORY_LABELS = {
+  fiche: "Loyer",
+  loi: "Travail",
+  textes: "Textes de Loi"
+};
+
+const BASE_DOCUMENTS = [
+  {
+    id: "l1",
+    cat: "fiche",
+    catL: "Loyer",
+    titre: "Expulsion pour impayés de loyer : obligations strictes du propriétaire",
+    intro: "Votre bailleur menace de sortir vos effets ou de couper l'eau et l'électricité ? Découvrez comment la législation gabonaise protège le locataire contre les voies de fait.",
+    body: "<h2>Ce que dit la loi gabonaise sur l'expulsion</h2><p>Au Gabon, aucun propriétaire ne peut faire justice lui-même, même en cas de non-paiement prolongé du loyer. Couper l'accès aux compteurs SEEG ou forcer la serrure constitue une infraction pénale.</p><h3>La procédure légale obligatoire</h3><p>Pour obtenir votre départ, le bailleur doit obligatoirement vous adresser une mise en demeure par exploit d'huissier, puis assigner le dossier devant le juge des référés pour obtenir une ordonnance d'expulsion. Toute tentative en dehors de ce cadre vous donne le droit de saisir les autorités compétentes.</p>",
+    reactions: { pouce: 142, justice: 95 },
+    commentaires: []
+  },
+  {
+    id: "l2",
+    cat: "loi",
+    catL: "Travail",
+    titre: "Licenciement verbal ou sans motif : vos recours immédiats",
+    intro: "Votre employeur vous a demandé de ne plus revenir travailler sans vous remettre de notification écrite ? Il s'agit d'une rupture abusive du contrat.",
+    body: "<h2>L'obligation de notification écrite</h2><p>Selon le Code du Travail gabonais, tout licenciement doit obligatoirement être notifié par écrit en précisant clairement les motifs de la rupture. Un licenciement annoncé uniquement par voie orale est d'office considéré comme abusif sur la forme.</p><h3>Démarches indispensables</h3><p>Ne quittez pas définitivement l'entreprise sans preuve. Allez faire constater la situation auprès de l'Inspection du Travail de votre secteur dans les plus brefs délais afin de sauvegarder vos droits aux indemnités légales de préavis et de licenciement.</p>",
+    reactions: { pouce: 89, justice: 64 },
+    commentaires: []
+  },
+  {
+    id: "l3",
+    cat: "textes",
+    catL: "Textes de Loi",
+    titre: "Loi n° 003/2011 du 11 mai 2011 portant Code du Logement (extraits)",
+    intro: "Consultez les articles officiels encadrant le montant de la caution légale et le paiement des loyers au Gabon.",
+    body: "<h2>Code du Logement - Extraits choisis</h2><p>L'article 12 stipule explicitement que le dépôt de garantie exigé par le bailleur ne peut excéder une somme équivalente à deux mois de loyer hors charges. Tout versement supérieur ou exigence d'avance excessive non justifiée par des clauses contractuelles validées est réputé nul.</p>",
+    reactions: { pouce: 54, justice: 41 },
+    commentaires: []
+  }
+];
+
+const INIT_CITOYENS = [
+  { id: "c1", nom: "Consultation Préalable Gratuite", desc: "Première analyse d'orientation rapide de votre situation juridique par message écrit ou vocal pour vous indiquer si la loi vous protège.", prix: 0 },
+  { id: "c2", nom: "Consultation Privée sur Dossier", desc: "Étude complète de vos documents juridiques (contrat, bail, mise en demeure) et entretien téléphonique d'orientation stratégique.", prix: 5000 },
+  { id: "c3", nom: "Rédaction de Courrier Officiel", desc: "Mise en demeure, contestation de licenciement ou réponse formelle rédigée par un expert à adresser à votre partie adverse.", prix: 15000 }
+];
+
+const INIT_ENTREPRISES = [
+  { id: "e1", nom: "Audit de Conformité de la Paie", desc: "Contrôle de la structure de vos bulletins de salaire, vérification des taxes sur salaire et application stricte des barèmes légaux au Gabon.", prix: 45000 },
+  { id: "e2", nom: "Calcul du Solde de Tout Compte", desc: "Calcul précis des indemnités de rupture, congés payés restants et droits légaux pour éviter les contentieux au tribunal du travail.", prix: 25000 },
+  { id: "e3", nom: "Déclarations Sociales & Fiscales (CNSS / CNAMGS)", desc: "Assistance à la régularisation et au calcul de vos cotisations trimestrielles pour sécuriser votre entreprise face aux contrôles.", prix: 60000 }
+];
+
+const INIT_FORUM = [
+  {
+    id: "f1",
+    auteur: "Boris (Libreville)",
+    texte: "Mon bailleur me demande d'augmenter le loyer de 20 000 F du jour au lendemain sans travaux dans la maison. En a-t-il le droit ?",
+    reponse: "Non, toute réévaluation de loyer obéit à des règles strictes basées sur la valeur locative réelle et requiert un accord préalable écrit ou une réévaluation d'expert.",
+    tempReponse: ""
+  }
+];
+
+const clone = value => JSON.parse(JSON.stringify(value));
+
+function readStored(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return clone(fallback);
+    const parsed = JSON.parse(raw);
+    return Array.isArray(fallback) && Array.isArray(parsed) ? parsed : clone(fallback);
+  } catch (error) {
+    console.warn("Stockage local ignoré pour", key, error);
+    return clone(fallback);
+  }
+}
+
+function saveStored(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch (error) {
+    console.warn("Impossible d'enregistrer", key, error);
+    alert("L'enregistrement local a échoué. Vérifiez l'espace disponible ou les restrictions du navigateur.");
+    return false;
+  }
+}
+
+function getSessionFlag(key) {
+  try {
+    return sessionStorage.getItem(key) === "1";
+  } catch (error) {
+    return false;
+  }
+}
+
+function setSessionFlag(key, value) {
+  try {
+    if (value) sessionStorage.setItem(key, "1");
+    else sessionStorage.removeItem(key);
+  } catch (error) {
+    console.warn("Session non persistée", key, error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  if (!window.Vue) {
+    alert("Vue n'a pas pu être chargé. Vérifiez votre connexion internet puis rechargez la page.");
+    return;
+  }
+
+  const { createApp } = Vue;
+
+  createApp({
+    data() {
+      return {
+        currentView: "home",
+        filterCat: "tous",
+        activeItem: null,
+        adminConnecte: getSessionFlag("adminConnecte"),
+        adminTab: "articles",
+        enCoursDEdition: false,
+        indexEdition: null,
+        enCoursDEditionArt: false,
+        indexEditionArt: null,
+        nouvelItem: { type: "fiche", titre: "", intro: "", body: "" },
+        nouveauService: { cible: "citoyen", nom: "", desc: "", prix: "" },
+        nouveauCommArticle: { nom: "", message: "" },
+        bibliotheque: readStored(STORAGE_KEYS.docs, BASE_DOCUMENTS),
+        svcCitoyens: readStored(STORAGE_KEYS.citoyens, INIT_CITOYENS),
+        svcEntreprises: readStored(STORAGE_KEYS.entreprises, INIT_ENTREPRISES),
+        forumComments: readStored(STORAGE_KEYS.forum, INIT_FORUM),
+        newComment: { nom: "", texte: "" }
+      };
+    },
+    computed: {
+      filteredBibliotheque() {
+        if (this.filterCat === "tous") return this.bibliotheque;
+        return this.bibliotheque.filter(item => item.cat === this.filterCat);
+      },
+      sanitizedActiveBody() {
+        return this.activeItem ? this.sanitizeHtml(this.activeItem.body) : "";
+      }
+    },
+    methods: {
+      setView(view) {
+        this.currentView = view;
+        if (view !== "detail") this.activeItem = null;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+      openItem(item) {
+        this.activeItem = item;
+        this.currentView = "detail";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+      allerEnHaut() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      },
+      allerEnBas() {
+        document.getElementById("page-bottom-anchor")?.scrollIntoView({ behavior: "smooth" });
+      },
+      basculerAdmin() {
+        if (this.adminConnecte) {
+          this.adminConnecte = false;
+          setSessionFlag("adminConnecte", false);
+          return;
+        }
+
+        const mdp = prompt("Saisissez le mot de passe gestionnaire :");
+        if (mdp === ADMIN_PASSWORD) {
+          this.adminConnecte = true;
+          setSessionFlag("adminConnecte", true);
+        } else if (mdp !== null) {
+          alert("Accès refusé.");
+        }
+      },
+      formatPrix(value) {
+        return Number(value || 0).toLocaleString("fr-FR");
+      },
+      escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      },
+      prepareArticleBody(value) {
+        const text = String(value || "").trim();
+        if (!text) return "";
+        if (/<[a-z][\s\S]*>/i.test(text)) return this.sanitizeHtml(text);
+
+        return text
+          .split(/\n{2,}/)
+          .map(paragraph => `<p>${this.escapeHtml(paragraph).replace(/\n/g, "<br>")}</p>`)
+          .join("");
+      },
+      sanitizeHtml(html) {
+        const template = document.createElement("template");
+        template.innerHTML = String(html || "");
+
+        const allowedTags = new Set(["H2", "H3", "H4", "P", "UL", "OL", "LI", "STRONG", "EM", "B", "I", "BR", "A"]);
+        const allowedAttributes = {
+          A: new Set(["href", "target", "rel"])
+        };
+
+        const cleanNode = node => {
+          [...node.children].forEach(child => {
+            if (!allowedTags.has(child.tagName)) {
+              child.replaceWith(document.createTextNode(child.textContent || ""));
+              return;
+            }
+
+            [...child.attributes].forEach(attribute => {
+              const allowedForTag = allowedAttributes[child.tagName];
+              if (!allowedForTag || !allowedForTag.has(attribute.name)) {
+                child.removeAttribute(attribute.name);
+              }
+            });
+
+            if (child.tagName === "A") {
+              const href = child.getAttribute("href") || "";
+              try {
+                const url = new URL(href, window.location.origin);
+                const allowedProtocol = ["http:", "https:", "mailto:", "tel:"].includes(url.protocol);
+                if (!allowedProtocol) child.removeAttribute("href");
+              } catch (error) {
+                child.removeAttribute("href");
+              }
+              child.setAttribute("target", "_blank");
+              child.setAttribute("rel", "noopener noreferrer");
+            }
+
+            cleanNode(child);
+          });
+        };
+
+        cleanNode(template.content);
+        return template.innerHTML;
+      },
+      persistDocuments() {
+        saveStored(STORAGE_KEYS.docs, this.bibliotheque);
+      },
+      persistCitoyens() {
+        saveStored(STORAGE_KEYS.citoyens, this.svcCitoyens);
+      },
+      persistEntreprises() {
+        saveStored(STORAGE_KEYS.entreprises, this.svcEntreprises);
+      },
+      persistForum() {
+        saveStored(STORAGE_KEYS.forum, this.forumComments);
+      },
+      publierContenuManuel() {
+        const titre = this.nouvelItem.titre.trim();
+        const body = this.prepareArticleBody(this.nouvelItem.body);
+        if (!titre || !body) {
+          alert("Veuillez remplir le titre et le contenu du texte.");
+          return;
+        }
+
+        const article = {
+          id: this.enCoursDEditionArt ? this.bibliotheque[this.indexEditionArt].id : `art_${Date.now()}`,
+          cat: this.nouvelItem.type,
+          catL: CATEGORY_LABELS[this.nouvelItem.type],
+          titre,
+          intro: this.nouvelItem.intro.trim() || "Texte informatif.",
+          body,
+          reactions: this.enCoursDEditionArt ? this.bibliotheque[this.indexEditionArt].reactions : { pouce: 0, justice: 0 },
+          commentaires: this.enCoursDEditionArt ? this.bibliotheque[this.indexEditionArt].commentaires : []
+        };
+
+        if (this.enCoursDEditionArt) {
+          this.bibliotheque[this.indexEditionArt] = article;
+          if (this.activeItem?.id === article.id) this.activeItem = article;
+          this.annulerEditionArt();
+          alert("La publication a bien été mise à jour.");
+        } else {
+          this.bibliotheque.unshift(article);
+          this.nouvelItem = { type: "fiche", titre: "", intro: "", body: "" };
+          alert("Publication mise en ligne avec succès.");
+        }
+
+        this.persistDocuments();
+      },
+      activerEditionArt(idx) {
+        const art = this.bibliotheque[idx];
+        if (!art) return;
+        this.enCoursDEditionArt = true;
+        this.indexEditionArt = idx;
+        this.nouvelItem = {
+          type: art.cat,
+          titre: art.titre,
+          intro: art.intro,
+          body: String(art.body || "").replace(/<br\s*\/?>/gi, "\n")
+        };
+        document.querySelector(".admin-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      },
+      annulerEditionArt() {
+        this.enCoursDEditionArt = false;
+        this.indexEditionArt = null;
+        this.nouvelItem = { type: "fiche", titre: "", intro: "", body: "" };
+      },
+      supprimerArticle(index) {
+        const article = this.bibliotheque[index];
+        if (!article || !confirm("Confirmez-vous la suppression définitive ?")) return;
+        this.bibliotheque.splice(index, 1);
+        this.persistDocuments();
+        if (this.activeItem?.id === article.id) this.setView("home");
+      },
+      publierServiceManuel() {
+        const nom = this.nouveauService.nom.trim();
+        const desc = this.nouveauService.desc.trim();
+        if (!nom || !desc) {
+          alert("Informations manquantes.");
+          return;
+        }
+
+        const service = {
+          id: this.enCoursDEdition ? this.serviceCourant()?.id || `svc_${Date.now()}` : `svc_${Date.now()}`,
+          nom,
+          desc,
+          prix: Math.max(0, Number(this.nouveauService.prix) || 0)
+        };
+
+        if (this.enCoursDEdition) {
+          if (this.nouveauService.cible === "citoyen") {
+            this.svcCitoyens[this.indexEdition] = service;
+            this.persistCitoyens();
+          } else {
+            this.svcEntreprises[this.indexEdition] = service;
+            this.persistEntreprises();
+          }
+          this.annulerEdition();
+        } else if (this.nouveauService.cible === "citoyen") {
+          this.svcCitoyens.push(service);
+          this.persistCitoyens();
+          this.nouveauService = { cible: "citoyen", nom: "", desc: "", prix: "" };
+        } else {
+          this.svcEntreprises.push(service);
+          this.persistEntreprises();
+          this.nouveauService = { cible: "citoyen", nom: "", desc: "", prix: "" };
+        }
+
+        alert("Prestation enregistrée.");
+      },
+      serviceCourant() {
+        return this.nouveauService.cible === "citoyen" ? this.svcCitoyens[this.indexEdition] : this.svcEntreprises[this.indexEdition];
+      },
+      activerEdition(idx, type) {
+        const collection = type === "citoyen" ? this.svcCitoyens : this.svcEntreprises;
+        const cibleSvc = collection[idx];
+        if (!cibleSvc) return;
+        this.enCoursDEdition = true;
+        this.indexEdition = idx;
+        this.nouveauService = { cible: type, nom: cibleSvc.nom, desc: cibleSvc.desc, prix: Number(cibleSvc.prix) || 0 };
+        document.querySelector(".admin-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      },
+      annulerEdition() {
+        this.enCoursDEdition = false;
+        this.indexEdition = null;
+        this.nouveauService = { cible: "citoyen", nom: "", desc: "", prix: "" };
+      },
+      supprimerService(idx, type) {
+        if (!confirm("Retirer cette offre ?")) return;
+        if (type === "citoyen") {
+          this.svcCitoyens.splice(idx, 1);
+          this.persistCitoyens();
+        } else {
+          this.svcEntreprises.splice(idx, 1);
+          this.persistEntreprises();
+        }
+        if (this.enCoursDEdition) this.annulerEdition();
+      },
+      ajouterReaction(type) {
+        if (!this.activeItem?.reactions?.[type] && this.activeItem?.reactions?.[type] !== 0) return;
+        this.activeItem.reactions[type] += 1;
+        this.persistDocuments();
+      },
+      ajouterCommentaireArticle() {
+        if (!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) {
+          alert("Veuillez renseigner un nom et votre question.");
+          return;
+        }
+
+        this.activeItem.commentaires.push({
+          id: `qa_${Date.now()}`,
+          nom: this.nouveauCommArticle.nom,
+          message: this.nouveauCommArticle.message,
+          reponse: null,
+          tempReponse: ""
+        });
+        this.persistDocuments();
+        this.nouveauCommArticle = { nom: "", message: "" };
+      },
+      repondreCommentaireArticle(idx) {
+        const comm = this.activeItem?.commentaires?.[idx];
+        if (!comm?.tempReponse) {
+          alert("Réponse vide.");
+          return;
+        }
+        comm.reponse = comm.tempReponse;
+        comm.tempReponse = "";
+        this.persistDocuments();
+      },
+      ajouterCommentaire() {
+        if (!this.newComment.nom || !this.newComment.texte) {
+          alert("Veuillez remplir le formulaire du forum.");
+          return;
+        }
+
+        this.forumComments.push({
+          id: `forum_${Date.now()}`,
+          auteur: this.newComment.nom,
+          texte: this.newComment.texte,
+          reponse: null,
+          tempReponse: ""
+        });
+        this.persistForum();
+        this.newComment = { nom: "", texte: "" };
+      },
+      repondreCommentaireManuel(index) {
+        const comm = this.forumComments[index];
+        if (!comm?.tempReponse) {
+          alert("La réponse ne peut pas être vide.");
+          return;
+        }
+        comm.reponse = comm.tempReponse;
+        comm.tempReponse = "";
+        this.persistForum();
+      },
+      ouvrirWhatsApp(message) {
+        const numero = CONFIG_WHATSAPP.replace(/\D/g, "");
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(message)}`;
+        const popup = window.open(url, "_blank", "noopener,noreferrer");
+        if (popup) popup.opener = null;
+      },
+      commanderSvc(nom, prix) {
+        const montant = Number(prix) > 0 ? `${this.formatPrix(prix)} FCFA` : "gratuit ou à préciser";
+        this.ouvrirWhatsApp(`Bonjour, je vous contacte suite à votre site pour la prestation suivante : ${nom} (${montant}).`);
+      },
+      ouvrirWhatsAppDirect() {
+        this.ouvrirWhatsApp("Bonjour, je souhaite solliciter un conseil juridique auprès de votre cabinet.");
+      }
+    }
+  }).mount("#app");
+});
+</script>
+
+
+</body></html>
