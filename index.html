@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ConsoGabon — Droits des consommateurs, locataires et travailleurs gabonais</title>
+<title>ConsoGabon et Droits des consommateurs, locataires et travailleurs gabonais</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -54,9 +54,6 @@ nav button.act{background:rgba(255,255,255,.15);color:#fff}
 .btn-primary:hover{background:#E8B820;transform:translateY(-1px)}
 .btn-outline{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25);padding:12px 20px;border-radius:var(--r2);font-size:14px;font-weight:600}
 .btn-outline:hover{background:rgba(255,255,255,.18)}
-.hero-stats{display:flex;gap:22px;margin-top:26px;flex-wrap:wrap}
-.hstat{color:rgba(255,255,255,.55);font-size:12.5px}
-.hstat strong{color:#fff;font-size:22px;display:block;font-weight:800}
 
 /* SIDEBAR FLASH */
 .hero-side{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:20px;backdrop-filter:blur(8px)}
@@ -75,17 +72,9 @@ nav button.act{background:rgba(255,255,255,.15);color:#fff}
 .sb-wrap{flex:1;min-width:240px;display:flex;border:1.5px solid var(--line2);border-radius:var(--r2);overflow:hidden;background:var(--fond)}
 .sb-wrap:focus-within{border-color:var(--bleu);box-shadow:0 0 0 3px rgba(26,60,110,.1)}
 .sb-wrap input{flex:1;border:none;background:transparent;padding:10px 14px;font-size:14.5px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--encre);outline:none}
-.sb-btn{background:var(--bleu);color:#fff;border:none;padding:0 18px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;white-space:nowrap}
-.sb-sel{border:1.5px solid var(--line2);border-radius:var(--r2);padding:9px 11px;font-size:13px;background:var(--fond);color:var(--encre);outline:none}
 
 /* MAIN */
 .main{max-width:1200px;margin:0 auto;padding:36px 28px 80px}
-
-/* CATS */
-.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.cat-tab{background:var(--blanc);border:1.5px solid var(--line);border-radius:20px;padding:7px 15px;font-size:13px;font-weight:500;color:var(--muted);transition:all .15s}
-.cat-tab:hover{border-color:var(--bleu);color:var(--bleu);background:var(--bleu-pale)}
-.cat-tab.act{background:var(--bleu);border-color:var(--bleu);color:#fff}
 
 /* GRID & CARDS */
 .grid-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
@@ -93,14 +82,13 @@ nav button.act{background:rgba(255,255,255,.15);color:#fff}
 .art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:44px}
 @media(max-width:900px){.art-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.art-grid{grid-template-columns:1fr}}
-.acard{background:var(--blanc);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .18s;box-shadow:var(--shadow)}
-.acard:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.acard{background:var(--blanc);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .18s;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:between}
 .acard-bar{height:5px}
 .bar-conso{background:linear-gradient(90deg,var(--vert),#2ECC71)}
 .bar-logement{background:linear-gradient(90deg,var(--bleu),#3498DB)}
 .bar-travail{background:linear-gradient(90deg,var(--violet),#9B59B6)}
 .bar-services{background:linear-gradient(90deg,var(--or),#F39C12)}
-.acard-body{padding:18px}
+.acard-body{padding:18px;flex-grow:1}
 .acard-cat{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:10px}
 .cc-conso{background:var(--vert-pale);color:var(--vert)}
 .cc-logement{background:var(--bleu-pale);color:var(--bleu)}
@@ -109,18 +97,25 @@ nav button.act{background:rgba(255,255,255,.15);color:#fff}
 .acard h3{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:8px}
 .acard p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px}
 
-/* SERVICES PREMIUM & CALCULATEURS */
-.svc-container{background:var(--blanc);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:44px;box-shadow:var(--shadow)}
+/* PRESTATIONS PAYANTES ET CALCULATEURS */
+.svc-container{background:var(--blanc);border:1px solid var(--line);border-radius:var(--r);padding:24px;margin-bottom:30px;box-shadow:var(--shadow)}
 .calc-box{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px}
 @media(max-width:760px){.calc-box{grid-template-columns:1fr}}
 .input-panel{background:var(--fond);padding:20px;border-radius:var(--r2);border:1px solid var(--line)}
+.input-panel input{width:100%;padding:10px;margin-top:5px;border:1px solid var(--line2);border-radius:4px;outline:none}
 .result-panel{background:var(--bleu-deep);color:#fff;padding:20px;border-radius:var(--r2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.momo-pay-btn{background:#FFCC00;color:#000;border:none;padding:12px 20px;border-radius:6px;font-weight:800;font-size:14px;margin-top:15px;width:100%}
+.momo-pay-btn{background:#FFCC00;color:#000;border:none;padding:12px 20px;border-radius:6px;font-weight:800;font-size:13px;margin-top:15px;width:100%;text-align:center;display:block}
+.momo-pay-btn:hover{background:#E8B820}
+
+/* DETAIL ARTICLE */
+.detail-view{background:var(--blanc);padding:30px;border-radius:var(--r);border:1px solid var(--line);box-shadow:var(--shadow)}
+.detail-view h1{font-size:24px;color:var(--bleu-deep);margin-bottom:15px}
+.detail-content{font-size:15px;line-height:1.7;color:var(--encre)}
+.detail-content h2{font-size:18px;margin:20px 0 10px;color:var(--bleu)}
+.detail-content ul{margin-left:20px;margin-bottom:15px}
 
 /* FOOTER */
-footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px 24px;margin-top:20px}
-.foot-in{max-width:1200px;margin:0 auto}
-.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:18px;font-size:11px;color:rgba(255,255,255,.3);display:flex;justify-content:space-between}
+footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:30px 28px;margin-top:40px;text-align:center;font-size:13px}
 </style>
 </head>
 <body>
@@ -133,15 +128,15 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
         <div class="logo">CG</div>
         <div class="brand-txt">
           <div class="name">ConsoGabon</div>
-          <div class="tag">Citoyen & Droit Local</div>
+          <div class="tag">Citoyen et Droit Local</div>
         </div>
       </div>
       <nav>
-        <button :class="{act: currentView === 'home'}" @click="setView('home')">Accueil</button>
+        <button :class="{act: currentView === 'home' || currentView === 'article-detail'}" @click="setView('home')">Accueil</button>
         <button :class="{act: currentView === 'actus'}" @click="setView('actus')">Actualités</button>
-        <button :class="{act: currentView === 'services'}" @click="setView('services')">💼 Services & Actes</button>
+        <button :class="{act: currentView === 'services'}" @click="setView('services')">💼 Tarifs et Prestations</button>
       </nav>
-      <button class="hdr-cta" @click="setView('services')">Espace Payant</button>
+      <button class="hdr-cta" @click="setView('services')">Airtel ou Moov Money</button>
     </div>
   </header>
 
@@ -149,17 +144,17 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
   <section class="hero" v-if="currentView === 'home'">
     <div class="hero-in">
       <div>
-        <span class="hero-badge">⚖️ Justice & Transparence</span>
+        <span class="hero-badge">⚖️ Droit gabonais accessible</span>
         <h1>Vos droits au <em>Gabon</em> sans barrières.</h1>
-        <p>Accédez instantanément aux codes officiels, fiches pratiques, actualités vérifiées et outils de calcul légaux pour faire valoir vos droits.</p>
+        <p>Accédez instantanément aux fiches d'experts, actualités juridiques vérifiées et outils de calcul légaux pour faire valoir vos droits.</p>
         <div class="hero-actions">
-          <button class="btn-primary" @click="setView('services')">Calculer mes indemnités</button>
+          <button class="btn-primary" @click="setView('services')">Consulter nos tarifs</button>
           <button class="btn-outline" @click="setView('actus')">Voir les actualités</button>
         </div>
       </div>
-      <!-- FLUX D'ACTUALITÉS DROIT -->
+      <!-- FLUX D'ACTUALITÉS -->
       <div class="hero-side">
-        <div class="hside-title">⚡ Fil Actualités & Sources</div>
+        <div class="hside-title">⚡ Fil Actualités et Sources</div>
         <div class="hside-item" v-for="actu in dataActus.slice(0,3)" @click="setView('actus')">
           <div class="hsi-cat" :class="'c-'+actu.cat">{{actu.catL}}</div>
           <div class="hsi-txt">{{actu.titre}}</div>
@@ -170,7 +165,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
   </section>
 
   <!-- RECHERCHE AUTOMATIQUE -->
-  <div class="searchbar">
+  <div class="searchbar" v-if="currentView !== 'article-detail'">
     <div class="sb-in">
       <div class="sb-wrap">
         <input type="text" v-model="searchQuery" placeholder="Rechercher un mot-clé (ex: licenciement, loyer, caution...)">
@@ -178,13 +173,13 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
     </div>
   </div>
 
-  <!-- ZONE DE CONTENU DYNAMIQUE -->
+  <!-- MAIN -->
   <main class="main">
     
-    <!-- VUE 1 : ACCUEIL (FICHES PRATIQUES & CODES) -->
+    <!-- VUE 1 : ACCUEIL (FICHES PRATIQUES DETAILLEES) -->
     <div v-if="currentView === 'home'">
       <div class="grid-head">
-        <h2>Fiches et guides pratiques</h2>
+        <h2>Fiches et guides pratiques d'experts</h2>
       </div>
       <div class="art-grid">
         <div class="acard" v-for="art in filteredArticles" @click="openArticle(art)">
@@ -193,15 +188,27 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
             <span class="acard-cat" :class="'cc-'+art.cat">{{art.catL}}</span>
             <h3>{{art.titre}}</h3>
             <p>{{art.intro}}</p>
+            <span style="color:var(--bleu); font-weight:700; font-size:12px;">Cliquez pour tout lire →</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- VUE 2 : FLUX D'ACTUALITÉS PAR MATIÈRE AVEC SOURCES -->
+    <!-- VUE DETAILLEE D'UN ARTICLE -->
+    <div v-if="currentView === 'article-detail' && activeArticle" class="detail-view">
+      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px; font-size:14px; display:flex; align-items:center; gap:5px;">← Retour à la liste</button>
+      <h1>{{activeArticle.titre}}</h1>
+      <div class="detail-content" v-html="activeArticle.body"></div>
+      <div style="margin-top:30px; padding-top:20px; border-top:1px solid var(--line); text-align:center;">
+        <p style="margin-bottom:10px; font-weight:600;">Besoin d'un accompagnement personnalisé sur ce sujet ?</p>
+        <button class="btn-primary" @click="setView('services')">Contacter notre juriste via WhatsApp</button>
+      </div>
+    </div>
+
+    <!-- VUE 2 : ACTUALITES AVEC SOURCES -->
     <div v-if="currentView === 'actus'">
-      <h2>Actualités Officielles & Législatives</h2>
-      <p style="color:var(--muted); margin-bottom:20px;">Flux d'information mis à jour avec traçabilité légale systématique.</p>
+      <h2>Actualités Officielles et Législatives</h2>
+      <p style="color:var(--muted); margin-bottom:20px;">Suivez les dernières décisions applicables sur le territoire national.</p>
       <div class="art-grid">
         <div class="acard" v-for="actu in filteredActus">
           <div class="acard-bar" :class="'bar-'+actu.cat"></div>
@@ -216,80 +223,72 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
       </div>
     </div>
 
-    <!-- VUE 3 : SERVICES PAYANTS & CALCULATEURS -->
+    <!-- VUE 3 : SERVICES PAYANTS REDIRIGEANT VERS WHATSAPP -->
     <div v-if="currentView === 'services'">
       
-      <!-- 1. SIMULATEURS JURIDIQUES -->
+      <!-- CALCULATEUR INDEMNITES -->
       <div class="svc-container">
-        <h2>🧮 Outils de calcul légaux (Gabon)</h2>
+        <h2>🧮 Outil de simulation légale (Gabon)</h2>
         <div class="calc-box">
           <div class="input-panel">
             <h4>Calcul d'Indemnité de Licenciement</h4>
             <label style="display:block; margin:10px 0 5px; font-size:13px;">Salaire moyen mensuel (FCFA)</label>
-            <input type="number" v-model.number="calc.salaire" class="form-input" placeholder="Ex: 300000">
-            
+            <input type="number" v-model.number="calc.salaire" placeholder="Ex: 250000">
             <label style="display:block; margin:10px 0 5px; font-size:13px;">Ancienneté (en années)</label>
-            <input type="number" v-model.number="calc.anciennete" class="form-input" placeholder="Ex: 5">
+            <input type="number" v-model.number="calc.anciennete" placeholder="Ex: 4">
           </div>
           <div class="result-panel">
             <h3>Estimation de votre indemnité légale :</h3>
             <div style="font-size:28px; font-weight:800; color:var(--or); margin:15px 0;">
               {{ formatArgent(indemniteResultat) }} FCFA
             </div>
-            <p style="font-size:12px; opacity:0.8;">Calcul de base selon les tranches du Code du Travail Gabonais.</p>
+            <p style="font-size:12px; opacity:0.8;">Base indicative selon le barème du Code du Travail Gabonais.</p>
           </div>
         </div>
       </div>
 
-      <!-- 2. ACTES JURIDIQUES PAYANTS & CONSULTATIONS -->
+      <!-- PRESTATIONS CITOYENS (PETITS PRIX) -->
       <div class="svc-container">
-        <h2>💼 Prestations & Actes Juridiques sur Mesure</h2>
-        <p style="color:var(--muted); margin-bottom:20px;">Commandez vos documents rédigés par nos juristes partenaires. Livraison sous 48h.</p>
-        
+        <h2>💡 Offres Citoyens (Petits Budgets)</h2>
+        <p style="color:var(--muted); margin-bottom:15px;">Des prix adaptés pour faire valoir vos droits fondamentaux au quotidien au Gabon.</p>
         <div class="art-grid">
-          <div class="acard">
-            <div class="acard-bar bar-services"></div>
+          <div class="acard" v-for="svc in servicesCitoyens">
+            <div class="acard-bar bar-conso"></div>
             <div class="acard-body">
-              <span class="acard-cat cc-services">Contrat Sécurisé</span>
-              <h3>Rédaction de Contrat de Bail d'Habitation</h3>
-              <p>Évitez les clauses abusives. Un bail conforme aux règles du Code Civil gabonais protégeant votre caution.</p>
-              <div style="font-size:18px; font-weight:700; color:var(--bleu); margin:10px 0;">25 000 FCFA</div>
-              <button class="momo-pay-btn" @click="payerService('Bail Immobilier', 25000)">Commander via Mobile Money</button>
-            </div>
-          </div>
-
-          <div class="acard">
-            <div class="acard-bar bar-services"></div>
-            <div class="acard-body">
-              <span class="acard-cat cc-services">Consultation Avocat</span>
-              <h3>Consultation Juridique Privée (30 min)</h3>
-              <p>Entretien téléphonique ou écrit avec un avocat agréé au barreau du Gabon pour analyser votre dossier personnel.</p>
-              <div style="font-size:18px; font-weight:700; color:var(--bleu); margin:10px 0;">15 000 FCFA</div>
-              <button class="momo-pay-btn" @click="payerService('Consultation Privée', 15000)">Prendre RDV via Mobile Money</button>
+              <span class="acard-cat cc-conso">Tarif Citoyen</span>
+              <h3>{{svc.nom}}</h3>
+              <p>{{svc.desc}}</p>
+              <div style="font-size:18px; font-weight:700; color:var(--vert); margin:10px 0;">{{formatArgent(svc.prix)}} FCFA</div>
+              <button class="momo-pay-btn" @click="commanderService(svc)">Commander par Airtel / Moov Money</button>
             </div>
           </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- DETAIL D'UN ARTICLE (SI CLIQUÉ) -->
-    <div v-if="currentView === 'article-detail' && activeArticle">
-      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:15px; font-size:14px;">← Retour à l'accueil</button>
-      <div class="art-hdr">
-        <h1>{{activeArticle.titre}}</h1>
-        <p class="art-intro">{{activeArticle.intro}}</p>
+      <!-- PRESTATIONS EMPLOYEURS (DE 10.000 FCFA ET PLUS) -->
+      <div class="svc-container">
+        <h2>🏢 Espace Employeurs et Entreprises</h2>
+        <p style="color:var(--muted); margin-bottom:15px;">Sécurisez votre gestion du personnel conformément aux règles de l'Inspection du Travail.</p>
+        <div class="art-grid">
+          <div class="acard" v-for="svc in servicesEmployeurs">
+            <div class="acard-bar bar-travail"></div>
+            <div class="acard-body">
+              <span class="acard-cat cc-travail">Tarif Entreprise</span>
+              <h3>{{svc.nom}}</h3>
+              <p>{{svc.desc}}</p>
+              <div style="font-size:18px; font-weight:700; color:var(--bleu); margin:10px 0;">{{formatArgent(svc.prix)}} FCFA</div>
+              <button class="momo-pay-btn" @click="commanderService(svc)">Commander par Airtel / Moov Money</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="art-body" v-html="activeArticle.body"></div>
+
     </div>
 
   </main>
 
-  <!-- FOOTER -->
   <footer>
-    <div class="foot-in">
-      <p>© 2026 ConsoGabon. Plateforme d'information citoyenne autonome.</p>
-    </div>
+    <p>© 2026 ConsoGabon. Plateforme d'information citoyenne autonome.</p>
   </footer>
 
 </div>
@@ -297,36 +296,73 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,.65);padding:44px 28px
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script>
 // =========================================================================
-//  BASE DE DONNÉES LOCALE (Ajoutez ou modifiez vos lignes ici sans toucher au HTML)
+//  NUMÉRO WHATSAPP ET BASE DE DONNÉES DU SITE
 // =========================================================================
+const CONFIG_WHATSAPP = "+24107000000"; // Mettez votre vrai numéro gabonais à la place (avec l'indicatif +241)
 
-const ACCUEIL_ARTICLES = [
+const LISTE_ARTICLES = [
   {
     id: 'loyer-abusif',
     cat: 'logement',
     catL: 'Logement',
-    titre: 'Loyer abusif : quels recours pour le locataire au Gabon ?',
-    intro: "Votre bailleur augmente votre loyer sans préavis ou exige des sommes injustifiées ? La législation gabonaise vous protège.",
-    body: `<h2>Ce que dit la loi gabonaise</h2><p>Le Code civil gabonais encadre strictement les relations entre bailleurs et locataires. Toute augmentation de loyer doit faire l'objet d'un préavis écrit d'au moins 3 mois.</p>`
+    titre: 'Loyer abusif et caution : quels recours face au bailleur au Gabon ?',
+    intro: "Votre bailleur augmente votre loyer sans préavis ou refuse catégoriquement de restituer votre caution ? La législation vous protège.",
+    body: `
+      <h2>1. Les règles de la caution au Gabon</h2>
+      <p>Selon l'usage et les textes encadrant les baux d'habitation, le montant du dépôt de garantie (la caution) s'élève généralement à un ou deux mois de loyer au maximum. Ce montant doit impérativement vous être restitué dans un délai maximal de 1 à 2 mois après la remise des clés, déduction faite des éventuelles réparations locatives justifiées par factures ou devis.</p>
+      
+      <h2>2. Augmentation sauvage du loyer</h2>
+      <p>Un propriétaire ne peut pas décider seul, du jour au lendemain, d'augmenter le montant de votre loyer. Toute réévaluation doit reposer sur des critères légaux (comme des travaux majeurs d'amélioration effectués dans le logement) et doit impérativement vous être notifiée par écrit au moins trois mois à l'avance.</p>
+      
+      <h2>3. Que faire en cas de litige ?</h2>
+      <ul>
+        <li><strong>Démarche amiable :</strong> Envoyez un courrier écrit ou une mise en demeure claire réclamant l'application de vos droits.</li>
+        <li><strong>Saisie des autorités :</strong> Si le blocage persiste, vous pouvez vous tourner vers la Direction Générale de l'Habitat ou le tribunal compétent pour faire arbitrer le conflit.</li>
+      </ul>
+    `
   },
   {
     id: 'salaire-impaye',
     cat: 'travail',
     catL: 'Droit du travail',
-    titre: 'Salaire impayé : que faire quand votre employeur ne paie pas ?',
-    intro: "Votre employeur tarde à verser votre salaire ou ne le verse pas ? C'est une infraction grave. Voici vos droits au Gabon.",
-    body: `<h2>Le paiement du salaire : une obligation légale</h2><p>Au Gabon, le Code du travail impose à l'employeur de verser le salaire au plus tard le 28 de chaque mois.</p>`
+    titre: 'Salaire impayé ou en retard : faire valoir vos droits face à l\'employeur',
+    intro: "Votre employeur tarde à verser votre salaire mensuel ? C'est une infraction flagrante au Code du Travail gabonais.",
+    body: `
+      <h2>1. Ce que dit strictement le Code du Travail</h2>
+      <p>Au Gabon, le versement de la rémunération est une obligation contractuelle majeure. Les salaires doivent être payés à intervalle régulier, au plus tard quelques jours après la fin du mois travaillé (généralement avant le 5 du mois suivant pour le secteur privé).</p>
+      
+      <h2>2. Les sanctions pour l'employeur</h2>
+      <p>Le non-paiement ou le retard injustifié récurrent constitue une faute lourde de l'employeur. Le travailleur est en droit de suspendre son activité ou de rompre le contrat aux torts exclusifs de l'entreprise, tout en exigeant le paiement intégral de ses arriérés assorti de dommages et intérêts.</p>
+      
+      <h2>3. La procédure de recours efficace</h2>
+      <ul>
+        <li><strong>Mise en demeure :</strong> Un courrier formel exigeant le paiement sous 48h.</li>
+        <li><strong>L'Inspection du Travail :</strong> C'est l'étape incontournable. L'inspecteur convoquera l'employeur pour une séance de conciliation obligatoire afin de régler la situation sans passer par les tribunaux.</li>
+      </ul>
+    `
   }
 ];
 
 const FLUX_ACTUALITES = [
-  { cat: 'travail', catL: 'Travail', titre: 'Publication du décret d’application sur les heures supplémentaires.', source: 'Journal Officiel de la République Gabonaise' },
-  { cat: 'logement', catL: 'Logement', titre: 'Durcissement des contrôles des agences immobilières à Owendo.', source: 'Ministère de l’Habitat' },
-  { cat: 'conso', catL: 'Consommation', titre: 'Nouvelle liste des prix plafonnés sur les produits de première nécessité.', source: 'DGCC Gabon' }
+  { cat: 'travail', catL: 'Travail', titre: 'Publication du décret d’application sur la réglementation des heures supplémentaires.', source: 'Journal Officiel de la République Gabonaise' },
+  { cat: 'logement', catL: 'Logement', titre: 'Renforcement des contrôles sur les frais d’agences immobilières à Libreville et Owendo.', source: 'Ministère de l’Habitat' },
+  { cat: 'conso', catL: 'Consommation', titre: 'Nouvelle liste officielle des prix plafonnés sur les produits de première nécessité.', source: 'DGCC Gabon' }
+];
+
+const PRESTATIONS_CITOYENS = [
+  { nom: "Analyse de litige par un juriste", desc: "Échange direct avec notre juriste pour examiner votre problème de loyer ou de travail.", prix: 2000 },
+  { nom: "Modèle de lettre de mise en demeure", desc: "Courrier formel prêt à envoyer à votre bailleur ou employeur pour exiger votre argent.", prix: 3000 },
+  { nom: "Calcul certifié d'indemnités", desc: "Vérification complète de votre solde de tout compte par un professionnel.", prix: 5000 }
+];
+
+const PRESTATIONS_EMPLOYEURS = [
+  { nom: "Rédaction de contrat de travail stable", desc: "CDI ou CDD entièrement conforme au nouveau Code du travail gabonais.", prix: 15000 },
+  { nom: "Gestion de procédure de licenciement", desc: "Conseils et documents pour licencier un salarié sans risquer les prud'hommes.", prix: 25000 },
+  { nom: "Audit de conformité des bulletins de paie", desc: "Vérification des cotisations CNSS et CNAMGS pour éviter les redressements.", prix: 20000 }
 ];
 
 // =========================================================================
-//  LOGIQUE DE L'APPLICATION (VUE.JS)
+//  APPLICATION VUE
 // =========================================================================
 const { createApp } = Vue;
 
@@ -337,15 +373,12 @@ createApp({
       searchQuery: '',
       activeArticle: null,
       
-      // Récupération des tableaux CMS
-      dataArticles: ACCUEIL_ARTICLES,
+      dataArticles: LISTE_ARTICLES,
       dataActus: FLUX_ACTUALITES,
+      servicesCitoyens: PRESTATIONS_CITOYENS,
+      servicesEmployeurs: PRESTATIONS_EMPLOYEURS,
       
-      // Données pour le simulateur financier
-      calc: {
-        salaire: 0,
-        anciennete: 0
-      }
+      calc: { salaire: 0, anciennete: 0 }
     }
   },
   computed: {
@@ -362,9 +395,8 @@ createApp({
     },
     indemniteResultat() {
       if (!this.calc.salaire || !this.calc.anciennete) return 0;
-      // Simulation basée sur le barème standard (20% de mois par année d'ancienneté pour les 5 premières années)
-      let baseCalcul = this.calc.salaire * 0.20;
-      return Math.round(baseCalcul * this.calc.anciennete);
+      let base = this.calc.salaire * 0.20;
+      return Math.round(base * this.calc.anciennete);
     }
   },
   methods: {
@@ -376,11 +408,21 @@ createApp({
       this.activeArticle = art;
       this.currentView = 'article-detail';
     },
-    formatArgent(valeur) {
-      return new Intl.NumberFormat('fr-FR').format(valeur);
+    formatArgent(val) {
+      return new Intl.NumberFormat('fr-FR').format(val);
     },
-    payerService(nomService, prix) {
-      alert(`Demande d'acte initiée :\nService : ${nomService}\nMontant : ${this.formatArgent(prix)} FCFA\n\nUne notification push Airtel Money / Moov Money va être envoyée sur votre numéro pour finaliser l'acte.`);
+    commanderService(svc) {
+      // Construction du texte automatique pour WhatsApp
+      const texteWhatsApp = `Bonjour ConsoGabon, je souhaite commander le service suivant :\n\n- Prestation : ${svc.nom}\n- Prix : ${this.formatArgent(svc.prix)} FCFA\n\nMerci de m'indiquer votre numéro Airtel Money ou Moov Money pour effectuer le transfert.`;
+      
+      // Encodage du texte pour l'URL internet
+      const urlTexte = encodeURIComponent(texteWhatsApp);
+      
+      // Lien final qui ouvre l'application WhatsApp automatiquement
+      const lienFinal = `https://wa.me/${CONFIG_WHATSAPP}?text=${urlTexte}`;
+      
+      // Ouvre le lien dans un nouvel onglet
+      window.open(lienFinal, '_blank');
     }
   }
 }).mount('#app');
