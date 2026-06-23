@@ -21,7 +21,6 @@
 body{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:var(--encre);background:var(--fond);-webkit-font-smoothing:antialiased}
 button{cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
 
-/* Évite l'effet de flash ou page blanche en attendant le chargement de Vue */
 [v-cloak] { display: none !important; }
 
 /* HEADER */
@@ -44,7 +43,6 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .hero-text p{color:rgba(255,255,255,0.8);font-size:15px;line-height:1.6;margin-bottom:20px}
 .dr-badge{background:rgba(212,160,23,0.2);border:1px solid var(--or);color:var(--or);padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:15px;text-transform:uppercase}
 
-/* CARD DOCTEUR */
 .dr-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--r);padding:24px;backdrop-filter:blur(10px)}
 .dr-card h3{color:var(--or);font-size:18px;margin-bottom:10px}
 .dr-card p{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5}
@@ -53,21 +51,27 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .main{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
 .section-title{font-size:22px;color:var(--bleu-deep);margin-bottom:20px;border-left:5px solid var(--or);padding-left:12px}
 
+/* ONGLETS BIBLIOTHÈQUE */
+.biblio-tabs { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+.biblio-tab-btn { background: var(--blanc); border: 1px solid var(--line); padding: 10px 18px; border-radius: 30px; font-weight: 600; font-size: 13.5px; color: var(--muted); }
+.biblio-tab-btn.active { background: var(--bleu-deep); color: #fff; border-color: var(--bleu-deep); box-shadow: var(--shadow); }
+
 /* GRID & CARDS */
 .art-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));gap:20px;margin-bottom:40px}
 .acard{background:var(--blanc);border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;position:relative}
 .acard:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(26,60,110,0.12)}
 .acard-cat{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px;align-self:flex-start}
-.cat-citoyen{background:var(--vert-pale);color:var(--vert)}
-.cat-entreprise{background:var(--bleu-pale);color:var(--bleu)}
+.cat-fiche{background:var(--vert-pale);color:var(--vert)}
 .cat-loi{background:var(--or-pale);color:#9A6F00}
+.cat-jurisprudence{background:var(--bleu-pale);color:var(--bleu)}
+.cat-doctrine{background:#F0EBF5;color:#6A4093}
 
 /* REACTIONS EMOJIS */
 .reactions-bar{display:flex;gap:10px;margin:20px 0;padding:10px 0;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
 .btn-reaction{background:var(--fond);border:1px solid var(--line);padding:6px 12px;border-radius:20px;font-size:13px;display:flex;align-items:center;gap:6px;font-weight:600}
 .btn-reaction:hover{background:var(--bleu-pale);border-color:var(--bleu)}
 
-/* FORUM / COMMENTAIRES */
+/* FORUM */
 .forum-box{background:var(--blanc);border:1px solid var(--line);border-radius:var(--r);padding:30px;margin-bottom:40px;box-shadow:var(--shadow)}
 .comment-input-wrap{margin-top:20px;display:flex;gap:10px;flex-direction:column}
 .comment-input-wrap input, .comment-input-wrap textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:var(--r2);font-family:inherit;outline:none}
@@ -77,7 +81,6 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .comment-item{background:var(--fond);padding:15px;border-radius:var(--r2);margin-bottom:12px;border-left:3px solid var(--or)}
 .comment-meta{font-size:12px;font-weight:700;color:var(--bleu);margin-bottom:4px}
 
-/* SUPPRESSION TABLE/PANEL BUTTONS */
 .btn-suppr{background:var(--rouge-pale);color:var(--rouge);border:1px solid var(--rouge);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer}
 .btn-suppr:hover{background:var(--rouge);color:#fff}
 
@@ -110,7 +113,6 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .admin-form input, .admin-form textarea, .admin-form select { padding: 10px; border: 1px solid var(--line); border-radius: var(--r2); font-family: inherit; font-size: 14px; }
 .admin-btn { background: var(--or); color: var(--bleu-deep); border: none; padding: 12px; font-weight: 700; border-radius: var(--r2); font-size: 14px; }
 .admin-login-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 20px; }
-
 .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
 
 footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text-align:center;font-size:13px;margin-top:40px}
@@ -118,7 +120,6 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 </head>
 <body>
 
-<!-- Ajout du modificateur v-cloak pour empêcher tout problème d'affichage intermittent -->
 <div id="app" v-cloak>
   
   <!-- HEADER -->
@@ -132,7 +133,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         </div>
       </div>
       <nav>
-        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">Accueil & Forum</button>
+        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">🏛️ Bibliothèque & Forum</button>
         <button :class="{act: currentView === 'offres'}" @click="setView('offres')">💼 Services & Tarifs</button>
         <button :class="{act: currentView === 'contact'}" @click="setView('contact')">📞 Contact</button>
       </nav>
@@ -145,7 +146,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       <div class="hero-text">
         <span class="dr-badge">🎓 Cabinet Numérique - Docteur en Droit</span>
         <h1>Sécuriser vos décisions, vulgariser le droit <em>gabonais</em>.</h1>
-        <p>Bienvenue sur ma plateforme d'accompagnement. En tant que chercheur et praticien, j'ai conçu cet espace pour offrir aux citoyens des clés de défense face aux litiges quotidiens, et apporter aux employeurs une rigueur totale dans la gestion de la paie et l'administration du personnel.</p>
+        <p>Retrouvez ci-dessous mes fiches d'orientations pratiques, l'accès aux textes de lois officiels, recueils de jurisprudence et travaux de doctrine juridique.</p>
       </div>
       <div class="dr-card">
         <h3>Pourquoi cette plateforme ?</h3>
@@ -157,7 +158,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
   <!-- MAIN CONTAINER -->
   <main class="main">
     
-    <!-- VUE DETAIL DOCUMENT AVEC REACTIONS ET COMMENTAIRES CLIENTS -->
+    <!-- VUE DETAIL DOCUMENT -->
     <div v-if="currentView === 'detail' && activeItem" class="detail-view">
       <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px; display:inline-flex; align-items:center;">← Retour à la bibliothèque</button>
       <br>
@@ -165,7 +166,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       <h1 style="margin:10px 0; color:var(--bleu-deep);">{{activeItem.titre}}</h1>
       <div class="detail-content" v-html="activeItem.body"></div>
 
-      <!-- BARRE DE REACTIONS EMOJIS -->
+      <!-- BARRE DE REACTIONS -->
       <div class="reactions-bar">
         <button class="btn-reaction" @click="ajouterReaction('pouce')">👍 <span>{{activeItem.reactions.pouce}}</span></button>
         <button class="btn-reaction" @click="ajouterReaction('justice')">⚖️ <span>{{activeItem.reactions.justice}}</span></button>
@@ -173,58 +174,69 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <button class="btn-reaction" @click="ajouterReaction('surpris')">😮 <span>{{activeItem.reactions.surpris}}</span></button>
       </div>
 
-      <!-- TÉLÉCHARGEMENT PAYANT DISPONIBLE SUR LES TEXTES DE LOI -->
-      <div v-if="activeItem.estLoi" style="margin:25px 0; padding:20px; background:var(--or-pale); border-radius:var(--r); border:1px solid var(--or);">
-        <h4>📥 Télécharger la version PDF officielle</h4>
-        <p style="font-size:13px; color:var(--muted); margin-top:4px;">L'analyse écran est libre. Le téléchargement de la copie PDF certifiée est facturé 1 000 FCFA.</p>
-        <button class="momo-btn" style="background:var(--bleu); color:#fff; width:auto; padding:10px 20px;" @click="commanderSvc('Achat PDF : ' + activeItem.titre, 1000)">Obtenir par Mobile Money</button>
+      <!-- ACHAT PDF (Seulement pour les lois/jurisprudences/doctrines si souhaité) -->
+      <div v-if="activeItem.cat !== 'fiche'" style="margin:25px 0; padding:20px; background:var(--or-pale); border-radius:var(--r); border:1px solid var(--or);">
+        <h4>📥 Télécharger la version numérique officielle / l'Arrêt complet PDF</h4>
+        <p style="font-size:13px; color:var(--muted); margin-top:4px;">L'analyse en ligne est libre. La copie PDF certifiée et exploitable est facturée 1 000 FCFA.</p>
+        <button class="momo-btn" style="background:var(--bleu); color:#fff; width:auto; padding:10px 20px;" @click="commanderSvc('Téléchargement : ' + activeItem.titre, 1000)">Obtenir via Mobile Money</button>
       </div>
 
-      <!-- ESPACE COMMENTAIRES LIÉ UNIQUEMENT À CET ARTICLE -->
+      <!-- COMMENTAIRES ARTICLE -->
       <div style="margin-top:40px; border-top:2px solid var(--line); padding-top:20px;">
-        <h3>💬 Avis & Questions sur ce texte ({{activeItem.commentaires.length}})</h3>
-        
+        <h3>💬 Questions sur ce document ({{activeItem.commentaires.length}})</h3>
         <div class="comments-list" style="border:none; padding:0; margin-top:15px;">
-          <div v-if="activeItem.commentaires.length === 0" style="color:var(--muted); font-style:italic; font-size:13.5px;">Aucune question déposée pour le moment. Soyez le premier à réagir.</div>
+          <div v-if="activeItem.commentaires.length === 0" style="color:var(--muted); font-style:italic; font-size:13.5px;">Aucune question déposée pour le moment.</div>
           <div class="comment-item" v-for="(comm, idx) in activeItem.commentaires" :key="idx">
             <div class="comment-meta">{{comm.nom}}</div>
             <p style="font-size:13.5px;">{{comm.message}}</p>
             <div style="margin-top:8px; padding-left:12px; border-left:2px solid var(--vert); font-size:13px; color:var(--vert); font-style:italic;" v-if="comm.reponse">
               <strong>Réponse du Dr. Juriste :</strong> {{comm.reponse}}
             </div>
-            <!-- Réponse rapide depuis la vue publique si l'admin est loggé -->
             <div v-if="adminConnecte" style="margin-top:10px; display:flex; gap:5px;">
-              <input type="text" v-model="comm.tempReponse" placeholder="Écrire la réponse d'expert..." style="flex:1; padding:5px; border:1px solid var(--line); border-radius:4px;">
+              <input type="text" v-model="comm.tempReponse" placeholder="Écrire la réponse d'expert..." style="flex:1; padding:5px;">
               <button @click="repondreCommentaireArticle(idx)" style="padding:5px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px; font-size:12px;">Répondre</button>
             </div>
           </div>
         </div>
-
         <div class="comment-input-wrap" style="background:var(--fond); padding:20px; border-radius:var(--r); margin-top:20px;">
-          <h4>Poser une question spécifique sur ce sujet</h4>
-          <input type="text" v-model="nouveauCommArticle.nom" placeholder="Votre prénom (ex: Rodrigue de Moanda)">
-          <textarea v-model="nouveauCommArticle.message" rows="3" placeholder="Posez votre question ou partagez votre cas pratique ici..."></textarea>
-          <button @click="ajouterCommentaireArticle" style="background:var(--vert);">Envoyer mon avis</button>
+          <h4>Poser une question spécifique sur ce document</h4>
+          <input type="text" v-model="nouveauCommArticle.nom" placeholder="Votre prénom">
+          <textarea v-model="nouveauCommArticle.message" rows="3" placeholder="Votre message..."></textarea>
+          <button @click="ajouterCommentaireArticle" style="background:var(--vert);">Envoyer ma question</button>
         </div>
       </div>
     </div>
 
-    <!-- VUE ACCUEIL (BIBLIOTHÈQUE ET FORUM GÉNÉRAL) -->
+    <!-- VUE ACCUEIL : LA GRANDE BIBLIOTHÈQUE FILTRABLE -->
     <div v-if="currentView === 'home'">
-      <div class="section-title">Fiches pratiques et Codes officiels</div>
+      <div class="section-title">Grande Bibliothèque Juridique du Gabon</div>
+      
+      <!-- ONGLETS DE TRI DE LA BIBLIOTHÈQUE -->
+      <div class="biblio-tabs">
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'tous'}" @click="filterCat = 'tous'">📚 Tout voir</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'fiche'}" @click="filterCat = 'fiche'">📝 Fiches Pratiques</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'loi'}" @click="filterCat = 'loi'">⚖️ Textes de Loi & Codes</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'jurisprudence'}" @click="filterCat = 'jurisprudence'">🏛️ Jurisprudence</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'doctrine'}" @click="filterCat = 'doctrine'">📚 Doctrine</button>
+      </div>
+
+      <!-- GRILLE DES ELEMENTS DE LA BIBLIOTHEQUE FILTRÉE -->
       <div class="art-grid">
-        <div class="acard" v-for="item in bibliotheque" :key="item.id" @click="openItem(item)">
+        <div class="acard" v-for="item in filteredBibliotheque" :key="item.id" @click="openItem(item)">
           <span class="acard-cat" :class="'cat-'+item.cat">{{item.catL}}</span>
           <h3 style="font-size:16px; margin-bottom:8px; color:var(--bleu-deep);">{{item.titre}}</h3>
           <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:10px;">{{item.intro}}</p>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:12px;">
-            <span style="color:var(--bleu); font-weight:700;">Consulter & réagir →</span>
-            <span style="color:var(--muted);">💬 {{item.commentaires.length}} | 👍 {{item.reactions.pouce + item.reactions.justice}}</span>
+            <span style="color:var(--bleu); font-weight:700;">Consulter l'analyse →</span>
+            <span style="color:var(--muted);">💬 {{item.commentaires.length}} | 👍 {{item.reactions.pouce}}</span>
           </div>
+        </div>
+        <div v-if="filteredBibliotheque.length === 0" style="grid-column:1/-1; text-align:center; padding:4px; color:var(--muted); font-style:italic;">
+          Aucun document disponible dans cette catégorie pour le moment.
         </div>
       </div>
 
-      <!-- ESPACE FORUM GÉNÉRAL -->
+      <!-- FORUM GÉNÉRAL -->
       <div class="forum-box">
         <div class="section-title" style="border-left:none; padding-left:0; font-size:20px;">💬 Forum d'Orientation Général</div>
         <p style="color:var(--muted); font-size:14px;">Une interrogation générale sur le droit gabonais ? Échangez publiquement avec le Cabinet.</p>
@@ -246,7 +258,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <div class="comment-input-wrap">
           <h4>Soumettre une question publique</h4>
           <input type="text" v-model="newComment.nom" placeholder="Votre nom ou pseudo">
-          <textarea v-model="newComment.texte" rows="3" placeholder="Décrivez votre situation générale..."></textarea>
+          <textarea v-model="newComment.texte" rows="3" placeholder="Décrivez votre situation..."></textarea>
           <button @click="ajouterCommentaire">Poster sur le forum général</button>
         </div>
       </div>
@@ -256,12 +268,11 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
     <div v-if="currentView === 'offres'">
       <div class="section-title">Prestations & Solutions Sur-Mesure</div>
       
-      <!-- CITOYENS -->
       <div style="margin-bottom:35px;">
         <h3 style="color:var(--vert); margin-bottom:12px;">⚖️ Espace Citoyens & Particuliers</h3>
         <div class="art-grid">
           <div class="acard" v-for="(s, idx) in svcCitoyens" :key="'c-'+idx">
-            <span class="acard-cat cat-citoyen">Tarif particulier</span>
+            <span class="acard-cat cat-fiche">Tarif particulier</span>
             <h4 style="margin-bottom:6px;">{{s.nom}}</h4>
             <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">{{s.desc}}</p>
             <div style="font-size:16px; font-weight:700; color:var(--vert); margin-bottom:10px;">{{s.prix == 0 ? 'Gratuit' : s.prix + ' FCFA'}}</div>
@@ -270,12 +281,11 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         </div>
       </div>
 
-      <!-- ENTREPRISES -->
       <div>
         <h3 style="color:var(--bleu); margin-bottom:12px;">🏢 Espace Entreprises, Gestion de Paie & ADP</h3>
         <div class="art-grid">
           <div class="acard" v-for="(e, idx) in svcEntreprises" :key="'e-'+idx">
-            <span class="acard-cat cat-entreprise">Tarif Entreprise</span>
+            <span class="acard-cat cat-jurisprudence">Tarif Entreprise</span>
             <h4 style="margin-bottom:6px;">{{e.nom}}</h4>
             <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">{{e.desc}}</p>
             <div style="font-size:16px; font-weight:700; color:var(--bleu); margin-bottom:10px;">{{e.prix == 0 ? 'Sur devis' : e.prix + ' FCFA'}}</div>
@@ -292,78 +302,69 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <div>
           <p>📍 <strong>Localisation :</strong> Libreville, Gabon</p>
           <p style="margin-top:5px;">📧 <strong>E-mail :</strong> contact@cabinet-dr-droit.ga</p>
-          <p style="margin-top:5px;">📱 <strong>Règles :</strong> Airtel / Moov Money validés sur WhatsApp.</p>
+          <p style="margin-top:5px;">📱 <strong>WhatsApp :</strong> Airtel / Moov Money disponibles.</p>
         </div>
         <div class="comment-input-wrap" style="margin-top:0;">
-          <h4>Message d'urgence direct</h4>
+          <h4>Discussion cryptée directe</h4>
           <button @click="ouvrirWhatsAppDirect" style="background:#25D366;">Lancer la discussion WhatsApp Directe</button>
         </div>
       </div>
     </div>
 
-    <!-- SÉCURITÉ ET INTERFACES ADMINISTRATEUR -->
+    <!-- PANNEAU D'ADMINISTRATION CORRIGÉ ET ENRICHI -->
     <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);">
-      <center><button class="admin-login-btn" @click="basculerAdmin">🔑 Mode Administrateur (Ajouter / Supprimer des éléments)</button></center>
+      <center><button class="admin-login-btn" @click="basculerAdmin">🔑 {{ adminConnecte ? 'Fermer le Panel Admin' : 'Mode Administrateur (Ajouter / Rangement)' }}</button></center>
       
       <div v-if="adminConnecte" class="admin-panel">
-        <h3>🛠️ Hyper-Administration & Nettoyage de la Base de Données</h3>
+        <h3>🛠️ Hyper-Administration & Rangement de la Bibliothèque</h3>
         
         <div class="admin-tabs">
-          <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'">📝 Gérer Articles/Lois</button>
+          <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'">📝 Gérer la Bibliothèque Juridique</button>
           <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer Tarifs & Services</button>
         </div>
         
-        <!-- FLUX 1 : GESTION DES ARTICLES (AJOUT + TABLEAU DE SUPPRESSION) -->
+        <!-- MODULE DE RANGEMENT DE LA BIBLIOTHÈQUE -->
         <div v-if="adminTab === 'articles'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
-            <h4>Ajouter un document ou une loi</h4>
+            <h4>Ajouter un nouveau document classifié</h4>
+            
+            <!-- ICI LE CHOIX DES RADIOS/SELECTS POUR LE TRIPTYQUE DEMANDÉ -->
+            <label style="font-size:12px; font-weight:700; color:var(--bleu-deep);">Ranger dans la catégorie :</label>
             <select v-model="nouvelItem.type">
-              <option value="fiche">Fiche pratique / Guide d'expert</option>
-              <option value="loi">Texte de Loi / Code officiel</option>
+              <option value="fiche">📝 Fiche Pratique / Orientation</option>
+              <option value="loi">⚖️ Texte de Loi / Code officiel</option>
+              <option value="jurisprudence">🏛️ Jurisprudence / Décision de justice</option>
+              <option value="doctrine">📚 Doctrine / Analyse d'expert</option>
             </select>
-            <input type="text" v-model="nouvelItem.titre" placeholder="Titre exact">
-            <input type="text" v-model="nouvelItem.intro" placeholder="Résumé pour la page d'accueil">
-            <textarea v-model="nouvelItem.body" rows="4" placeholder="Contenu détaillé au format texte ou HTML"></textarea>
-            <button class="admin-btn" @click="publierContenuManuel">🚀 Injecter dans la bibliothèque</button>
+
+            <input type="text" v-model="nouvelItem.titre" placeholder="Titre complet (ex: Arrêt n°12/2024 de la Cour de Cassation ou Code Pénal)">
+            <input type="text" v-model="nouvelItem.intro" placeholder="Court résumé visible sur la page d'accueil">
+            <textarea v-model="nouvelItem.body" rows="6" placeholder="Contenu textuel ou HTML détaillé du document..."></textarea>
+            
+            <button class="admin-btn" @click="publierContenuManuel">🚀 Classer et Injecter dans la bibliothèque</button>
           </div>
 
-          <h4>Liste active de la bibliothèque (Pour suppression brute)</h4>
-          <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px;">
+          <h4>Liste de vos documents en base (Pour suppression)</h4>
+          <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px; max-height:300px; overflow-y:auto;">
             <div class="admin-list-item" v-for="(item, index) in bibliotheque" :key="'list-'+index">
               <span><strong>[{{item.catL}}]</strong> {{item.titre}}</span>
-              <button class="btn-suppr" @click="supprimerArticle(index)">Retirer du site ×</button>
+              <button class="btn-suppr" @click="supprimerArticle(index)">Retirer ×</button>
             </div>
           </div>
         </div>
 
-        <!-- FLUX 2 : GESTION DES SERVICES (AJOUT + TABLEAU DE SUPPRESSION) -->
         <div v-if="adminTab === 'services'">
+          <!-- GESTION DE PRIX SIMPLE -->
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
-            <h4>Créer un nouveau service commercial</h4>
+            <h4>Créer une offre commerciale</h4>
             <select v-model="nouveauService.cible">
-              <option value="citoyen">Espace Citoyen (Social)</option>
-              <option value="entreprise">Espace Entreprise / RH</option>
+              <option value="citoyen">Espace Citoyen</option>
+              <option value="entreprise">Espace Entreprise</option>
             </select>
-            <input type="text" v-model="nouveauService.nom" placeholder="Intitulé de la prestation">
-            <input type="text" v-model="nouveauService.desc" placeholder="Détail et livrables">
+            <input type="text" v-model="nouveauService.nom" placeholder="Nom de la prestation">
+            <input type="text" v-model="nouveauService.desc" placeholder="Description">
             <input type="number" v-model="nouveauService.prix" placeholder="Prix (FCFA)">
-            <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff;">💾 Publier l'offre commerciale</button>
-          </div>
-
-          <h4>Prestations Citoyens en ligne</h4>
-          <div style="border:1px solid var(--line); border-radius:6px; margin-bottom:15px;">
-            <div class="admin-list-item" v-for="(s, idx) in svcCitoyens" :key="'svc-c-'+idx">
-              <span>{{s.nom}} — <strong>{{s.prix}} F</strong></span>
-              <button class="btn-suppr" @click="supprimerService('citoyen', idx)">Supprimer ×</button>
-            </div>
-          </div>
-
-          <h4>Prestations Entreprises en ligne</h4>
-          <div style="border:1px solid var(--line); border-radius:6px;">
-            <div class="admin-list-item" v-for="(e, idx) in svcEntreprises" :key="'svc-e-'+idx">
-              <span>{{e.nom}} — <strong>{{e.prix}} F</strong></span>
-              <button class="btn-suppr" @click="supprimerService('entreprise', idx)">Supprimer ×</button>
-            </div>
+            <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff;">💾 Publier l'offre</button>
           </div>
         </div>
       </div>
@@ -371,35 +372,13 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
   </main>
 
-  <!-- ASSISTANT FLOTTANT -->
-  <div class="bot-container" v-if="botOuvert">
-    <div class="bot-header">
-      <span>🤖 Pré-Analyse Rapide</span>
-      <button @click="botOuvert = false" style="background:none; border:none; color:#fff; font-size:16px;">×</button>
-    </div>
-    <div class="bot-body">
-      <div class="bot-msg bot">Bonjour ! Sélectionnez votre domaine pour une orientation immédiate.</div>
-      <div class="bot-msg user" v-if="botChoix">{{botChoix}}</div>
-      <div class="bot-msg bot" v-if="botReponse">{{botReponse}}</div>
-    </div>
-    <div class="bot-options" v-if="!botReponse">
-      <button class="bot-opt-btn" @click="repondreBot('Bail', 'Un problème locatif ? Au Gabon la loi encadre le préavis et l’expulsion de manière stricte.')">🏠 Litige de logement</button>
-      <button class="bot-opt-btn" @click="repondreBot('Paie', 'Un calcul de solde de tout compte ? Le nouveau Code régit précisément les indemnités de licenciement.')">💼 Contrat & Paie</button>
-    </div>
-    <div style="padding:10px; text-align:center;" v-if="botReponse">
-      <button class="bot-opt-btn" style="background:var(--or); border:none;" @click="ouvrirWhatsAppDirect">Transmettre le dossier au Docteur →</button>
-    </div>
-  </div>
-  
-  <button v-if="!botOuvert" @click="botOuvert = true" style="position:fixed; bottom:25px; right:25px; background:var(--bleu-deep); color:#fff; border:none; padding:15px 20px; border-radius:30px; font-weight:700; box-shadow:0 4px 15px rgba(0,0,0,0.3); z-index:999;">💬 Poser une question</button>
-
   <footer>
     <p>© 2026 Cabinet Numérique Gabon. Plateforme d'Expertise Juridique Personnalisée.</p>
   </footer>
 
 </div>
 
-<!-- Chargement double canal sécurisé pour Vue.js -->
+<!-- SECURITE DOUBLE CANAL VERCEL -->
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script>
   if (typeof Vue === 'undefined') {
@@ -410,97 +389,109 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 <script>
 const CONFIG_WHATSAPP = "+24107000000"; 
 
+// Base de données par défaut typée
 const BASE_DOCUMENTS = [
   {
-    id: 'l1', cat: 'loi', catL: 'Code du Travail', estLoi: true,
+    id: 'l1', cat: 'loi', catL: 'Texte de Loi',
     titre: 'Loi n° 021/2021 du Code du Travail Gabonais',
-    intro: 'Découvrez les règles d’or du licenciement et de la modification des contrats de travail au Gabon.',
+    intro: 'Découvrez le texte officiel encadrant le licenciement et les ruptures de contrats au Gabon.',
     body: '<h2>Dispositions Générales</h2><p>Le nouveau Code du Travail gabonais régit les relations de travail...</p>',
-    reactions: { pouce: 12, justice: 24, idee: 5, surpris: 1 },
-    commentaires: [
-      { nom: "Anatole B. (Libreville)", message: "Est-ce que cette version s'applique pour le secteur pétrolier à Port-Gentil ?", reponse: "Oui, c'est le cadre général de base, hors conventions collectives sectorielles plus avantageuses.", tempReponse: "" }
-    ]
+    reactions: { pouce: 12, justice: 24, idee: 5, surpris: 1 }, commentaires: []
   },
   {
-    id: 'f1', cat: 'citoyen', catL: 'Guide Locataire', estLoi: false,
-    titre: 'Restituer une caution : formalités obligatoires',
-    intro: 'Marche à suivre légale pour forcer le propriétaire à rendre l’argent sous 2 mois.',
-    body: '<h2>L\'état des lieux de sortie</h2><p>La preuve absolue pour bloquer la mauvaise foi des bailleurs.</p>',
-    reactions: { pouce: 45, justice: 18, idee: 32, surpris: 0 },
-    commentaires: []
+    id: 'j1', cat: 'jurisprudence', catL: 'Jurisprudence',
+    titre: 'Arrêt de la Cour de Cassation sur les licenciements abusifs (2023)',
+    intro: 'Décision majeure protégeant les employés en l’absence de cause réelle et sérieuse.',
+    body: '<h2>Attendu que...</h2><p>La haute cour rappelle les critères stricts de la faute lourde...</p>',
+    reactions: { pouce: 8, justice: 15, idee: 3, surpris: 0 }, commentaires: []
   }
 ];
 
-const DEFAULT_CITOYENS = [
-  { nom: "Analyse initiale de dossier juridique", desc: "Étude complète de vos quittances, contrats ou courriers via WhatsApp.", prix: 0 },
-  { nom: "Mise en demeure pour restitution de caution", desc: "Sommation juridique officielle rédigée par un expert pour faire plier votre bailleur.", prix: 3000 }
-];
-
-const DEFAULT_ENTREPRISES = [
-  { nom: "Externalisation Administrative & Paie", desc: "Production des fiches de paie et déclarations CNSS/CNAMGS mensuelles.", prix: 10000 }
-];
-
-// Initialisation sécurisée une fois le DOM chargé
 document.addEventListener("DOMContentLoaded", function() {
   const { createApp } = Vue;
   createApp({
     data() {
       return {
         currentView: 'home',
+        filterCat: 'tous', // Système d'onglets pour le tri public
         activeItem: null,
-        botOuvert: false,
-        botChoix: '',
-        botReponse: '',
-        
         adminConnecte: false,
         adminTab: 'articles',
+        
         nouvelItem: { type: 'fiche', titre: '', intro: '', body: '' },
         nouveauService: { cible: 'citoyen', nom: '', desc: '', prix: '' },
         nouveauCommArticle: { nom: '', message: '' },
         
         bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
-        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || DEFAULT_CITOYENS,
-        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || DEFAULT_ENTREPRISES,
+        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || [
+          { nom: "Analyse initiale de dossier juridique", desc: "Étude complète de vos quittances ou contrats.", prix: 0 }
+        ],
+        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || [
+          { nom: "Externalisation Administrative & Paie", desc: "Production des fiches de paie et CNSS.", prix: 10000 }
+        ],
         forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
-          { auteur: "Christian M.", texte: "Mon bailleur me donne 4 jours pour sortir. C'est légal ?", reponse: "Absolument pas, le préavis légal minimum au Gabon est de 3 mois.", tempReponse: "" }
+          { auteur: "Christian M.", texte: "Le préavis de logement minimum au Gabon est-il fixe ?", reponse: "Oui, il est fixé par défaut à 3 mois.", tempReponse: "" }
         ],
         newComment: { nom: '', texte: '' }
+      }
+    },
+    computed: {
+      // Filtrage intelligent sur l'interface publique
+      filteredBibliotheque() {
+        if (this.filterCat === 'tous') return this.bibliotheque;
+        return this.bibliotheque.filter(item => item.cat === this.filterCat);
       }
     },
     methods: {
       setView(view) { this.currentView = view; window.scrollTo(0, 0); },
       openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
+      
       basculerAdmin() {
-        let mdp = prompt("Entrez le mot de passe d'administration :");
-        if(mdp === "gabon2026") { this.adminConnecte = !this.adminConnecte; } else { alert("Code erroné."); }
+        if (this.adminConnecte) {
+          this.adminConnecte = false;
+        } else {
+          let mdp = prompt("Entrez le mot de passe d'administration :");
+          if(mdp === "gabon2026") { this.adminConnecte = true; } else { alert("Code erroné."); }
+        }
       },
       
       publierContenuManuel() {
-        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Champs obligatoires.");
+        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Veuillez remplir le titre et le contenu principal.");
+        
+        // Mappage automatique des labels de rangement
+        let labels = {
+          fiche: 'Fiche Pratique',
+          loi: 'Texte de Loi',
+          jurisprudence: 'Jurisprudence',
+          doctrine: 'Doctrine'
+        };
+
         let art = {
           id: 'art_' + Date.now(),
-          cat: this.nouvelItem.type === 'loi' ? 'loi' : 'citoyen',
-          catL: this.nouvelItem.type === 'loi' ? 'Texte de Loi' : 'Guide Pratique',
+          cat: this.nouvelItem.type,
+          catL: labels[this.nouvelItem.type],
           titre: this.nouvelItem.titre,
-          intro: this.nouvelItem.intro || "Consultez cet article.",
+          intro: this.nouvelItem.intro || "Consultez ce document juridique analysé par le Cabinet.",
           body: this.nouvelItem.body.replace(/\n/g, '<br>'),
-          estLoi: this.nouvelItem.type === 'loi',
           reactions: { pouce: 0, justice: 0, idee: 0, surpris: 0 },
           commentaires: []
         };
+        
         this.bibliotheque.unshift(art);
-        this.sauvegarderArticles();
-        alert("Article publié avec succès !");
+        localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
+        alert("Le document a été classé et intégré à votre bibliothèque !");
+        
+        // Reset du formulaire d'ajout
         this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
       },
+      
       supprimerArticle(index) {
-        if(confirm("Confirmez-vous le retrait définitif de cet article du site ?")) {
+        if(confirm("Supprimer définitivement ce document de la base de données ?")) {
           this.bibliotheque.splice(index, 1);
-          this.sauvegarderArticles();
+          localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
           if(this.activeItem) this.setView('home');
         }
       },
-      sauvegarderArticles() { localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
       
       publierServiceManuel() {
         if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
@@ -512,44 +503,23 @@ document.addEventListener("DOMContentLoaded", function() {
           this.svcEntreprises.push(s);
           localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
         }
-        alert("Service intégré.");
+        alert("Service ajouté.");
         this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
       },
-      supprimerService(type, index) {
-        if(confirm("Supprimer cette prestation ?")) {
-          if(type === 'citoyen') {
-            this.svcCitoyens.splice(index, 1);
-            localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
-          } else {
-            this.svcEntreprises.splice(index, 1);
-            localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
-          }
-        }
-      },
 
-      ajouterReaction(type) {
-        this.activeItem.reactions[type]++;
-        this.sauvegarderArticles();
-      },
+      ajouterReaction(type) { this.activeItem.reactions[type]++; localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
       ajouterCommentaireArticle() {
-        if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Veuillez remplir votre nom et votre question.");
-        this.activeItem.commentaires.push({
-          nom: this.nouveauCommArticle.nom,
-          message: this.nouveauCommArticle.message,
-          reponse: null,
-          tempReponse: ""
-        });
-        this.sauvegarderArticles();
+        if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Champs obligatoires.");
+        this.activeItem.commentaires.push({ nom: this.nouveauCommArticle.nom, message: this.nouveauCommArticle.message, reponse: null, tempReponse: "" });
+        localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
         this.nouveauCommArticle.nom = ''; this.nouveauCommArticle.message = '';
       },
       repondreCommentaireArticle(idx) {
         let comm = this.activeItem.commentaires[idx];
-        if(!comm.tempReponse) return alert("Écrivez une réponse.");
-        comm.reponse = comm.tempReponse;
-        comm.tempReponse = '';
-        this.sauvegarderArticles();
+        if(!comm.tempReponse) return alert("Entrez une réponse.");
+        comm.reponse = comm.tempReponse; comm.tempReponse = '';
+        localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
       },
-
       ajouterCommentaire() {
         if(!this.newComment.nom || !this.newComment.texte) return alert("Champs vides.");
         this.forumComments.push({ auteur: this.newComment.nom, texte: this.newComment.texte, reponse: null, tempReponse: "" });
@@ -558,13 +528,10 @@ document.addEventListener("DOMContentLoaded", function() {
       },
       repondreCommentaireManuel(index) {
         let comm = this.forumComments[index];
-        if(!comm.tempReponse) return alert("Écrivez une réponse.");
-        comm.reponse = comm.tempReponse;
-        comm.tempReponse = '';
+        if(!comm.tempReponse) return alert("Entrez une réponse.");
+        comm.reponse = comm.tempReponse; comm.tempReponse = '';
         localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
       },
-
-      repondreBot(c, r) { this.botChoix = c; this.botReponse = r; },
       commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Commande service : ' + n + ' ('+p+' FCFA)')}`, '_blank'); },
       ouvrirWhatsAppDirect() { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=Bonjour Docteur, je souhaite une consultation.`, '_blank'); }
     }
