@@ -3,55 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Guides, textes et prestations juridiques solidaires au Gabon.">
-<meta name="theme-color" content="#0F2547">
 <title>Cabinet Juridique Solidaire - Gabon</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bleu:#1A3C6E;--bleu-deep:#0F2547;--bleu-soft:#EBF1FA;--vert:#1A7A4A;--vert-soft:#E8F5EE;--or:#D4A017;--or-soft:#FDF6E3;--fond:#F8F9FC;--blanc:#FFFFFF;--encre:#1C1E26;--muted:#5A6070;--line:#E2E5ED;--radius:8px;--radius-sm:6px;--shadow:0 10px 28px rgba(15,37,71,0.08);--shadow-hover:0 16px 34px rgba(15,37,71,0.13);--rouge:#D93838;--rouge-soft:#FDEBEB;--focus:0 0 0 3px rgba(212,160,23,0.34);}
-html{scroll-behavior:smooth}
-body{min-height:100vh;overflow-x:hidden;background:var(--fond);color:var(--encre);font-family:"Plus Jakarta Sans",system-ui,sans-serif;font-size:15px;line-height:1.5}
-.nav-fast{position:fixed;right:18px;bottom:86px;display:flex;flex-direction:column;gap:8px;z-index:120}
-.btn-fast{width:42px;height:42px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--bleu-deep);color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.2);font-weight:800}
-.hdr{position:sticky;top:0;z-index:100;background:var(--bleu-deep);padding:0 24px;box-shadow:0 2px 16px rgba(0,0,0,.16)}
-.hdr-in{max-width:1200px;min-height:66px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:12px;background:transparent;border:0;color:#fff;text-align:left}
-.logo{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--or),#E8B820);color:var(--bleu-deep);font-weight:800}
-.main{max-width:1200px;margin:0 auto;padding:38px 24px}
-.section-title{margin-bottom:20px;border-left:5px solid var(--or);padding-left:12px;color:var(--bleu-deep);font-size:22px;font-weight:800}
-.admin-discret{margin-top:20px;text-align:center;font-size:10px;opacity:0.5}
+/* (Gardez tout votre CSS ici) */
 </style>
 </head>
 <body>
-<div id="app">
-    <header class="hdr"><div class="hdr-in"><button class="brand">⚖️ <span class="name">Dr. Juriste Gabon</span></button></div></header>
-    <main class="main">
-        <section><h2 class="section-title">Bienvenue au Cabinet Juridique Solidaire</h2></section>
-    </main>
-    <footer>
-        <p>© 2026 Cabinet Juridique Solidaire Gabon.</p>
-        <div class="admin-discret">
-            <button type="button" @click="basculerAdmin" style="background:none;border:none;text-decoration:underline;cursor:pointer;">Espace Admin</button>
-        </div>
-    </footer>
-</div>
+<div id="app" data-v-app="">
+    </div>
 
 <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 <script>
-const { createApp } = Vue;
-createApp({
-    data() { return { adminConnecte: false }; },
-    methods: {
-        basculerAdmin() {
-            const mdp = prompt("Mot de passe :");
-            if (mdp === "gabon2026") { alert("Accès autorisé"); this.adminConnecte = true; }
-            else { alert("Accès refusé"); }
+// ... (Copiez tout votre code JavaScript jusqu'à la ligne "publierServiceManuel() {") ...
+
+    publierServiceManuel() {
+        const nom = this.nouveauService.nom.trim();
+        const desc = this.nouveauService.desc.trim();
+        if (!nom || !desc) {
+          alert("Informations manquantes.");
+          return;
         }
+
+        const service = {
+          id: `svc_${Date.now()}`,
+          nom,
+          desc,
+          prix: Number(this.nouveauService.prix) || 0
+        };
+
+        if (this.nouveauService.cible === 'citoyen') {
+            this.svcCitoyens.push(service);
+            this.persistCitoyens();
+        } else {
+            this.svcEntreprises.push(service);
+            this.persistEntreprises();
+        }
+        
+        this.nouveauService = { cible: "citoyen", nom: "", desc: "", prix: "" };
+        alert("Service ajouté avec succès.");
+      }
     }
-}).mount('#app');
+  }).mount('#app');
+});
 </script>
 </body>
 </html>
