@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Docteur en Droit - L'aide Juridique Populaire au Gabon</title>
+<title>Cabinet Juridique Solidaire - Gabon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -120,13 +120,13 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <div class="logo">⚖️</div>
         <div class="brand-txt">
           <div class="name">Dr. Juriste Gabon</div>
-          <div class="tag">Le Droit pour la population</div>
+          <div class="tag">Le Droit accessible à tous</div>
         </div>
       </div>
       <nav>
-        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">🏛️ Conseils Gratuits</button>
-        <button :class="{act: currentView === 'offres'}" @click="setView('offres')">💼 Services à 1 000 FCFA</button>
-        <button :class="{act: currentView === 'contact'}" @click="setView('contact')">📞 WhatsApp</button>
+        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">🏠 Guides & Entraide</button>
+        <button :class="{act: currentView === 'offres'}" @click="setView('offres')">💼 Prestations & Tarifs</button>
+        <button :class="{act: currentView === 'contact'}" @click="setView('contact')">📞 Contact WhatsApp</button>
       </nav>
     </div>
   </header>
@@ -135,13 +135,13 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
   <section class="hero" v-if="currentView === 'home'">
     <div class="hero-in">
       <div class="hero-text">
-        <span class="dr-badge">🇬🇦 Entraide Citoyenne & Droit Locatif</span>
-        <h1>Problème de loyer, caution ou licenciement ?</h1>
-        <p>Ne restez pas sans défense. Lisez nos fiches d'explications simples ou posez vos questions gratuitement sur le forum d'entraide gabonais.</p>
+        <span class="dr-badge">🇬🇦 Information Juridique Concrète</span>
+        <h1>Bailleur, contrat de travail, licenciement ?</h1>
+        <p>Ne restez pas dans le doute. Découvrez vos droits clairement expliqués ou posez votre question directement sur notre espace d'entraide.</p>
       </div>
       <div class="dr-card">
-        <h3>💡 Ici, c'est le prix de la rue</h3>
-        <p>Pas de gros honoraires d'avocat. Nos services d'urgence commencent à seulement 1 000 FCFA par Mobile Money (le prix d'une recharge Airtel/Moov).</p>
+        <h3>💡 Une assistance claire et mesurée</h3>
+        <p>Consultez nos fiches pratiques ou passez par une consultation privée adaptée à votre situation pour faire valoir vos droits.</p>
       </div>
     </div>
   </section>
@@ -151,127 +151,134 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
     
     <!-- DETAIL DOCUMENT -->
     <div v-if="currentView === 'detail' && activeItem" class="detail-view">
-      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px;">← Revenir en arrière</button>
+      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px; font-size: 14px;">← Retour aux guides</button>
       <br>
       <span class="acard-cat" :class="'cat-'+activeItem.cat">{{activeItem.catL}}</span>
-      <h1 style="margin:10px 0; color:var(--bleu-deep);">{{activeItem.titre}}</h1>
-      <div class="detail-content" v-html="activeItem.body"></div>
+      <h1 style="margin:10px 0 20px; color:var(--bleu-deep); font-size:24px;">{{activeItem.titre}}</h1>
+      
+      <!-- CONTENU DU GUIDE BIEN AFFICHÉ ICI -->
+      <div class="detail-content" style="background:#fff; padding:10px 0; border-radius:8px;">
+        <div v-html="activeItem.body"></div>
+      </div>
 
       <!-- REACTIONS -->
       <div class="reactions-bar">
-        <button class="btn-reaction" @click="ajouterReaction('pouce')">👍 Oui c'est utile (<span>{{activeItem.reactions.pouce}}</span>)</button>
-        <button class="btn-reaction" @click="ajouterReaction('justice')">⚖️ <span>{{activeItem.reactions.justice}}</span></button>
+        <button class="btn-reaction" @click="ajouterReaction('pouce')">👍 Cet article m'a aidé (<span>{{activeItem.reactions.pouce}}</span>)</button>
+        <button class="btn-reaction" @click="ajouterReaction('justice')">⚖️ Utile pour le Gabon (<span>{{activeItem.reactions.justice}}</span>)</button>
       </div>
 
-      <!-- ACHAT PDF PAS CHER -->
+      <!-- ACHAT MODELE PRO -->
       <div style="margin:25px 0; padding:20px; background:var(--or-pale); border-radius:var(--r); border:1px solid var(--or);">
-        <h4>📥 Besoin du texte de loi officiel ou d'un modèle de lettre prêt à copier ?</h4>
-        <p style="font-size:13px; color:var(--muted); margin-top:4px;">Recevez le fichier complet directement sur votre téléphone WhatsApp pour seulement 500 FCFA.</p>
-        <button class="momo-btn" style="background:var(--bleu); color:#fff; width:auto; padding:10px 20px;" @click="commanderSvc('Téléchargement : ' + activeItem.titre, 500)">Recevoir par WhatsApp (500 FCFA)</button>
+        <h4>📥 Besoin d'un modèle d'acte officiel prêt à l'emploi ?</h4>
+        <p style="font-size:13.5px; color:var(--muted); margin-top:5px;">Recevez le texte juridique complet ou le modèle de courrier officiel directement par WhatsApp.</p>
+        <button class="momo-btn" style="background:var(--bleu); color:#fff; width:auto; padding:10px 20px; margin-top:12px;" @click="commanderSvc('Modèle document : ' + activeItem.titre, 2000)">Recevoir le document (2 000 FCFA)</button>
       </div>
 
       <!-- COMMENTAIRES -->
       <div style="margin-top:40px; border-top:2px solid var(--line); padding-top:20px;">
-        <h3>💬 Réponses et questions gratuites ({{activeItem.commentaires.length}})</h3>
+        <h3>💬 Questions posées sur ce thème ({{activeItem.commentaires.length}})</h3>
         <div class="comments-list" style="border:none; padding:0; margin-top:15px;">
-          <div v-if="activeItem.commentaires.length === 0" style="color:var(--muted); font-style:italic; font-size:13.5px;">Aucune question sur ce texte. Laissez la vôtre !</div>
+          <div v-if="activeItem.commentaires.length === 0" style="color:var(--muted); font-style:italic; font-size:13.5px;">Aucune question pour le moment. Soyez le premier à poser votre question.</div>
           <div class="comment-item" v-for="(comm, idx) in activeItem.commentaires" :key="idx">
             <div class="comment-meta">{{comm.nom}}</div>
             <p style="font-size:13.5px;">{{comm.message}}</p>
             <div style="margin-top:8px; padding-left:12px; border-left:2px solid var(--vert); font-size:13px; color:var(--vert); font-style:italic;" v-if="comm.reponse">
-              <strong>Réponse du Docteur :</strong> {{comm.reponse}}
+              <strong>Réponse du Cabinet :</strong> {{comm.reponse}}
             </div>
             <div v-if="adminConnecte" style="margin-top:10px; display:flex; gap:5px;">
-              <input type="text" v-model="comm.tempReponse" placeholder="Répondre..." style="flex:1; padding:5px;">
-              <button @click="repondreCommentaireArticle(idx)" style="padding:5px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px;">Publier</button>
+              <input type="text" v-model="comm.tempReponse" placeholder="Écrire la réponse officielle..." style="flex:1; padding:5px;">
+              <button @click="repondreCommentaireArticle(idx)" style="padding:5px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px;">Répondre</button>
             </div>
           </div>
         </div>
         <div class="comment-input-wrap" style="background:var(--fond); padding:20px; border-radius:var(--r); margin-top:20px;">
-          <h4>Poser votre question gratuitement en ligne</h4>
-          <input type="text" v-model="nouveauCommArticle.nom" placeholder="Votre prénom (Ex: Jean de Kinguélé)">
-          <textarea v-model="nouveauCommArticle.message" rows="3" placeholder="Quel est votre problème exact ?"></textarea>
-          <button @click="ajouterCommentaireArticle" style="background:var(--vert);">Envoyer ma question (Gratuit)</button>
+          <h4>Poser une question anonyme sur ce sujet</h4>
+          <input type="text" v-model="nouveauCommArticle.nom" placeholder="Votre prénom ou pseudo">
+          <textarea v-model="nouveauCommArticle.message" rows="3" placeholder="Expliquez brièvement votre situation ici..."></textarea>
+          <button @click="ajouterCommentaireArticle" style="background:var(--vert);">Envoyer ma question sur le site</button>
         </div>
       </div>
     </div>
 
     <!-- ACCUEIL -->
     <div v-if="currentView === 'home'">
-      <div class="section-title">Guides d'aide immédiate pour la population</div>
+      <div class="section-title">Guides juridiques d'accès immédiat</div>
       
       <div class="biblio-tabs">
-        <button class="biblio-tab-btn" :class="{active: filterCat === 'tous'}" @click="filterCat = 'tous'">📚 Tout voir</button>
-        <button class="biblio-tab-btn" :class="{active: filterCat === 'fiche'}" @click="filterCat = 'fiche'">🏠 Problèmes de Loyer / Propriétaires</button>
-        <button class="biblio-tab-btn" :class="{active: filterCat === 'loi'}" @click="filterCat = 'loi'">💼 Droits des Employés (Licenciements)</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'tous'}" @click="filterCat = 'tous'">📚 Tous les guides</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'fiche'}" @click="filterCat = 'fiche'">🏠 Rapports de Voisinage & Loyer</button>
+        <button class="biblio-tab-btn" :class="{active: filterCat === 'loi'}" @click="filterCat = 'loi'">💼 Droit du Travail & Licenciements</button>
       </div>
 
       <div class="art-grid">
         <div class="acard" v-for="item in filteredBibliotheque" :key="item.id" @click="openItem(item)">
           <span class="acard-cat" :class="'cat-'+item.cat">{{item.catL}}</span>
           <h3 style="font-size:16px; margin-bottom:8px; color:var(--bleu-deep);">{{item.titre}}</h3>
-          <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:10px;">{{item.intro}}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:12px;">
-            <span style="color:var(--bleu); font-weight:700;">Cliquez pour lire la solution →</span>
+          <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:15px;">{{item.intro}}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:13px;">
+            <span style="color:var(--bleu); font-weight:700;">Lire la suite pour avoir les détails →</span>
           </div>
         </div>
       </div>
 
       <!-- FORUM GÉNÉRAL -->
       <div class="forum-box">
-        <div class="section-title" style="border-left:none; padding-left:0; font-size:20px;">💬 Forum Public d'Entraide Libreville/Gabon</div>
-        <p style="color:var(--muted); font-size:14px;">Écrivez votre problème ici. Le Docteur répond publiquement dès que possible pour aider toute la communauté.</p>
+        <div class="section-title" style="border-left:none; padding-left:0; font-size:20px;">💬 Espace de Discussion & d'Entraide Public</div>
+        <p style="color:var(--muted); font-size:14px;">Posez vos questions d'ordre général. Les réponses apportées ici servent à informer l'ensemble de la communauté.</p>
         
         <div class="comments-list">
           <div class="comment-item" v-for="(c, index) in forumComments" :key="index">
             <div class="comment-meta">{{c.auteur}}</div>
             <p style="font-size:13.5px;">{{c.texte}}</p>
             <div style="margin-top:8px; padding-left:12px; border-left:2px solid var(--vert); font-size:13px; color:var(--vert); font-style:italic;" v-if="c.reponse">
-              <strong>Réponse du Docteur :</strong> {{c.reponse}}
+              <strong>Réponse du Cabinet :</strong> {{c.reponse}}
             </div>
             <div v-if="adminConnecte" style="margin-top:10px; display:flex; gap:5px;">
-              <input type="text" v-model="c.tempReponse" placeholder="Répondre..." style="flex:1; padding:5px;">
+              <input type="text" v-model="c.tempReponse" placeholder="Répondre au forum..." style="flex:1; padding:5px;">
               <button @click="repondreCommentaireManuel(index)" style="padding:5px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px;">Répondre</button>
             </div>
           </div>
         </div>
 
         <div class="comment-input-wrap">
-          <h4>Expliquez votre situation sans donner votre nom complet</h4>
-          <input type="text" v-model="newComment.nom" placeholder="Votre prénom ou quartier (Ex: Un grand frère d'Akébé)">
-          <textarea v-model="newComment.texte" rows="3" placeholder="Ex: Mon bailleur veut jeter mes affaires dehors sans m'avertir..."></textarea>
-          <button @click="ajouterCommentaire">Poster sur le forum d'entraide</button>
+          <h4>Décrivez votre situation (sans données confidentielles)</h4>
+          <input type="text" v-model="newComment.nom" placeholder="Votre prénom ou région (Ex: Un citoyen de Port-Gentil)">
+          <textarea v-model="newComment.texte" rows="3" placeholder="Ex: Mon employeur modifie mon contrat sans mon accord, que dit la loi ?"></textarea>
+          <button @click="ajouterCommentaire">Publier sur le forum public</button>
         </div>
       </div>
     </div>
 
-    <!-- SERVICES REVOUS POUR LA REALITE DU PAYS -->
+    <!-- SERVICES REVISITÉS ET ENRICHIS -->
     <div v-if="currentView === 'offres'">
-      <div class="section-title">Aide Privée Rapide par Airtel / Moov Money</div>
+      <div class="section-title">Prestations de Conseil et d'Accompagnement</div>
       
-      <div style="margin-bottom:35px;">
-        <h3 style="color:var(--vert); margin-bottom:12px;">⚖️ Pour les particuliers (Prix Spéciaux Solidarité)</h3>
-        <p style="font-size:14px; color:var(--muted); margin-bottom:15px;">Parce que la justice ne doit pas s'acheter au prix fort. Posez votre problème directement en privé.</p>
+      <!-- ESPACE CITOYENS RÉAJUSTÉ -->
+      <div style="margin-bottom:45px;">
+        <h3 style="color:var(--vert); margin-bottom:12px; border-bottom:1px solid var(--line); padding-bottom:6px;">⚖️ Espace Particuliers & Salariés</h3>
+        <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Des tarifs transparents et accessibles pour sécuriser vos démarches personnelles ou professionnelles.</p>
         <div class="art-grid">
           <div class="acard" v-for="(s, idx) in svcCitoyens" :key="'c-'+idx">
-            <span class="acard-cat cat-fiche">Tarif Social</span>
-            <h4 style="margin-bottom:6px;">{{s.nom}}</h4>
-            <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">{{s.desc}}</p>
-            <div style="font-size:20px; font-weight:800; color:var(--vert); margin-bottom:10px;">{{s.prix == 0 ? 'Gratuit' : s.prix + ' FCFA'}}</div>
-            <button class="momo-btn" @click="commanderSvc(s.nom, s.prix)">Discuter par WhatsApp (Moov/Airtel)</button>
+            <span class="acard-cat cat-fiche">Consultation Particulier</span>
+            <h4 style="margin-bottom:8px; font-size:15px; color:var(--bleu-deep);">{{s.nom}}</h4>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:15px; line-height:1.4;">{{s.desc}}</p>
+            <div style="font-size:18px; font-weight:800; color:var(--vert); margin-bottom:12px;">{{s.prix == 0 ? 'Gratuit' : s.prix.toLocaleString() + ' FCFA'}}</div>
+            <button class="momo-btn" @click="commanderSvc(s.nom, s.prix)">Prendre rendez-vous via WhatsApp</button>
           </div>
         </div>
       </div>
 
+      <!-- ESPACE ENTREPRISES AVEC MODULE PAIE ETC -->
       <div>
-        <h3 style="color:var(--bleu); margin-bottom:12px;">🏢 Pour les PME, Boutiques & Commerçants</h3>
+        <h3 style="color:var(--bleu); margin-bottom:12px; border-bottom:1px solid var(--line); padding-bottom:6px;">🏢 Espace Entreprises, PME & RH</h3>
+        <p style="font-size:14px; color:var(--muted); margin-bottom:20px;">Gestion des risques professionnels, calculs réglementaires de la paie et audits de conformité.</p>
         <div class="art-grid">
           <div class="acard" v-for="(e, idx) in svcEntreprises" :key="'e-'+idx">
-            <span class="acard-cat cat-jurisprudence">Espace Pro</span>
-            <h4 style="margin-bottom:6px;">{{e.nom}}</h4>
-            <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">{{e.desc}}</p>
-            <div style="font-size:18px; font-weight:800; color:var(--bleu); margin-bottom:10px;">{{e.prix == 0 ? 'Sur devis' : e.prix + ' FCFA'}}</div>
-            <button class="momo-btn" @click="commanderSvc(e.nom, e.prix)">Prendre un rendez-vous pro</button>
+            <span class="acard-cat cat-jurisprudence">Gestion Pro / RH</span>
+            <h4 style="margin-bottom:8px; font-size:15px; color:var(--bleu-deep);">{{e.nom}}</h4>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:15px; line-height:1.4;">{{e.desc}}</p>
+            <div style="font-size:18px; font-weight:800; color:var(--bleu); margin-bottom:12px;">{{e.prix == 0 ? 'Sur devis' : e.prix.toLocaleString() + ' FCFA'}}</div>
+            <button class="momo-btn" @click="commanderSvc(e.nom, e.prix)">Solliciter une expertise Pro</button>
           </div>
         </div>
       </div>
@@ -279,73 +286,92 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
     <!-- CONTACT -->
     <div v-if="currentView === 'contact'" class="forum-box">
-      <div class="section-title">Envoyer un message WhatsApp Direct</div>
+      <div class="section-title">Assistance Directe par Messagerie</div>
       <div class="contact-grid">
         <div>
-          <p>📞 Cliquez sur le bouton vert pour ouvrir directement une discussion sur votre téléphone avec le cabinet.</p>
-          <p style="margin-top:5px;">💰 Paiements acceptés : Bons de caisse Moov / Airtel Money à l'envoi.</p>
+          <p style="line-height:1.6; margin-bottom:10px;">📞 Vous souhaitez exposer un cas complexe en toute confidentialité ? Échangez directement avec notre secrétariat via WhatsApp.</p>
+          <p style="font-size:13.5px; color:var(--muted);">Modes de règlement acceptés pour les consultations privées : Airtel Money, Moov Money ou virement bancaire.</p>
         </div>
-        <div class="comment-input-wrap" style="margin-top:0;">
-          <button @click="ouvrirWhatsAppDirect" style="background:#25D366; font-size:16px;">🟢 Ouvrir mon WhatsApp maintenant</button>
+        <div class="comment-input-wrap" style="margin-top:0; justify-content:center;">
+          <button @click="ouvrirWhatsAppDirect" style="background:#25D366; font-size:15px;">🟢 Ouvrir la discussion WhatsApp</button>
         </div>
       </div>
     </div>
 
-    <!-- ADMIN PANEL -->
+    <!-- PANNEAU ADMIN TOTALEMENT REFAIT POUR GERER AUSSI LES GUIDES -->
     <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);" id="page-bottom-anchor">
-      <center><button class="admin-login-btn" @click="basculerAdmin">🔑 Mode Gestion (Changer les prix en direct)</button></center>
+      <center><button class="admin-login-btn" @click="basculerAdmin">🔑 Espace d'Administration</button></center>
       
       <div v-if="adminConnecte" class="admin-panel">
-        <h3>🛠️ Outils d'administration</h3>
+        <h3>🛠️ Tableau de bord de gestion du site</h3>
         
         <div class="admin-tabs">
-          <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'">Gérer l'accueil</button>
-          <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Modifier ou Ajouter des tarifs</button>
+          <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'">📚 Gérer les Guides Pratiques</button>
+          <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer les Tarifs & Services</button>
         </div>
         
+        <!-- ADMINISTRATION DES ARTICLES / GUIDES -->
         <div v-if="adminTab === 'articles'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
-            <h4>Ajouter une solution</h4>
+            <h4>{{ enCoursDEditionArt ? '✏️ Modifier le Guide' : '➕ Publier un nouveau Guide' }}</h4>
             <select v-model="nouvelItem.type">
-              <option value="fiche">🏠 Logement / Loyer</option>
-              <option value="loi">💼 Licenciement / Travail</option>
+              <option value="fiche">🏠 Rapports de Voisinage & Loyer</option>
+              <option value="loi">💼 Droit du Travail & Licenciements</option>
             </select>
-            <input type="text" v-model="nouvelItem.titre" placeholder="Titre de la fiche">
-            <input type="text" v-model="nouvelItem.intro" placeholder="Résumé rapide">
-            <textarea v-model="nouvelItem.body" rows="6" placeholder="Conseils détaillés en texte ou HTML..."></textarea>
-            <button class="admin-btn" @click="publierContenuManuel">🚀 Envoyer en ligne</button>
+            <input type="text" v-model="nouvelItem.titre" placeholder="Titre complet de la fiche">
+            <input type="text" v-model="nouvelItem.intro" placeholder="Résumé court qui apparaît sur l'accueil">
+            <textarea v-model="nouvelItem.body" rows="6" placeholder="Contenu détaillé (S'affiche lorsque l'usager clique sur Lire la suite)"></textarea>
+            <div style="display:flex; gap:10px;">
+              <button class="admin-btn" @click="publierContenuManuel" style="background:var(--vert); color:#fff; flex:1;">🚀 Valider et Mettre en ligne</button>
+              <button class="admin-btn" v-if="enCoursDEditionArt" @click="annulerEditionArt" style="background:var(--muted); color:#fff;">Annuler</button>
+            </div>
           </div>
-          <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px; max-height:200px; overflow-y:auto;">
-            <div class="admin-list-item" v-for="(item, index) in bibliotheque" :key="'list-'+index">
-              <span>{{item.titre}}</span>
-              <button class="btn-suppr" @click="supprimerArticle(index)">Supprimer ×</button>
+          
+          <h5>Guides actuellement en ligne :</h5>
+          <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px; max-height:250px; overflow-y:auto; background:#fff;">
+            <div class="admin-list-item" v-for="(item, index) in高度 bibliotheque" :key="'list-art-'+index">
+              <span style="font-weight:600;">[{{item.catL}}] {{item.titre}}</span>
+              <div style="display:flex; gap:5px;">
+                <button class="btn-edit" @click="activerEditionArt(index)">Modifier</button>
+                <button class="btn-suppr" @click="supprimerArticle(index)">Supprimer ×</button>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- ADMINISTRATION DES TARIFS -->
         <div v-if="adminTab === 'services'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
-            <h4>{{ enCoursDEdition ? '✏️ Édition d\'offre' : '➕ Inclure une nouvelle offre' }}</h4>
+            <h4>{{ enCoursDEdition ? '✏️ Modifier l\'offre commerciale' : '➕ Insérer une nouvelle offre commerciale' }}</h4>
             <select v-model="nouveauService.cible" :disabled="enCoursDEdition">
-              <option value="citoyen">⚖️ Espace Citoyen / Particulier</option>
-              <option value="entreprise">🏢 Espace Entreprise / RH</option>
+              <option value="citoyen">⚖️ Espace Particuliers & Salariés</option>
+              <option value="entreprise">🏢 Espace Entreprises / RH / Paie</option>
             </select>
-            <input type="text" v-model="nouveauService.nom" placeholder="Nom du service">
-            <input type="text" v-model="nouveauService.desc" placeholder="Ce qui est inclus">
-            <input type="number" v-model="nouveauService.prix" placeholder="Prix en FCFA">
+            <input type="text" v-model="nouveauService.nom" placeholder="Intitulé de la prestation">
+            <input type="text" v-model="nouveauService.desc" placeholder="Détails de la prestation et livrables">
+            <input type="number" v-model="nouveauService.prix" placeholder="Montant en FCFA">
             <div style="display:flex; gap:10px;">
-              <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff; flex:1;">Valider</button>
+              <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff; flex:1;">Enregistrer l'offre</button>
               <button class="admin-btn" v-if="enCoursDEdition" @click="annulerEdition" style="background:var(--muted); color:#fff;">Annuler</button>
             </div>
           </div>
 
           <div style="margin-top:10px; padding:10px; background:#fafafa; border-radius:8px;">
-            <p style="font-size:12px; font-weight:bold; color:var(--vert);">[TARIFS POPULAIRES CITOYENS]</p>
+            <p style="font-size:12px; font-weight:bold; color:var(--vert); margin-bottom:5px;">Liste des Offres Particuliers :</p>
             <div class="admin-list-item" v-for="(s, idx) in svcCitoyens" :key="'del-c-'+idx">
-              <span><strong>{{s.nom}}</strong> ({{s.prix}} F)</span>
+              <span><strong>{{s.nom}}</strong> ({{s.prix.toLocaleString()}} F)</span>
               <div style="display:flex; gap:5px;">
                 <button class="btn-edit" @click="activerEdition(idx, 'citoyen')">Modifier</button>
                 <button class="btn-suppr" @click="supprimerService(idx, 'citoyen')">Retirer</button>
+              </div>
+            </div>
+
+            <p style="font-size:12px; font-weight:bold; color:var(--bleu); margin-top:15px; margin-bottom:5px;">Liste des Offres Entreprises & Paie :</p>
+            <div class="admin-list-item" v-for="(e, idx) in svcEntreprises" :key="'del-e-'+idx">
+              <span><strong>{{e.nom}}</strong> ({{e.prix.toLocaleString()}} F)</span>
+              <div style="display:flex; gap:5px;">
+                <button class="btn-edit" @click="activerEdition(idx, 'entreprise')">Modifier</button>
+                <button class="btn-suppr" @click="supprimerService(idx, 'entreprise')">Retirer</button>
               </div>
             </div>
           </div>
@@ -356,7 +382,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
   </main>
 
   <footer>
-    <p>© 2026 Cabinet Solidaire Gabon. Vos droits au juste prix.</p>
+    <p>© 2026 Cabinet Juridique Solidaire Gabon. Information et assistance conformes aux textes de loi.</p>
   </footer>
 
 </div>
@@ -367,23 +393,31 @@ const CONFIG_WHATSAPP = "+24107000000";
 
 const BASE_DOCUMENTS = [
   {
-    id: 'l1', cat: 'fiche', catL: 'Logement',
-    titre: 'Bailleur ou propriétaire abusif : Comment garder sa maison légalement',
-    intro: 'Votre bailleur menace de vous expulser ou de couper le compteur d\'électricité EDG ? Sachez que c\'est formellement interdit par la loi gabonaise sans décision du tribunal.',
-    body: '<h2>Vos droits de locataire au Gabon</h2><p>Même si vous avez des mois d\'arriérés, un propriétaire n\'a aucun droit de toucher à vos affaires ou de vous chasser de force. Il doit obligatoirement lancer une procédure légale d\'expulsion devant le juge des référés...</p>',
-    reactions: { pouce: 124, justice: 89 }, commentaires: []
+    id: 'l1', cat: 'fiche', catL: 'Loyer',
+    titre: 'Expulsion pour impayés de loyer : Obligations strictes du propriétaire',
+    intro: 'Votre bailleur menace de sortir vos effets ou de couper l\'eau et l\'électricité ? Découvrez comment la législation gabonaise protège le locataire contre les voies de fait.',
+    body: '<h2>Ce que dit la loi gabonaise sur l\'expulsion</h2><p>Au Gabon, aucun propriétaire ne peut faire justice lui-même, même en cas de non-paiement prolongé du loyer. Couper l\'accès aux compteurs SEEG ou forcer la serrure constitue une infraction pénale.</p><h3>La procédure légale obligatoire</h3><p>Pour obtenir votre départ, le bailleur doit obligatoirement vous adresser une mise en demeure par exploit d\'huissier, puis assigner le dossier devant le juge des référés pour obtenir une ordonnance d\'expulsion. Toute tentative en dehors de ce cadre vous donne le droit de saisir les autorités compétentes.</p>',
+    reactions: { pouce: 142, justice: 95 }, commentaires: []
+  },
+  {
+    id: 'l2', cat: 'loi', catL: 'Travail',
+    titre: 'Licenciement verbal ou sans motif : Vos recours immédiats',
+    intro: 'Votre employeur vous a demandé de ne plus revenir travailler sans vous remettre de notification écrite ? Il s\'agit d\'une rupture abusive du contrat.',
+    body: '<h2>L\'obligation de notification écrite</h2><p>Selon le Code du Travail gabonais, tout licenciement doit obligatoirement être notifié par écrit en précisant clairement les motifs de la rupture. Un licenciement annoncé uniquement par voie orale est d\'office considéré comme abusif sur la forme.</p><h3>Démarches indispensables</h3><p>Ne quittez pas définitivement l\'entreprise sans preuve. Allez faire constater la situation auprès de l\'Inspection du Travail de votre secteur dans les plus brefs délais afin de sauvegarder vos droits aux indemnités légales de préavis et de licenciement.</p>',
+    reactions: { pouce: 89, justice: 64 }, commentaires: []
   }
 ];
 
-// DES TARIFS ACCESSIBLES POUR LE CITOYEN DU QUARTIER
 const INIT_CITOYENS = [
-  { nom: "Question Rapide (Audio WhatsApp)", desc: "Vous m'expliquez votre problème en vocal, je vous donne la loi exacte et la marche à suivre directement sur WhatsApp.", prix: 1000 },
-  { nom: "Modèle de lettre officielle d'urgence", desc: "Lettre prête à recopier et envoyer à votre bailleur ou patron pour exiger le paiement de vos droits ou bloquer une expulsion injuste.", prix: 2000 },
-  { nom: "Calcul de vos droits de fin de contrat", desc: "On vérifie ensemble si votre patron a bien calculé votre argent de licenciement par rapport au Code du Travail.", prix: 3000 }
+  { nom: "Consultation Privée sur Dossier", desc: "Étude complète de vos documents juridiques (contrat, bail, mise en demeure) et entretien d'orientation sur vos recours.", prix: 5000 },
+  { nom: "Rédaction de Courrier Officiel", desc: "Mise en demeure, contestation de licenciement ou réponse formelle rédigée par un expert à adresser à votre partie adverse.", prix: 15000 }
 ];
 
+// LES NOUVEAUX MODULES DE PAIE POUR ENTREPRISE
 const INIT_ENTREPRISES = [
-  { nom: "Audit complet de conformité sociale", desc: "Vérification des contrats de l'entreprise pour éviter les amendes de l'Inspection du Travail.", prix: 50000 }
+  { nom: "Audit de Conformité de la Paie", desc: "Contrôle de la structure de vos bulletins de salaire, vérification des taxes sur salaire et application stricte des barèmes légaux au Gabon.", prix: 45000 },
+  { nom: "Calcul du Solde de Tout Compte", desc: "Calcul précis et incontestable des indemnités de rupture, congés payés restants et droits légaux pour éviter les contentieux au tribunal du travail.", prix: 25000 },
+  { nom: "Déclarations Sociales & Fiscales (CNSS / CNAMGS)", desc: "Assistance à la régularisation et au calcul optimal de vos cotisations trimestrielles pour sécuriser votre entreprise face aux contrôles.", prix: 60000 }
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -391,15 +425,16 @@ document.addEventListener("DOMContentLoaded", function() {
   createApp({
     data() {
       return {
-        currentView: 'home', filterCat: 'tous', activeItem: null, adminConnecte: false, adminTab: 'articles', enCoursDEdition: false, indexEdition: null,
+        currentView: 'home', filterCat: 'tous', activeItem: null, adminConnecte: false, adminTab: 'articles', 
+        enCoursDEdition: false, indexEdition: null, enCoursDEditionArt: false, indexEditionArt: null,
         nouvelItem: { type: 'fiche', titre: '', intro: '', body: '' },
         nouveauService: { cible: 'citoyen', nom: '', desc: '', prix: '' },
         nouveauCommArticle: { nom: '', message: '' },
-        bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
-        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || INIT_CITOYENS,
-        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || INIT_ENTREPRISES,
-        forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
-          { auteur: "Grand Frère de Nzeng-Ayong", texte: "Mon patron m'a chassé verbalement après 3 ans de travail sans me donner de papier. Je fais comment ?", reponse: "C'est un licenciement abusif. Allez immédiatement à l'Inspection du Travail pour faire constater la rupture. Ne signez rien sans conseil.", tempReponse: "" }
+        bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon_v2')) || BASE_DOCUMENTS,
+        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon_v2')) || INIT_CITOYENS,
+        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon_v2')) || INIT_ENTREPRISES,
+        forumComments: JSON.parse(localStorage.getItem('mes_comments_forum_v2')) || [
+          { auteur: "Boris (Libreville)", texte: "Mon bailleur me demande d'augmenter le loyer de 20 000 F du jour au lendemain sans travaux dans la maison. En a-t-il le droit ?", reponse: "Non, toute réévaluation de loyer obéit à des règles strictes basées sur la valeur locative réelle ou des améliorations substantielles constatées, et requiert un accord préalable ou un préavis écrit conforme.", tempReponse: "" }
         ],
         newComment: { nom: '', texte: '' }
       }
@@ -417,33 +452,84 @@ document.addEventListener("DOMContentLoaded", function() {
       allerEnBas() { document.getElementById('page-bottom-anchor').scrollIntoView({ behavior: 'smooth' }); },
       basculerAdmin() {
         if (this.adminConnecte) { this.adminConnecte = false; } else {
-          let mdp = prompt("Mot de passe :");
-          if(mdp === "gabon2026") { this.adminConnecte = true; } else { alert("Erreur."); }
+          let mdp = prompt("Saisissez le mot de passe gestionnaire :");
+          if(mdp === "gabon2026") { this.adminConnecte = true; } else { alert("Accès refusé."); }
         }
       },
+      
+      // AJOUT & MODIFICATION DES GUIDES / ARTICLES
       publierContenuManuel() {
-        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Remplir les champs.");
-        let labels = { fiche: 'Logement', loi: 'Travail' };
-        let art = { id: 'art_' + Date.now(), cat: this.nouvelItem.type, catL: labels[this.nouvelItem.type], titre: this.nouvelItem.titre, intro: this.nouvelItem.intro || "Solution légale.", body: this.nouvelItem.body.replace(/\n/g, '<br>'), reactions: { pouce: 0, justice: 0 }, commentaires: [] };
-        this.bibliotheque.unshift(art); localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
+        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Veuillez remplir le titre et le contenu du texte.");
+        let labels = { fiche: 'Loyer', loi: 'Travail' };
+        
+        if (this.enCoursDEditionArt) {
+          let art = this.bibliotheque[this.indexEditionArt];
+          art.cat = this.nouvelItem.type;
+          art.catL = labels[this.nouvelItem.type];
+          art.titre = this.nouvelItem.titre;
+          art.intro = this.nouvelItem.intro || "Solution légale.";
+          art.body = this.nouvelItem.body.replace(/\n/g, '<br>');
+          
+          localStorage.setItem('mes_docs_gabon_v2', JSON.stringify(this.bibliotheque));
+          this.annulerEditionArt();
+          alert("Le guide a bien été mis à jour.");
+        } else {
+          let art = { 
+            id: 'art_' + Date.now(), 
+            cat: this.nouvelItem.type, 
+            catL: labels[this.nouvelItem.type], 
+            titre: this.nouvelItem.titre, 
+            intro: this.nouvelItem.intro || "Solution légale.", 
+            body: this.nouvelItem.body.replace(/\n/g, '<br>'), 
+            reactions: { pouce: 0, justice: 0 }, 
+            commentaires: [] 
+          };
+          this.bibliotheque.unshift(art);
+          localStorage.setItem('mes_docs_gabon_v2', JSON.stringify(this.bibliotheque));
+          this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
+          alert("Nouveau guide publié avec succès.");
+        }
+      },
+      activerEditionArt(idx) {
+        this.enCoursDEditionArt = true;
+        this.indexEditionArt = idx;
+        let art = this.bibliotheque[idx];
+        this.nouvelItem = { 
+          type: art.cat, 
+          titre: art.titre, 
+          intro: art.intro, 
+          body: art.body.replace(/<br>/g, '\n') 
+        };
+        window.scrollTo({ top: document.querySelector('.admin-panel').offsetTop, behavior: 'smooth' });
+      },
+      annulerEditionArt() {
+        this.enCoursDEditionArt = false;
+        this.indexEditionArt = null;
         this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
       },
       supprimerArticle(index) {
-        if(confirm("Supprimer ?")) { this.bibliotheque.splice(index, 1); localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); if(this.activeItem) this.setView('home'); }
+        if(confirm("Confirmez-vous la suppression définitive de ce guide ?")) { 
+          this.bibliotheque.splice(index, 1); 
+          localStorage.setItem('mes_docs_gabon_v2', JSON.stringify(this.bibliotheque)); 
+          if(this.activeItem) this.setView('home'); 
+        }
       },
+
+      // AJOUT & MODIFICATION DES TARIFS / SERVICES
       publierServiceManuel() {
-        if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
+        if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Informations manquantes.");
         let s = { nom: this.nouveauService.nom, desc: this.nouveauService.desc, prix: Number(this.nouveauService.prix) || 0 };
+        
         if (this.enCoursDEdition) {
-          if(this.nouveauService.cible === 'citoyen') { this.svcCitoyens[this.indexEdition] = s; localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens)); } 
-          else { this.svcEntreprises[this.indexEdition] = s; localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises)); }
+          if(this.nouveauService.cible === 'citoyen') { this.svcCitoyens[this.indexEdition] = s; localStorage.setItem('svc_citoyens_gabon_v2', JSON.stringify(this.svcCitoyens)); } 
+          else { this.svcEntreprises[this.indexEdition] = s; localStorage.setItem('svc_entreprises_gabon_v2', JSON.stringify(this.svcEntreprises)); }
           this.annulerEdition();
         } else {
-          if(this.nouveauService.cible === 'citoyen') { this.svcCitoyens.push(s); localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens)); } 
-          else { this.svcEntreprises.push(s); localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises)); }
+          if(this.nouveauService.cible === 'citoyen') { this.svcCitoyens.push(s); localStorage.setItem('svc_citoyens_gabon_v2', JSON.stringify(this.svcCitoyens)); } 
+          else { this.svcEntreprises.push(s); localStorage.setItem('svc_entreprises_gabon_v2', JSON.stringify(this.svcEntreprises)); }
           this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
         }
-        alert("Enregistré.");
+        alert("Prestation enregistrée.");
       },
       activerEdition(idx, type) {
         this.enCoursDEdition = true; this.indexEdition = idx;
@@ -453,35 +539,37 @@ document.addEventListener("DOMContentLoaded", function() {
       },
       annulerEdition() { this.enCoursDEdition = false; this.indexEdition = null; this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' }; },
       supprimerService(idx, type) {
-        if(confirm("Supprimer ?")) {
-          if(type === 'citoyen') { this.svcCitoyens.splice(idx, 1); localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens)); } 
-          else { this.svcEntreprises.splice(idx, 1); localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises)); }
+        if(confirm("Retirer cette offre ?")) {
+          if(type === 'citoyen') { this.svcCitoyens.splice(idx, 1); localStorage.setItem('svc_citoyens_gabon_v2', JSON.stringify(this.svcCitoyens)); } 
+          else { this.svcEntreprises.splice(idx, 1); localStorage.setItem('svc_entreprises_gabon_v2', JSON.stringify(this.svcEntreprises)); }
           if(this.enCoursDEdition) this.annulerEdition();
         }
       },
-      ajouterReaction(type) { this.activeItem.reactions[type]++; localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
+
+      // INTERACTIONS & MESSAGERIE
+      ajouterReaction(type) { this.activeItem.reactions[type]++; localStorage.setItem('mes_docs_gabon_v2', JSON.stringify(this.bibliotheque)); },
       ajouterCommentaireArticle() {
-        if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Champs obligatoires.");
+        if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Veuillez renseigner un nom et votre question.");
         this.activeItem.commentaires.push({ nom: this.nouveauCommArticle.nom, message: this.nouveauCommArticle.message, reponse: null, tempReponse: "" });
-        localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
+        localStorage.setItem('mes_docs_gabon_v2', JSON.stringify(this.bibliotheque));
         this.nouveauCommArticle.nom = ''; this.nouveauCommArticle.message = '';
       },
       repondreCommentaireArticle(idx) {
         let comm = this.activeItem.commentaires[idx]; if(!comm.tempReponse) return alert("Réponse vide."); comm.reponse = comm.tempReponse; comm.tempReponse = '';
-        localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
+        localStorage.setItem('mes_docs_gabon_v2', JSON.stringify(this.bibliotheque));
       },
       ajouterCommentaire() {
-        if(!this.newComment.nom || !this.newComment.texte) return alert("Champs vides.");
+        if(!this.newComment.nom || !this.newComment.texte) return alert("Veuillez remplir le formulaire du forum.");
         this.forumComments.push({ auteur: this.newComment.nom, texte: this.newComment.texte, reponse: null, tempReponse: "" });
-        localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
+        localStorage.setItem('mes_comments_forum_v2', JSON.stringify(this.forumComments));
         this.newComment.nom = ''; this.newComment.texte = '';
       },
       repondreCommentaireManuel(index) {
-        let comm = this.forumComments[index]; if(!comm.tempReponse) return alert("Réponse vide."); comm.reponse = comm.tempReponse; comm.tempReponse = '';
-        localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
+        let comm = this.forumComments[index]; if(!comm.tempReponse) return alert("La réponse ne peut pas être vide."); comm.reponse = comm.tempReponse; comm.tempReponse = '';
+        localStorage.setItem('mes_comments_forum_v2', JSON.stringify(this.forumComments));
       },
-      commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Demande de service populaire : ' + n + ' ('+p+' FCFA)')}`, '_blank'); },
-      ouvrirWhatsAppDirect() { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=Bonjour Docteur, j'ai besoin d'une aide juridique urgente.`, '_blank'); }
+      commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Bonjour, je vous contacte suite à votre site pour la prestation suivante : ' + n + ' ('+p+' FCFA)')}`, '_blank'); },
+      ouvrirWhatsAppDirect() { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=Bonjour, je souhaite solliciter un conseil juridique confidentiel auprès de votre cabinet.`, '_blank'); }
     }
   }).mount('#app');
 });
