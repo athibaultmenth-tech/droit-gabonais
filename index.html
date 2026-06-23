@@ -56,7 +56,7 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .main{max-width:1200px;margin:0 auto;padding:40px 24px 80px}
 .section-title{font-size:22px;color:var(--bleu-deep);margin-bottom:20px;border-left:5px solid var(--or);padding-left:12px}
 
-/* ONGLETS BIBLIOTHÈQUE */
+/* ONGLETS */
 .biblio-tabs { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
 .biblio-tab-btn { background: var(--blanc); border: 1px solid var(--line); padding: 10px 18px; border-radius: 30px; font-weight: 600; font-size: 13.5px; color: var(--muted); }
 .biblio-tab-btn.active { background: var(--bleu-deep); color: #fff; border-color: var(--bleu-deep); box-shadow: var(--shadow); }
@@ -116,14 +116,14 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
 <div id="app" v-cloak>
   
-  <!-- BOUTONS COMMANDE EN 1 CLIC (HAUT / BAS) -->
+  <!-- BOUTONS COMMANDE EN 1 CLIC -->
   <div class="nav-fast">
     <button class="btn-fast" @click="allerEnHaut" title="Retourner tout en haut">▲</button>
     <button class="btn-fast" @click="allerEnBas" title="Aller tout en bas">▼</button>
   </div>
 
   <!-- HEADER -->
-  <header class="hdr" id="page-top">
+  <header class="hdr">
     <div class="hdr-in">
       <div class="brand" @click="setView('home')">
         <div class="logo">⚖️</div>
@@ -264,7 +264,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       </div>
     </div>
 
-    <!-- VUE OFFRES & PRESTATIONS (MISES À JOUR) -->
+    <!-- VUE OFFRES & PRESTATIONS -->
     <div v-if="currentView === 'offres'">
       <div class="section-title">Prestations & Solutions Sur-Mesure</div>
       
@@ -311,18 +311,19 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       </div>
     </div>
 
-    <!-- PANNEAU D'ADMINISTRATION -->
+    <!-- PANNEAU D'ADMINISTRATION CORRIGÉ -->
     <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);" id="page-bottom-anchor">
       <center><button class="admin-login-btn" @click="basculerAdmin">🔑 {{ adminConnecte ? 'Fermer le Panel Admin' : 'Mode Administrateur (Ajouter / Rangement)' }}</button></center>
       
       <div v-if="adminConnecte" class="admin-panel">
-        <h3>🛠️ Hyper-Administration & Rangement de la Bibliothèque</h3>
+        <h3>🛠️ Hyper-Administration & Gestion Globale</h3>
         
         <div class="admin-tabs">
           <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'"> Gérer l'accueil & les Documents</button>
-          <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer Tarifs & Services</button>
+          <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer Tarifs & Services (Suppression activée)</button>
         </div>
         
+        <!-- MANAGEMENT DES ARTICLES -->
         <div v-if="adminTab === 'articles'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
             <h4>Ajouter un nouveau document classifié</h4>
@@ -339,7 +340,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
           </div>
 
           <h4>Liste de vos documents en base (Pour suppression)</h4>
-          <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px; max-height:300px; overflow-y:auto;">
+          <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px; max-height:250px; overflow-y:auto;">
             <div class="admin-list-item" v-for="(item, index) in bibliotheque" :key="'list-'+index">
               <span><strong>[{{item.catL}}]</strong> {{item.titre}}</span>
               <button class="btn-suppr" @click="supprimerArticle(index)">Retirer ×</button>
@@ -347,18 +348,41 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
           </div>
         </div>
 
+        <!-- MANAGEMENT DES SERVICES (CONTRÔLE GLOBAL DISPONIBLE) -->
         <div v-if="adminTab === 'services'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
-            <h4>Créer une offre commerciale</h4>
+            <h4>Créer une nouvelle offre commerciale</h4>
             <select v-model="nouveauService.cible">
-              <option value="citoyen">Espace Citoyen</option>
-              <option value="entreprise">Espace Entreprise</option>
+              <option value="citoyen">⚖️ Espace Citoyen / Particulier</option>
+              <option value="entreprise">🏢 Espace Entreprise / RH</option>
             </select>
             <input type="text" v-model="nouveauService.nom" placeholder="Nom de la prestation">
-            <input type="text" v-model="nouveauService.desc" placeholder="Description">
-            <input type="number" v-model="nouveauService.prix" placeholder="Prix (FCFA)">
+            <input type="text" v-model="nouveauService.desc" placeholder="Description complète">
+            <input type="number" v-model="nouveauService.prix" placeholder="Prix (0 = Gratuit ou Sur devis)">
             <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff;">💾 Publier l'offre</button>
           </div>
+
+          <!-- SECTION DE SUPPRESSION COMPLÈTE DES SERVICES ACTIFS -->
+          <h4>🔧 Liste des offres en ligne (Cliquez sur "Retirer" pour désactiver)</h4>
+          
+          <div style="margin-top:10px; padding:10px; background:#fafafa; border-radius:var(--r2);">
+            <p style="font-size:12px; font-weight:bold; color:var(--vert); margin-bottom:5px;">[ESPACE CITOYENS]</p>
+            <div class="admin-list-item" v-for="(s, idx) in svcCitoyens" :key="'del-c-'+idx">
+              <span>{{s.nom}} ({{s.prix}} FCFA)</span>
+              <button class="btn-suppr" @click="supprimerService(idx, 'citoyen')">Retirer ×</button>
+            </div>
+            <div v-if="svcCitoyens.length === 0" style="font-size:12px; color:var(--muted); font-style:italic;">Aucune offre active.</div>
+          </div>
+
+          <div style="margin-top:15px; padding:10px; background:#fafafa; border-radius:var(--r2);">
+            <p style="font-size:12px; font-weight:bold; color:var(--bleu);">[ESPACE ENTREPRISES]</p>
+            <div class="admin-list-item" v-for="(e, idx) in svcEntreprises" :key="'del-e-'+idx">
+              <span>{{e.nom}}</span>
+              <button class="btn-suppr" @click="supprimerService(idx, 'entreprise')">Retirer ×</button>
+            </div>
+            <div v-if="svcEntreprises.length === 0" style="font-size:12px; color:var(--muted); font-style:italic;">Aucune offre active.</div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -375,14 +399,28 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 <script>
 const CONFIG_WHATSAPP = "+24107000000"; 
 
+// Base de données par défaut brute
 const BASE_DOCUMENTS = [
   {
     id: 'l1', cat: 'loi', catL: 'Texte de Loi',
     titre: 'Loi n° 021/2021 du Code du Travail Gabonais',
-    intro: 'Découvrez le texte officiel encadrant le licienciement et les ruptures de contrats au Gabon.',
+    intro: 'Découvrez le texte officiel encadrant le licenciement et les ruptures de contrats au Gabon.',
     body: '<h2>Dispositions Générales</h2><p>Le nouveau Code du Travail gabonais régit les relations de travail...</p>',
     reactions: { pouce: 12, justice: 24, idee: 5, surpris: 1 }, commentaires: []
   }
+];
+
+// Configuration initiale figée modifiable dynamiquement
+const INIT_CITOYENS = [
+  { nom: "Analyse initiale & Audit de dossier", desc: "Étude critique de vos contrats de bail, quittances de loyer, ou bulletins de paie.", prix: 0 },
+  { nom: "Rédaction d'actes juridiques", desc: "Élaboration de contrats personnalisés, lettres de réclamation ou réponses formelles.", prix: 25000 },
+  { nom: "Assistance litiges (Amiable)", desc: "Stratégie pas à pas pour résoudre vos différends professionnels ou de voisinage sans tribunal.", prix: 50000 }
+];
+
+const INIT_ENTREPRISES = [
+  { nom: "Audit de conformité sociale", desc: "Analyse complète des risques liés aux contrats de travail et procédures internes au Gabon.", prix: 0 },
+  { nom: "Externalisation Administrative & Paie", desc: "Gestion mensuelle de vos fiches de paie conformes au nouveau code du travail.", prix: 150000 },
+  { nom: "Accompagnement Organismes (CNSS / CNAMGS)", desc: "Gestion des déclarations, réponses aux redressements et optimisation des charges.", prix: 0 }
 ];
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -401,18 +439,8 @@ document.addEventListener("DOMContentLoaded", function() {
         nouveauCommArticle: { nom: '', message: '' },
         
         bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
-        
-        // INTEGRATION DESCRIPTIONS DEMANDEES
-        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || [
-          { nom: "Analyse initiale & Audit de dossier", desc: "Étude critique de vos contrats de bail, quittances de loyer, ou bulletins de paie.", prix: 0 },
-          { nom: "Rédaction d'actes juridiques", desc: "Élaboration de contrats personnalisés, lettres de réclamation ou réponses formelles.", prix: 25000 },
-          { nom: "Assistance litiges (Amiable)", desc: "Stratégie pas à pas pour résoudre vos différends professionnels ou de voisinage sans tribunal.", prix: 50000 }
-        ],
-        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || [
-          { nom: "Audit de conformité sociale", desc: "Analyse complète des risques liés aux contrats de travail et procédures internes au Gabon.", prix: 0 },
-          { nom: "Externalisation Administrative & Paie", desc: "Gestion mensuelle de vos fiches de paie conformes au nouveau code du travail.", prix: 150000 },
-          { nom: "Accompagnement Organismes (CNSS / CNAMGS)", desc: "Gestion des déclarations, réponses aux redressements et optimisation des charges.", prix: 0 }
-        ],
+        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || INIT_CITOYENS,
+        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || INIT_ENTREPRISES,
         
         forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
           { auteur: "Christian M.", texte: "Le préavis de logement minimum au Gabon est-il fixe ?", reponse: "Oui, il est fixé par défaut à 3 mois.", tempReponse: "" }
@@ -430,8 +458,8 @@ document.addEventListener("DOMContentLoaded", function() {
       setView(view) { this.currentView = view; window.scrollTo(0, 0); },
       openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
       
-      // DEPLACEMENT EN 1 CLIC
-      allerEnHaut() { document.getElementById('page-top').scrollIntoView({ behavior: 'smooth' }); },
+      // DEPLACEMENT ABSOLU FORCÉ EN JAVASCRIPT DIRECT (ANTI-BUG DE NAVIGATION)
+      allerEnHaut() { window.scrollTo({ top: 0, behavior: 'smooth' }); },
       allerEnBas() { document.getElementById('page-bottom-anchor').scrollIntoView({ behavior: 'smooth' }); },
 
       basculerAdmin() {
@@ -461,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function() {
         this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
       },
       supprimerArticle(index) {
-        if(confirm("Supprimer ?")) {
+        if(confirm("Supprimer ce document ?")) {
           this.bibliotheque.splice(index, 1);
           localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
           if(this.activeItem) this.setView('home');
@@ -477,9 +505,23 @@ document.addEventListener("DOMContentLoaded", function() {
           this.svcEntreprises.push(s);
           localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
         }
-        alert("Service ajouté.");
+        alert("Service ajouté avec succès !");
         this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
       },
+      
+      // SUPPRESSION MANUELLE INTÉGRALE DES SERVICES REQUIS
+      supprimerService(idx, type) {
+        if(confirm("Désactiver et supprimer cette prestation de la grille tarifaire publique ?")) {
+          if(type === 'citoyen') {
+            this.svcCitoyens.splice(idx, 1);
+            localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
+          } else {
+            this.svcEntreprises.splice(idx, 1);
+            localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
+          }
+        }
+      },
+
       ajouterReaction(type) { this.activeItem.reactions[type]++; localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
       ajouterCommentaireArticle() {
         if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Champs obligatoires.");
