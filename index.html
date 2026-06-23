@@ -1,50 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cabinet Juridique Solidaire - Gabon</title>
-<style>
-/* (Gardez tout votre CSS ici) */
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabinet Juridique Solidaire - Gabon</title>
+    <style>
+        /* CSS réduit pour la clarté, assurez-vous que votre style est bien fermé */
+        body { font-family: sans-serif; background: #f8f9fc; }
+        #app { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    </style>
 </head>
 <body>
-<div id="app" data-v-app="">
+
+    <div id="app">
+        <h1>Chargement du Cabinet Juridique...</h1>
     </div>
 
-<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-<script>
-// ... (Copiez tout votre code JavaScript jusqu'à la ligne "publierServiceManuel() {") ...
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const { createApp } = Vue;
 
-    publierServiceManuel() {
-        const nom = this.nouveauService.nom.trim();
-        const desc = this.nouveauService.desc.trim();
-        if (!nom || !desc) {
-          alert("Informations manquantes.");
-          return;
-        }
-
-        const service = {
-          id: `svc_${Date.now()}`,
-          nom,
-          desc,
-          prix: Number(this.nouveauService.prix) || 0
-        };
-
-        if (this.nouveauService.cible === 'citoyen') {
-            this.svcCitoyens.push(service);
-            this.persistCitoyens();
-        } else {
-            this.svcEntreprises.push(service);
-            this.persistEntreprises();
-        }
-        
-        this.nouveauService = { cible: "citoyen", nom: "", desc: "", prix: "" };
-        alert("Service ajouté avec succès.");
-      }
-    }
-  }).mount('#app');
-});
-</script>
+            createApp({
+                data() {
+                    return {
+                        message: "Bienvenue sur le site du Cabinet Juridique"
+                    }
+                }
+            }).mount('#app');
+        });
+    </script>
 </body>
 </html>
