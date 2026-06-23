@@ -70,4 +70,351 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 
 /* CHATBOT INTEGRÉ */
 .bot-container{position:fixed;bottom:25px;right:25px;width:350px;background:var(--blanc);border-radius:var(--r);box-shadow:0 10px 30px rgba(0,0,0,0.2);border:1px solid var(--line);z-index:1000;overflow:hidden;display:flex;flex-direction:column}
-.bot-header{background:var(--bleu-deep);color:#fff;padding:15px;font-weight:
+.bot-header{background:var(--bleu-deep);color:#fff;padding:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.bot-body{height:250px;padding:15px;overflow-y:auto;font-size:13px;display:flex;flex-direction:column;gap:10px;background:#fcfdfe}
+.bot-msg{padding:10px;border-radius:8px;max-width:85%}
+.bot-msg.bot{background:var(--bleu-pale);color:var(--bleu-deep);align-self:flex-start}
+.bot-msg.user{background:var(--or-pale);color:var(--encre);align-self:flex-end}
+.bot-options{padding:10px;display:flex;gap:6px;flex-wrap:wrap;background:var(--fond)}
+.bot-opt-btn{background:var(--blanc);border:1px solid var(--line);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600}
+.bot-opt-btn:hover{border-color:var(--bleu);color:var(--bleu)}
+
+/* BOUTONS ET CONTACT */
+.momo-btn{background:#FFCC00;color:#000;border:none;padding:12px;border-radius:var(--r2);font-weight:800;font-size:13px;width:100%;margin-top:10px;text-align:center;display:block}
+.momo-btn:hover{background:#E8B820}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.contact-grid{grid-template-columns:1fr}}
+
+.detail-view{background:var(--blanc);padding:30px;border-radius:var(--r);border:1px solid var(--line)}
+.detail-content h2{font-size:18px;margin:20px 0 10px;color:var(--bleu-deep)}
+.detail-content p{line-height:1.6;margin-bottom:12px;font-size:14.5px}
+
+/* PANNEAU ADMIN SECRET */
+.admin-panel { background: #fff; border: 2px dashed var(--or); padding: 20px; margin-top: 30px; border-radius: var(--r); }
+.admin-form { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.admin-form input, .admin-form textarea, .admin-form select { padding: 10px; border: 1px solid var(--line); border-radius: var(--r2); font-family: inherit; }
+.admin-btn { background: var(--or); color: var(--bleu-deep); border: none; padding: 10px; font-weight: 700; border-radius: var(--r2); }
+.admin-login-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 20px; }
+
+footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text-align:center;font-size:13px;margin-top:5px}
+</style>
+</head>
+<body>
+<div id="app">
+  
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="hdr-in">
+      <div class="brand" @click="setView('home')">
+        <div class="logo">⚖️</div>
+        <div class="brand-txt">
+          <div class="name">Dr. Juriste Gabon</div>
+          <div class="tag">Expertise Juridique & Solutions RH</div>
+        </div>
+      </div>
+      <nav>
+        <button :class="{act: currentView === 'home' || currentView === 'detail'}" @click="setView('home')">Accueil & Forum</button>
+        <button :class="{act: currentView === 'offres'}" @click="setView('offres')">💼 Services & Tarifs</button>
+        <button :class="{act: currentView === 'contact'}" @click="setView('contact')">📞 Contact</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO BIOGRAPHIE ET ENGAGEMENT -->
+  <section class="hero" v-if="currentView === 'home'">
+    <div class="hero-in">
+      <div class="hero-text">
+        <span class="dr-badge">🎓 Cabinet Numérique - Docteur en Droit</span>
+        <h1>Sécuriser vos décisions, vulgariser le droit <em>gabonais</em>.</h1>
+        <p>Bienvenue sur ma plateforme d'accompagnement. En tant que chercheur et praticien, j'ai conçu cet espace pour offrir aux citoyens des clés de défense face aux litiges quotidiens, et apporter aux employeurs une rigueur totale dans la gestion de la paie et l'administration du personnel.</p>
+      </div>
+      <div class="dr-card">
+        <h3>Pourquoi cette plateforme ?</h3>
+        <p>Le droit ne doit plus être un secret d'initiés. Ce site répond à un double objectif : conseiller les particuliers à des tarifs adaptés à leur pouvoir d'achat et structurer la conformité légale (CNSS, CNAMGS, Inspections) pour les dirigeants et services RH au Gabon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main">
+    
+    <!-- VUE DETAIL ÉLÉMENT -->
+    <div v-if="currentView === 'detail' && activeItem" class="detail-view">
+      <button @click="setView('home')" style="background:none; border:none; color:var(--bleu); font-weight:600; margin-bottom:20px;">← Retour à l'accueil</button>
+      <span class="acard-cat cat-loi">{{activeItem.catL}}</span>
+      <h1 style="margin:10px 0;">{{activeItem.titre}}</h1>
+      <div class="detail-content" v-html="activeItem.body"></div>
+      
+      <div v-if="activeItem.estLoi" style="margin-top:35px; padding:20px; background:var(--or-pale); border-radius:var(--r); border:1px solid var(--or);">
+        <h4>📥 Télécharger la version PDF certifiée complète</h4>
+        <p style="font-size:13px; color:var(--muted); margin-top:4px;">La consultation du texte à l'écran est entièrement libre. L'accès au document brut au format PDF officiel est facturé 1 000 FCFA.</p>
+        <button class="momo-btn" style="background:var(--bleu); color:#fff;" @click="commanderSvc('Achat PDF : ' + activeItem.titre, 1000)">Télécharger via Airtel / Moov Money</button>
+      </div>
+    </div>
+
+    <!-- VUE ACCUEIL (GUIDES, TEXTES ET FORUM) -->
+    <div v-if="currentView === 'home'">
+      
+      <!-- SÉLECTION DE GUIDES & LOIS -->
+      <div class="section-title">Fiches pratiques et Codes officiels</div>
+      <div class="art-grid">
+        <div class="acard" v-for="item in bibliotheque" @click="openItem(item)">
+          <span class="acard-cat" :class="'cat-'+item.cat">{{item.catL}}</span>
+          <h3 style="font-size:16px; margin-bottom:8px;">{{item.titre}}</h3>
+          <p style="font-size:13px; color:var(--muted); line-height:1.5;">{{item.intro}}</p>
+          <span style="color:var(--bleu); font-size:12px; font-weight:700; display:block; margin-top:12px;">Consulter le texte complet →</span>
+        </div>
+      </div>
+
+      <!-- ESPACE FORUM ET DISCUSSIONS MANUELLES -->
+      <div class="forum-box">
+        <div class="section-title" style="border-left-color:var(--bleu); padding-left:0; border-left:none; font-size:20px;">💬 Espace Forum & Questions Publiques</div>
+        <p style="color:var(--muted); font-size:14px;">Une interrogation sur le Code du travail ou un bail d'habitation ? Lisez les échanges ou posez votre question ci-dessous. Je répondrai publiquement.</p>
+        
+        <!-- Liste des commentaires -->
+        <div class="comments-list">
+          <div class="comment-item" v-for="(c, index) in forumComments">
+            <div class="comment-meta">{{c.auteur}} <span style="color:var(--muted); font-weight:400;">(Usager)</span></div>
+            <p style="font-size:13.5px; color:var(--encre);">{{c.texte}}</p>
+            <div style="margin-top:8px; padding-left:12px; border-left:2px solid var(--vert); font-size:13px; color:var(--vert); font-style:italic;" v-if="c.reponse">
+              <strong>Réponse du Dr. Juriste :</strong> {{c.reponse}}
+            </div>
+            <!-- Option de réponse en direct si admin connecté -->
+            <div v-if="adminConnecte" style="margin-top: 10px; display: flex; gap: 5px;">
+              <input type="text" :id="'rep-'+index" placeholder="Écrire une réponse d'expert..." style="flex: 1; padding: 5px;">
+              <button @click="repondreCommentaireManuel(index)" style="padding: 5px 10px; background: var(--bleu); color: #fff; border: none; border-radius: 4px;">Répondre</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire d'ajout -->
+        <div class="comment-input-wrap">
+          <h4>Poser une question sur le forum</h4>
+          <input type="text" v-model="newComment.nom" placeholder="Votre prénom ou pseudo (ex: Marc de Libreville)">
+          <textarea v-model="newComment.texte" rows="3" placeholder="Écrivez votre question ou situation ici de façon claire..."></textarea>
+          <button @click="ajouterCommentaire">Publier ma question sur le site</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VUE OFFRES & PRESTATIONS -->
+    <div v-if="currentView === 'offres'">
+      <div class="section-title">Prestations & Solutions Sur-Mesure</div>
+      
+      <!-- CITOYENS -->
+      <div style="margin-bottom:35px;">
+        <h3 style="color:var(--vert); margin-bottom:12px;">⚖️ Espace Citoyens & Particuliers</h3>
+        <div class="art-grid">
+          <div class="acard" v-for="s in svcCitoyens">
+            <span class="acard-cat cat-citoyen">Tarif social</span>
+            <h4>{{s.nom}}</h4>
+            <p style="font-size:13px; color:var(--muted); margin:8px 0;">{{s.desc}}</p>
+            <div style="font-size:16px; font-weight:700; color:var(--vert);">{{s.prix === 0 ? 'Gratuit' : s.prix + ' FCFA'}}</div>
+            <button class="momo-btn" @click="commanderSvc(s.nom, s.prix)">Commander via Mobile Money</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTREPRISES -->
+      <div>
+        <h3 style="color:var(--bleu); margin-bottom:12px;">🏢 Espace Entreprises, Gestion de Paie & ADP</h3>
+        <p style="font-size:13.5px; color:var(--muted); margin-bottom:15px;">Prise en charge externalisée pour assurer la conformité absolue de votre gestion du personnel face aux règles de l'Inspection du Travail gabonaise.</p>
+        <div class="art-grid">
+          <div class="acard" v-for="e in svcEntreprises">
+            <span class="acard-cat cat-entreprise">Tarif RH</span>
+            <h4>{{e.nom}}</h4>
+            <p style="font-size:13px; color:var(--muted); margin:8px 0;">{{e.desc}}</p>
+            <div style="font-size:16px; font-weight:700; color:var(--bleu);">{{e.prix}} FCFA</div>
+            <button class="momo-btn" @click="commanderSvc(e.nom, e.prix)">Commander via Mobile Money</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VUE CONTACT -->
+    <div v-if="currentView === 'contact'" class="forum-box">
+      <div class="section-title">Prendre contact / Soumettre un dossier</div>
+      <div class="contact-grid">
+        <div>
+          <p style="line-height:1.6; margin-bottom:15px;">Pour toute demande d'analyse de dossier complexe, d'audit de paie ou de rendez-vous d'affaires, vous pouvez utiliser les canaux officiels ci-contre.</p>
+          <p>📍 <strong>Localisation :</strong> Libreville, Gabon</p>
+          <p style="margin-top:5px;">📧 <strong>E-mail :</strong> contact@cabinet-dr-droit.ga</p>
+          <p style="margin-top:5px;">📱 <strong>Règles de transfert :</strong> Airtel Money & Moov Money disponibles dès validation sur WhatsApp.</p>
+        </div>
+        <div class="comment-input-wrap" style="margin-top:0;">
+          <h4>Envoyer un message direct</h4>
+          <input type="text" placeholder="Votre nom complet">
+          <input type="email" placeholder="Votre adresse e-mail">
+          <textarea rows="4" placeholder="Décrivez brièvement votre besoin juridique ou d'externalisation paie..."></textarea>
+          <button @click="ouvrirWhatsAppDirect">Ouvrir une discussion WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ZONE ADMIN CACHÉE POUR AGIR MANUELLEMENT -->
+    <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);">
+      <center><button class="admin-login-btn" @click="basculerAdmin">🔑 Accéder à l'administration du site (Ajouter des articles)</button></center>
+      
+      <div v-if="adminConnecte" class="admin-panel">
+        <h3>🛠️ Panneau de Gestion du Docteur (Ajout Manuel)</h3>
+        <p style="font-size:12px; color:var(--muted); margin-bottom:15px;">Ajoutez du contenu manuellement. Il s'affichera directement sans modifier le code.</p>
+        
+        <div class="admin-form">
+          <select v-model="nouvelItem.type">
+            <option value="fiche">Fiche pratique / Guide d'expert</option>
+            <option value="loi">Texte de Loi / Code officiel</option>
+          </select>
+          <input type="text" v-model="nouvelItem.titre" placeholder="Titre de l'article ou de la loi">
+          <input type="text" v-model="nouvelItem.intro" placeholder="Court résumé initial (pour la carte)">
+          <textarea v-model="nouvelItem.body" rows="6" placeholder="Contenu complet rédigé (vous pouvez mettre du texte simple ou des titres)"></textarea>
+          <input type="text" v-model="nouvelItem.source" placeholder="Source officielle (uniquement si applicable)"></input>
+          <button class="admin-btn" @click="publierContenuManuel">🚀 Mettre l'article en ligne immédiatement</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- CHATBOT JURIDIQUE ASSISTANT -->
+  <div class="bot-container" v-if="botOuvert">
+    <div class="bot-header">
+      <span>🤖 Assistant Juridique</span>
+      <button @click="botOuvert = false" style="background:none; border:none; color:#fff; font-size:16px;">×</button>
+    </div>
+    <div class="bot-body" id="chatBody">
+      <div class="bot-msg bot">Bonjour ! Je suis l'assistant du Docteur en Droit. Quelle est votre situation générale ?</div>
+      <div class="bot-msg user" v-if="botChoix">{{botChoix}}</div>
+      <div class="bot-msg bot" v-if="botReponse">{{botReponse}}</div>
+    </div>
+    <div class="bot-options" v-if="!botReponse">
+      <button class="bot-opt-btn" @click="repondreBot('Litige Loyer', 'Pour un loyer ou une caution bloquée au Gabon, le bailleur a un délai maximal de 2 mois pour restituer la caution. Si la question est bloquante, je vous suggère de formaliser le litige avec le Docteur.')">🏠 Problème de Loyer</button>
+      <button class="bot-opt-btn" @click="repondreBot('Licenciement/Paie', 'Le calcul des indemnités légales de licenciement obéit au nouveau Code du travail de 2021. Pour un audit précis de votre solde de tout compte, l\'œil du Docteur est nécessaire.')">💼 Licenciement & Paie</button>
+    </div>
+    <div style="padding:10px; border-top:1px solid var(--line); text-align:center; background:var(--blanc);" v-if="botReponse">
+      <button class="bot-opt-btn" style="background:var(--or); color:var(--bleu-deep); border:none; font-weight:700;" @click="ouvrirWhatsAppDirect">Mettre en relation avec le Docteur en Droit →</button>
+    </div>
+  </div>
+  
+  <!-- BOUTON FLOTTANT CHATBOT -->
+  <button v-if="!botOuvert" @click="botOuvert = true" style="position:fixed; bottom:25px; right:25px; background:var(--bleu-deep); color:#fff; border:none; padding:15px 20px; border-radius:30px; font-weight:700; box-shadow:0 4px 15px rgba(0,0,0,0.3); z-index:999;">💬 Poser une question</button>
+
+  <footer>
+    <p>© 2026 Cabinet Numérique Gabon. Dirigé par un Docteur en Droit local.</p>
+  </footer>
+
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+const CONFIG_WHATSAPP = "+24107000000"; 
+
+const BASE_DOCUMENTS = [
+  {
+    id: 'l1', cat: 'loi', catL: 'Code du Travail', estLoi: true,
+    titre: 'Loi n° 021/2021 du Code du Travail Gabonais',
+    intro: 'Consultez gratuitement l\'ossature légale modernisée encadrant les contrats, les ruptures et les obligations patronales au Gabon.',
+    body: '<h2>Dispositions Générales</h2><p>Le nouveau Code du Travail gabonais vise à équilibrer la flexibilité pour l\'employeur et la protection des droits fondamentaux du travailleur.</p><h2>Rupture du contrat</h2><p>Tout licenciement doit être solidement motivé et notifié par écrit en respectant les procédures légales sous peine de nullité ou de requalification abusive.</p>'
+  },
+  {
+    id: 'f1', cat: 'citoyen', catL: 'Guide Locataire',
+    titre: 'Restituer une caution : formalités obligatoires',
+    intro: 'Marche à suivre légale pour contraindre son bailleur à restituer le dépôt de garantie sans retenue injustifiée.',
+    body: '<h2>L\'état des lieux de sortie</h2><p>Il constitue la preuve absolue de l\'état du logement. Si l\'état est identique à l\'entrée, le propriétaire a l\'obligation légale de reverser la somme consignée sous deux mois.</p>'
+  }
+];
+
+const PRESTATIONS_CITOYENS = [
+  { nom: "Analyse initiale de dossier juridique", desc: "Examen à titre gracieux de vos pièces justificatives (contrat ou quittances) via messagerie WhatsApp.", prix: 0 },
+  { nom: "Lettre de mise en demeure formelle", desc: "Rédaction d'un courrier juridique d'expert exigeant le paiement de vos dus (caution ou arriérés).", prix: 3000 }
+];
+
+const PRESTATIONS_ENTREPRISES = [
+  { nom: "Externalisation Gestion administrative & Paie", desc: "Traitement complet des variables, calculs de cotisations obligatoires et production des bulletins.", prix: 10000 },
+  { nom: "Rédaction de Contrat de Travail Sécurisé", desc: "Établissement de CDD ou CDI blindés sur le plan légal pour prévenir tout risque aux Prud'hommes.", prix: 15000 },
+  { nom: "Établissement complet de Solde de tout compte", desc: "Sécurisation financière et documentaire lors du départ d'un collaborateur.", prix: 20000 }
+];
+
+const { createApp } = Vue;
+createApp({
+  data() {
+    return {
+      currentView: 'home',
+      activeItem: null,
+      botOuvert: false,
+      botChoix: '',
+      botReponse: '',
+      adminConnecte: false,
+      nouvelItem: { type: 'fiche', titre: '', intro: '', body: '', source: '' },
+      bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
+      svcCitoyens: PRESTATIONS_CITOYENS,
+      svcEntreprises: PRESTATIONS_ENTREPRISES,
+      forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
+        { auteur: "Christian M. (Port-Gentil)", texte: "Mon bailleur me demande d'évacuer la maison sous 4 jours car il dit vouloir loger son fils. A-t-il le droit ?", reponse: "Absolument pas. Au Gabon, l'expulsion sauvage est illégale. Le bailleur doit vous délivrer un congé écrit en respectant un préavis obligatoire de 3 mois minimum." }
+      ],
+      newComment: { nom: '', texte: '' }
+    }
+  },
+  methods: {
+    setView(view) { this.currentView = view; window.scrollTo(0, 0); },
+    openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
+    basculerAdmin() {
+      let mdp = prompt("Entrez votre mot de passe d'administration :");
+      if(mdp === "gabon2026") {
+        this.adminConnecte = !this.adminConnecte;
+      } else {
+        alert("Mot de passe invalide.");
+      }
+    },
+    publierContenuManuel() {
+      if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Le titre et le contenu détaillé sont obligatoires.");
+      
+      let nouvelArticle = {
+        id: 'art_' + Date.now(),
+        cat: this.nouvelItem.type === 'loi' ? 'loi' : 'citoyen',
+        catL: this.nouvelItem.type === 'loi' ? 'Texte de Loi' : 'Guide Pratique',
+        titre: this.nouvelItem.titre,
+        intro: this.nouvelItem.intro || "Consultez cet article rédigé par le Docteur.",
+        body: this.nouvelItem.body.replace(/\n/g, '<br>'),
+        source: this.nouvelItem.source || 'Cabinet du Docteur',
+        estLoi: this.nouvelItem.type === 'loi'
+      };
+      
+      this.bibliotheque.unshift(nouvelArticle);
+      localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque));
+      
+      alert("Votre article est maintenant en ligne !");
+      this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '', source: '' };
+    },
+    repondreCommentaireManuel(index) {
+      let texteReponse = document.getElementById('rep-'+index).value;
+      if(!texteReponse) return alert("Veuillez écrire une réponse.");
+      this.forumComments[index].reponse = texteReponse;
+      localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
+      alert("Réponse enregistrée et affichée !");
+      document.getElementById('rep-'+index).value = '';
+    },
+    ajouterCommentaire() {
+      if(!this.newComment.nom || !this.newComment.texte) return alert("Merci de remplir les deux champs.");
+      this.forumComments.push({
+        auteur: this.newComment.nom,
+        texte: this.newComment.texte,
+        reponse: "Votre question a bien été reçue par le Docteur. La réponse sera publiée ici très rapidement."
+      });
+      localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
+      this.newComment.nom = ''; this.newComment.texte = '';
+    },
+    repondreBot(choix, reponse) { this.botChoix = choix; this.botReponse = reponse; },
+    commanderSvc(nom, prix) {
+      const texte = `Bonjour Docteur, je souhaite solliciter vos compétences pour la prestation suivante :\n- Intitulé : ${nom}\n- Tarif : ${prix} FCFA\nMerci de m'indiquer la marche à suivre pour le transfert Mobile Money.`;
+      window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent(texte)}`, '_blank');
+    },
+    ouvrirWhatsAppDirect() {
+      const msg = "Bonjour Docteur, je visite votre plateforme et souhaite obtenir un rendez-vous ou une consultation d'expert.";
+      window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+  }
+}).mount('#app');
+</script>
+</body>
+</html>
