@@ -21,6 +21,9 @@
 body{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:var(--encre);background:var(--fond);-webkit-font-smoothing:antialiased}
 button{cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.2s}
 
+/* Évite l'effet de flash ou page blanche en attendant le chargement de Vue */
+[v-cloak] { display: none !important; }
+
 /* HEADER */
 .hdr{background:var(--bleu-deep);padding:0 24px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;height:65px}
@@ -115,7 +118,8 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 </head>
 <body>
 
-<div id="app">
+<!-- Ajout du modificateur v-cloak pour empêcher tout problème d'affichage intermittent -->
+<div id="app" v-cloak>
   
   <!-- HEADER -->
   <header class="hdr">
@@ -395,7 +399,14 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
 </div>
 
+<!-- Chargement double canal sécurisé pour Vue.js -->
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  if (typeof Vue === 'undefined') {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.min.js"><\/script>');
+  }
+</script>
+
 <script>
 const CONFIG_WHATSAPP = "+24107000000"; 
 
@@ -429,133 +440,136 @@ const DEFAULT_ENTREPRISES = [
   { nom: "Externalisation Administrative & Paie", desc: "Production des fiches de paie et déclarations CNSS/CNAMGS mensuelles.", prix: 10000 }
 ];
 
-const { createApp } = Vue;
-createApp({
-  data() {
-    return {
-      currentView: 'home',
-      activeItem: null,
-      botOuvert: false,
-      botChoix: '',
-      botReponse: '',
-      
-      adminConnecte: false,
-      adminTab: 'articles',
-      nouvelItem: { type: 'fiche', titre: '', intro: '', body: '' },
-      nouveauService: { cible: 'citoyen', nom: '', desc: '', prix: '' },
-      nouveauCommArticle: { nom: '', message: '' },
-      
-      bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
-      svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || DEFAULT_CITOYENS,
-      svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || DEFAULT_ENTREPRISES,
-      forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
-        { auteur: "Christian M.", texte: "Mon bailleur me donne 4 jours pour sortir. C'est légal ?", reponse: "Absolument pas, le préavis légal minimum au Gabon est de 3 mois.", tempReponse: "" }
-      ],
-      newComment: { nom: '', texte: '' }
-    }
-  },
-  methods: {
-    setView(view) { this.currentView = view; window.scrollTo(0, 0); },
-    openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
-    basculerAdmin() {
-      let mdp = prompt("Entrez le mot de passe d'administration :");
-      if(mdp === "gabon2026") { this.adminConnecte = !this.adminConnecte; } else { alert("Code erroné."); }
+// Initialisation sécurisée une fois le DOM chargé
+document.addEventListener("DOMContentLoaded", function() {
+  const { createApp } = Vue;
+  createApp({
+    data() {
+      return {
+        currentView: 'home',
+        activeItem: null,
+        botOuvert: false,
+        botChoix: '',
+        botReponse: '',
+        
+        adminConnecte: false,
+        adminTab: 'articles',
+        nouvelItem: { type: 'fiche', titre: '', intro: '', body: '' },
+        nouveauService: { cible: 'citoyen', nom: '', desc: '', prix: '' },
+        nouveauCommArticle: { nom: '', message: '' },
+        
+        bibliotheque: JSON.parse(localStorage.getItem('mes_docs_gabon')) || BASE_DOCUMENTS,
+        svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || DEFAULT_CITOYENS,
+        svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || DEFAULT_ENTREPRISES,
+        forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
+          { auteur: "Christian M.", texte: "Mon bailleur me donne 4 jours pour sortir. C'est légal ?", reponse: "Absolument pas, le préavis légal minimum au Gabon est de 3 mois.", tempReponse: "" }
+        ],
+        newComment: { nom: '', texte: '' }
+      }
     },
-    
-    publierContenuManuel() {
-      if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Champs obligatoires.");
-      let art = {
-        id: 'art_' + Date.now(),
-        cat: this.nouvelItem.type === 'loi' ? 'loi' : 'citoyen',
-        catL: this.nouvelItem.type === 'loi' ? 'Texte de Loi' : 'Guide Pratique',
-        titre: this.nouvelItem.titre,
-        intro: this.nouvelItem.intro || "Consultez cet article.",
-        body: this.nouvelItem.body.replace(/\n/g, '<br>'),
-        estLoi: this.nouvelItem.type === 'loi',
-        reactions: { pouce: 0, justice: 0, idee: 0, surpris: 0 },
-        commentaires: []
-      };
-      this.bibliotheque.unshift(art);
-      this.sauvegarderArticles();
-      alert("Article publié avec succès !");
-      this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
-    },
-    supprimerArticle(index) {
-      if(confirm("Confirmez-vous le retrait définitif de cet article du site ?")) {
-        this.bibliotheque.splice(index, 1);
+    methods: {
+      setView(view) { this.currentView = view; window.scrollTo(0, 0); },
+      openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
+      basculerAdmin() {
+        let mdp = prompt("Entrez le mot de passe d'administration :");
+        if(mdp === "gabon2026") { this.adminConnecte = !this.adminConnecte; } else { alert("Code erroné."); }
+      },
+      
+      publierContenuManuel() {
+        if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Champs obligatoires.");
+        let art = {
+          id: 'art_' + Date.now(),
+          cat: this.nouvelItem.type === 'loi' ? 'loi' : 'citoyen',
+          catL: this.nouvelItem.type === 'loi' ? 'Texte de Loi' : 'Guide Pratique',
+          titre: this.nouvelItem.titre,
+          intro: this.nouvelItem.intro || "Consultez cet article.",
+          body: this.nouvelItem.body.replace(/\n/g, '<br>'),
+          estLoi: this.nouvelItem.type === 'loi',
+          reactions: { pouce: 0, justice: 0, idee: 0, surpris: 0 },
+          commentaires: []
+        };
+        this.bibliotheque.unshift(art);
         this.sauvegarderArticles();
-        if(this.activeItem) this.setView('home');
-      }
-    },
-    sauvegarderArticles() { localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
-    
-    publierServiceManuel() {
-      if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
-      let s = { nom: this.nouveauService.nom, desc: this.nouveauService.desc, prix: Number(this.nouveauService.prix) || 0 };
-      if(this.nouveauService.cible === 'citoyen') {
-        this.svcCitoyens.push(s);
-        localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
-      } else {
-        this.svcEntreprises.push(s);
-        localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
-      }
-      alert("Service intégré.");
-      this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
-    },
-    supprimerService(type, index) {
-      if(confirm("Supprimer cette prestation ?")) {
-        if(type === 'citoyen') {
-          this.svcCitoyens.splice(index, 1);
+        alert("Article publié avec succès !");
+        this.nouvelItem = { type: 'fiche', titre: '', intro: '', body: '' };
+      },
+      supprimerArticle(index) {
+        if(confirm("Confirmez-vous le retrait définitif de cet article du site ?")) {
+          this.bibliotheque.splice(index, 1);
+          this.sauvegarderArticles();
+          if(this.activeItem) this.setView('home');
+        }
+      },
+      sauvegarderArticles() { localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
+      
+      publierServiceManuel() {
+        if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
+        let s = { nom: this.nouveauService.nom, desc: this.nouveauService.desc, prix: Number(this.nouveauService.prix) || 0 };
+        if(this.nouveauService.cible === 'citoyen') {
+          this.svcCitoyens.push(s);
           localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
         } else {
-          this.svcEntreprises.splice(index, 1);
+          this.svcEntreprises.push(s);
           localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
         }
-      }
-    },
+        alert("Service intégré.");
+        this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
+      },
+      supprimerService(type, index) {
+        if(confirm("Supprimer cette prestation ?")) {
+          if(type === 'citoyen') {
+            this.svcCitoyens.splice(index, 1);
+            localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
+          } else {
+            this.svcEntreprises.splice(index, 1);
+            localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
+          }
+        }
+      },
 
-    ajouterReaction(type) {
-      this.activeItem.reactions[type]++;
-      this.sauvegarderArticles();
-    },
-    ajouterCommentaireArticle() {
-      if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Veuillez remplir votre nom et votre question.");
-      this.activeItem.commentaires.push({
-        nom: this.nouveauCommArticle.nom,
-        message: this.nouveauCommArticle.message,
-        reponse: null,
-        tempReponse: ""
-      });
-      this.sauvegarderArticles();
-      this.nouveauCommArticle.nom = ''; this.nouveauCommArticle.message = '';
-    },
-    repondreCommentaireArticle(idx) {
-      let comm = this.activeItem.commentaires[idx];
-      if(!comm.tempReponse) return alert("Écrivez une réponse.");
-      comm.reponse = comm.tempReponse;
-      comm.tempReponse = '';
-      this.sauvegarderArticles();
-    },
+      ajouterReaction(type) {
+        this.activeItem.reactions[type]++;
+        this.sauvegarderArticles();
+      },
+      ajouterCommentaireArticle() {
+        if(!this.nouveauCommArticle.nom || !this.nouveauCommArticle.message) return alert("Veuillez remplir votre nom et votre question.");
+        this.activeItem.commentaires.push({
+          nom: this.nouveauCommArticle.nom,
+          message: this.nouveauCommArticle.message,
+          reponse: null,
+          tempReponse: ""
+        });
+        this.sauvegarderArticles();
+        this.nouveauCommArticle.nom = ''; this.nouveauCommArticle.message = '';
+      },
+      repondreCommentaireArticle(idx) {
+        let comm = this.activeItem.commentaires[idx];
+        if(!comm.tempReponse) return alert("Écrivez une réponse.");
+        comm.reponse = comm.tempReponse;
+        comm.tempReponse = '';
+        this.sauvegarderArticles();
+      },
 
-    ajouterCommentaire() {
-      if(!this.newComment.nom || !this.newComment.texte) return alert("Champs vides.");
-      this.forumComments.push({ auteur: this.newComment.nom, texte: this.newComment.texte, reponse: null, tempReponse: "" });
-      localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
-      this.newComment.nom = ''; this.newComment.texte = '';
-    },
-    repondreCommentaireManuel(index) {
-      let comm = this.forumComments[index];
-      if(!comm.tempReponse) return alert("Écrivez une réponse.");
-      comm.reponse = comm.tempReponse;
-      comm.tempReponse = '';
-      localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
-    },
+      ajouterCommentaire() {
+        if(!this.newComment.nom || !this.newComment.texte) return alert("Champs vides.");
+        this.forumComments.push({ auteur: this.newComment.nom, texte: this.newComment.texte, reponse: null, tempReponse: "" });
+        localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
+        this.newComment.nom = ''; this.newComment.texte = '';
+      },
+      repondreCommentaireManuel(index) {
+        let comm = this.forumComments[index];
+        if(!comm.tempReponse) return alert("Écrivez une réponse.");
+        comm.reponse = comm.tempReponse;
+        comm.tempReponse = '';
+        localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
+      },
 
-    repondreBot(c, r) { this.botChoix = c; this.botReponse = r; },
-    commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Commande service : ' + n + ' ('+p+' FCFA)')}`, '_blank'); },
-    ouvrirWhatsAppDirect() { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=Bonjour Docteur, je souhaite une consultation.`, '_blank'); }
-  }
-}).mount('#app');
+      repondreBot(c, r) { this.botChoix = c; this.botReponse = r; },
+      commanderSvc(n, p) { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=${encodeURIComponent('Commande service : ' + n + ' ('+p+' FCFA)')}`, '_blank'); },
+      ouvrirWhatsAppDirect() { window.open(`https://wa.me/${CONFIG_WHATSAPP}?text=Bonjour Docteur, je souhaite une consultation.`, '_blank'); }
+    }
+  }).mount('#app');
+});
 </script>
 </body>
 </html>
