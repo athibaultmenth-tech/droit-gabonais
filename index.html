@@ -88,6 +88,8 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 
 .btn-suppr{background:var(--rouge-pale);color:var(--rouge);border:1px solid var(--rouge);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer}
 .btn-suppr:hover{background:var(--rouge);color:#fff}
+.btn-edit{background:var(--bleu-pale);color:var(--bleu);border:1px solid var(--bleu);padding:4px 8px;border-radius:4px;font-size:11px;font-weight:700;cursor:pointer}
+.btn-edit:hover{background:var(--bleu);color:#fff}
 
 .momo-btn{background:#FFCC00;color:#000;border:none;padding:12px;border-radius:var(--r2);font-weight:800;font-size:13px;width:100%;margin-top:auto;text-align:center;display:block}
 .momo-btn:hover{background:#E8B820}
@@ -107,7 +109,7 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 .admin-form input, .admin-form textarea, .admin-form select { padding: 10px; border: 1px solid var(--line); border-radius: var(--r2); font-family: inherit; font-size: 14px; }
 .admin-btn { background: var(--or); color: var(--bleu-deep); border: none; padding: 12px; font-weight: 700; border-radius: var(--r2); font-size: 14px; }
 .admin-login-btn { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; text-decoration: underline; margin-top: 20px; }
-.admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); font-size: 13px; gap: 10px; }
 
 footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text-align:center;font-size:13px;margin-top:40px}
 </style>
@@ -311,7 +313,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       </div>
     </div>
 
-    <!-- PANNEAU D'ADMINISTRATION CORRIGÉ -->
+    <!-- PANNEAU D'ADMINISTRATION -->
     <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);" id="page-bottom-anchor">
       <center><button class="admin-login-btn" @click="basculerAdmin">🔑 {{ adminConnecte ? 'Fermer le Panel Admin' : 'Mode Administrateur (Ajouter / Rangement)' }}</button></center>
       
@@ -320,7 +322,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         
         <div class="admin-tabs">
           <button class="admin-tab-btn" :class="{active: adminTab === 'articles'}" @click="adminTab = 'articles'"> Gérer l'accueil & les Documents</button>
-          <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer Tarifs & Services (Suppression activée)</button>
+          <button class="admin-tab-btn" :class="{active: adminTab === 'services'}" @click="adminTab = 'services'">💼 Gérer Tarifs & Services (Inclusions / Modifications)</button>
         </div>
         
         <!-- MANAGEMENT DES ARTICLES -->
@@ -348,28 +350,38 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
           </div>
         </div>
 
-        <!-- MANAGEMENT DES SERVICES (CONTRÔLE GLOBAL DISPONIBLE) -->
+        <!-- MANAGEMENT DES SERVICES AVEC FONCTION MODIFIER ET INCLURE -->
         <div v-if="adminTab === 'services'">
           <div class="admin-form" style="background:var(--fond); padding:15px; border-radius:8px; margin-bottom:20px;">
-            <h4>Créer une nouvelle offre commerciale</h4>
-            <select v-model="nouveauService.cible">
+            <h4>{{ enCoursDEdition ? '✏️ Édition de l\'offre sélectionnée' : '➕ Créer une nouvelle offre commerciale' }}</h4>
+            <select v-model="nouveauService.cible" :disabled="enCoursDEdition">
               <option value="citoyen">⚖️ Espace Citoyen / Particulier</option>
               <option value="entreprise">🏢 Espace Entreprise / RH</option>
             </select>
             <input type="text" v-model="nouveauService.nom" placeholder="Nom de la prestation">
             <input type="text" v-model="nouveauService.desc" placeholder="Description complète">
             <input type="number" v-model="nouveauService.prix" placeholder="Prix (0 = Gratuit ou Sur devis)">
-            <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff;">💾 Publier l'offre</button>
+            
+            <div style="display:flex; gap:10px;">
+              <button class="admin-btn" @click="publierServiceManuel" style="background:var(--vert); color:#fff; flex:1;">
+                {{ enCoursDEdition ? '💾 Sauvegarder les modifications' : '💾 Publier l\'offre' }}
+              </button>
+              <button class="admin-btn" v-if="enCoursDEdition" @click="annulerEdition" style="background:var(--muted); color:#fff;">
+                Annuler
+              </button>
+            </div>
           </div>
 
-          <!-- SECTION DE SUPPRESSION COMPLÈTE DES SERVICES ACTIFS -->
-          <h4>🔧 Liste des offres en ligne (Cliquez sur "Retirer" pour désactiver)</h4>
+          <h4>🔧 Liste et gestion des offres en ligne</h4>
           
           <div style="margin-top:10px; padding:10px; background:#fafafa; border-radius:var(--r2);">
             <p style="font-size:12px; font-weight:bold; color:var(--vert); margin-bottom:5px;">[ESPACE CITOYENS]</p>
             <div class="admin-list-item" v-for="(s, idx) in svcCitoyens" :key="'del-c-'+idx">
-              <span>{{s.nom}} ({{s.prix}} FCFA)</span>
-              <button class="btn-suppr" @click="supprimerService(idx, 'citoyen')">Retirer ×</button>
+              <span><strong>{{s.nom}}</strong> ({{s.prix}} FCFA)</span>
+              <div style="display:flex; gap:5px;">
+                <button class="btn-edit" @click="activerEdition(idx, 'citoyen')">Modifier ✏️</button>
+                <button class="btn-suppr" @click="supprimerService(idx, 'citoyen')">Retirer ×</button>
+              </div>
             </div>
             <div v-if="svcCitoyens.length === 0" style="font-size:12px; color:var(--muted); font-style:italic;">Aucune offre active.</div>
           </div>
@@ -377,8 +389,11 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
           <div style="margin-top:15px; padding:10px; background:#fafafa; border-radius:var(--r2);">
             <p style="font-size:12px; font-weight:bold; color:var(--bleu);">[ESPACE ENTREPRISES]</p>
             <div class="admin-list-item" v-for="(e, idx) in svcEntreprises" :key="'del-e-'+idx">
-              <span>{{e.nom}}</span>
-              <button class="btn-suppr" @click="supprimerService(idx, 'entreprise')">Retirer ×</button>
+              <span><strong>{{e.nom}}</strong> ({{e.prix}} FCFA)</span>
+              <div style="display:flex; gap:5px;">
+                <button class="btn-edit" @click="activerEdition(idx, 'entreprise')">Modifier ✏️</button>
+                <button class="btn-suppr" @click="supprimerService(idx, 'entreprise')">Retirer ×</button>
+              </div>
             </div>
             <div v-if="svcEntreprises.length === 0" style="font-size:12px; color:var(--muted); font-style:italic;">Aucune offre active.</div>
           </div>
@@ -399,7 +414,6 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 <script>
 const CONFIG_WHATSAPP = "+24107000000"; 
 
-// Base de données par défaut brute
 const BASE_DOCUMENTS = [
   {
     id: 'l1', cat: 'loi', catL: 'Texte de Loi',
@@ -410,7 +424,6 @@ const BASE_DOCUMENTS = [
   }
 ];
 
-// Configuration initiale figée modifiable dynamiquement
 const INIT_CITOYENS = [
   { nom: "Analyse initiale & Audit de dossier", desc: "Étude critique de vos contrats de bail, quittances de loyer, ou bulletins de paie.", prix: 0 },
   { nom: "Rédaction d'actes juridiques", desc: "Élaboration de contrats personnalisés, lettres de réclamation ou réponses formelles.", prix: 25000 },
@@ -434,6 +447,10 @@ document.addEventListener("DOMContentLoaded", function() {
         adminConnecte: false,
         adminTab: 'articles',
         
+        // Edition Variables
+        enCoursDEdition: false,
+        indexEdition: null,
+
         nouvelItem: { type: 'fiche', titre: '', intro: '', body: '' },
         nouveauService: { cible: 'citoyen', nom: '', desc: '', prix: '' },
         nouveauCommArticle: { nom: '', message: '' },
@@ -458,7 +475,6 @@ document.addEventListener("DOMContentLoaded", function() {
       setView(view) { this.currentView = view; window.scrollTo(0, 0); },
       openItem(item) { this.activeItem = item; this.currentView = 'detail'; window.scrollTo(0, 0); },
       
-      // DEPLACEMENT ABSOLU FORCÉ EN JAVASCRIPT DIRECT (ANTI-BUG DE NAVIGATION)
       allerEnHaut() { window.scrollTo({ top: 0, behavior: 'smooth' }); },
       allerEnBas() { document.getElementById('page-bottom-anchor').scrollIntoView({ behavior: 'smooth' }); },
 
@@ -495,23 +511,65 @@ document.addEventListener("DOMContentLoaded", function() {
           if(this.activeItem) this.setView('home');
         }
       },
+
+      // INCLUSION & MODIFICATION DES SERVICES
       publierServiceManuel() {
         if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
-        let s = { nom: this.nouveauService.nom, desc: this.nouveauService.desc, prix: Number(this.nouveauService.prix) || 0 };
-        if(this.nouveauService.cible === 'citoyen') {
-          this.svcCitoyens.push(s);
-          localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
+        
+        let s = { 
+          nom: this.nouveauService.nom, 
+          desc: this.nouveauService.desc, 
+          prix: Number(this.nouveauService.prix) || 0 
+        };
+
+        if (this.enCoursDEdition) {
+          // Mode modification d'une offre existante
+          if(this.nouveauService.cible === 'citoyen') {
+            this.svcCitoyens[this.indexEdition] = s;
+            localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
+          } else {
+            this.svcEntreprises[this.indexEdition] = s;
+            localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
+          }
+          alert("Service mis à jour avec succès !");
+          this.annulerEdition();
         } else {
-          this.svcEntreprises.push(s);
-          localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
+          // Mode inclusion classique d'une nouvelle offre
+          if(this.nouveauService.cible === 'citoyen') {
+            this.svcCitoyens.push(s);
+            localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
+          } else {
+            this.svcEntreprises.push(s);
+            localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
+          }
+          alert("Nouveau service inclus avec succès !");
+          this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
         }
-        alert("Service ajouté avec succès !");
+      },
+
+      // DECLENCHEMENT DE L'EDITION
+      activerEdition(idx, type) {
+        this.enCoursDEdition = true;
+        this.indexEdition = idx;
+        let cibleSvc = type === 'citoyen' ? this.svcCitoyens[idx] : this.svcEntreprises[idx];
+        
+        this.nouveauService = {
+          cible: type,
+          nom: cibleSvc.nom,
+          desc: cibleSvc.desc,
+          prix: cibleSvc.prix
+        };
+        // Scroll automatique vers le formulaire pour confort visuel
+        window.scrollTo({ top: document.querySelector('.admin-panel').offsetTop, behavior: 'smooth' });
+      },
+      annulerEdition() {
+        this.enCoursDEdition = false;
+        this.indexEdition = null;
         this.nouveauService = { cible: 'citoyen', nom: '', desc: '', prix: '' };
       },
       
-      // SUPPRESSION MANUELLE INTÉGRALE DES SERVICES REQUIS
       supprimerService(idx, type) {
-        if(confirm("Désactiver et supprimer cette prestation de la grille tarifaire publique ?")) {
+        if(confirm("Désactiver et supprimer cette prestation ?")) {
           if(type === 'citoyen') {
             this.svcCitoyens.splice(idx, 1);
             localStorage.setItem('svc_citoyens_gabon', JSON.stringify(this.svcCitoyens));
@@ -519,6 +577,7 @@ document.addEventListener("DOMContentLoaded", function() {
             this.svcEntreprises.splice(idx, 1);
             localStorage.setItem('svc_entreprises_gabon', JSON.stringify(this.svcEntreprises));
           }
+          if(this.enCoursDEdition) this.annulerEdition();
         }
       },
 
