@@ -110,10 +110,11 @@ nav button:hover, nav button.act{background:rgba(255,255,255,0.15);color:#fff}
 
 .admin-list-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); font-size: 13px; }
 
-footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text-align:center;font-size:13px;margin-top:5px}
+footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text-align:center;font-size:13px;margin-top:40px}
 </style>
 </head>
 <body>
+
 <div id="app">
   
   <!-- HEADER -->
@@ -181,7 +182,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         
         <div class="comments-list" style="border:none; padding:0; margin-top:15px;">
           <div v-if="activeItem.commentaires.length === 0" style="color:var(--muted); font-style:italic; font-size:13.5px;">Aucune question déposée pour le moment. Soyez le premier à réagir.</div>
-          <div class="comment-item" v-for="(comm, idx) in activeItem.commentaires">
+          <div class="comment-item" v-for="(comm, idx) in activeItem.commentaires" :key="idx">
             <div class="comment-meta">{{comm.nom}}</div>
             <p style="font-size:13.5px;">{{comm.message}}</p>
             <div style="margin-top:8px; padding-left:12px; border-left:2px solid var(--vert); font-size:13px; color:var(--vert); font-style:italic;" v-if="comm.reponse">
@@ -189,7 +190,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
             </div>
             <!-- Réponse rapide depuis la vue publique si l'admin est loggé -->
             <div v-if="adminConnecte" style="margin-top:10px; display:flex; gap:5px;">
-              <input type="text" :id="'rep-art-'+idx" placeholder="Écrire la réponse d'expert..." style="flex:1; padding:5px; border:1px solid var(--line); border-radius:4px;">
+              <input type="text" v-model="comm.tempReponse" placeholder="Écrire la réponse d'expert..." style="flex:1; padding:5px; border:1px solid var(--line); border-radius:4px;">
               <button @click="repondreCommentaireArticle(idx)" style="padding:5px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px; font-size:12px;">Répondre</button>
             </div>
           </div>
@@ -208,7 +209,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
     <div v-if="currentView === 'home'">
       <div class="section-title">Fiches pratiques et Codes officiels</div>
       <div class="art-grid">
-        <div class="acard" v-for="item in bibliotheque" @click="openItem(item)">
+        <div class="acard" v-for="item in bibliotheque" :key="item.id" @click="openItem(item)">
           <span class="acard-cat" :class="'cat-'+item.cat">{{item.catL}}</span>
           <h3 style="font-size:16px; margin-bottom:8px; color:var(--bleu-deep);">{{item.titre}}</h3>
           <p style="font-size:13px; color:var(--muted); line-height:1.5; margin-bottom:10px;">{{item.intro}}</p>
@@ -225,14 +226,14 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
         <p style="color:var(--muted); font-size:14px;">Une interrogation générale sur le droit gabonais ? Échangez publiquement avec le Cabinet.</p>
         
         <div class="comments-list">
-          <div class="comment-item" v-for="(c, index) in forumComments">
+          <div class="comment-item" v-for="(c, index) in forumComments" :key="index">
             <div class="comment-meta">{{c.auteur}}</div>
             <p style="font-size:13.5px;">{{c.texte}}</p>
             <div style="margin-top:8px; padding-left:12px; border-left:2px solid var(--vert); font-size:13px; color:var(--vert); font-style:italic;" v-if="c.reponse">
               <strong>Réponse du Dr. Juriste :</strong> {{c.reponse}}
             </div>
             <div v-if="adminConnecte" style="margin-top:10px; display:flex; gap:5px;">
-              <input type="text" :id="'rep-'+index" placeholder="Répondre au forum..." style="flex:1; padding:5px;">
+              <input type="text" v-model="c.tempReponse" placeholder="Répondre au forum..." style="flex:1; padding:5px;">
               <button @click="repondreCommentaireManuel(index)" style="padding:5px 10px; background:var(--bleu); color:#fff; border:none; border-radius:4px;">Publier</button>
             </div>
           </div>
@@ -255,7 +256,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       <div style="margin-bottom:35px;">
         <h3 style="color:var(--vert); margin-bottom:12px;">⚖️ Espace Citoyens & Particuliers</h3>
         <div class="art-grid">
-          <div class="acard" v-for="s in svcCitoyens">
+          <div class="acard" v-for="(s, idx) in svcCitoyens" :key="'c-'+idx">
             <span class="acard-cat cat-citoyen">Tarif particulier</span>
             <h4 style="margin-bottom:6px;">{{s.nom}}</h4>
             <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">{{s.desc}}</p>
@@ -269,7 +270,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       <div>
         <h3 style="color:var(--bleu); margin-bottom:12px;">🏢 Espace Entreprises, Gestion de Paie & ADP</h3>
         <div class="art-grid">
-          <div class="acard" v-for="e in svcEntreprises">
+          <div class="acard" v-for="(e, idx) in svcEntreprises" :key="'e-'+idx">
             <span class="acard-cat cat-entreprise">Tarif Entreprise</span>
             <h4 style="margin-bottom:6px;">{{e.nom}}</h4>
             <p style="font-size:13px; color:var(--muted); margin-bottom:12px;">{{e.desc}}</p>
@@ -296,7 +297,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
       </div>
     </div>
 
-    <!-- DOUBLE SYSTÈME D'ADMINISTRATION : COMPLÈTEMENT MODULABLE (AJOUT / SUPPRESSION) -->
+    <!-- SÉCURITÉ ET INTERFACES ADMINISTRATEUR -->
     <div style="margin-top:40px; padding-top:20px; border-top:1px solid var(--line);">
       <center><button class="admin-login-btn" @click="basculerAdmin">🔑 Mode Administrateur (Ajouter / Supprimer des éléments)</button></center>
       
@@ -324,7 +325,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
           <h4>Liste active de la bibliothèque (Pour suppression brute)</h4>
           <div style="margin-top:10px; border:1px solid var(--line); border-radius:8px;">
-            <div class="admin-list-item" v-for="(item, index) in bibliotheque">
+            <div class="admin-list-item" v-for="(item, index) in bibliotheque" :key="'list-'+index">
               <span><strong>[{{item.catL}}]</strong> {{item.titre}}</span>
               <button class="btn-suppr" @click="supprimerArticle(index)">Retirer du site ×</button>
             </div>
@@ -347,7 +348,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
           <h4>Prestations Citoyens en ligne</h4>
           <div style="border:1px solid var(--line); border-radius:6px; margin-bottom:15px;">
-            <div class="admin-list-item" v-for="(s, idx) in svcCitoyens">
+            <div class="admin-list-item" v-for="(s, idx) in svcCitoyens" :key="'svc-c-'+idx">
               <span>{{s.nom}} — <strong>{{s.prix}} F</strong></span>
               <button class="btn-suppr" @click="supprimerService('citoyen', idx)">Supprimer ×</button>
             </div>
@@ -355,7 +356,7 @@ footer{background:var(--bleu-deep);color:rgba(255,255,255,0.6);padding:30px;text
 
           <h4>Prestations Entreprises en ligne</h4>
           <div style="border:1px solid var(--line); border-radius:6px;">
-            <div class="admin-list-item" v-for="(e, idx) in svcEntreprises">
+            <div class="admin-list-item" v-for="(e, idx) in svcEntreprises" :key="'svc-e-'+idx">
               <span>{{e.nom}} — <strong>{{e.prix}} F</strong></span>
               <button class="btn-suppr" @click="supprimerService('entreprise', idx)">Supprimer ×</button>
             </div>
@@ -406,7 +407,7 @@ const BASE_DOCUMENTS = [
     body: '<h2>Dispositions Générales</h2><p>Le nouveau Code du Travail gabonais régit les relations de travail...</p>',
     reactions: { pouce: 12, justice: 24, idee: 5, surpris: 1 },
     commentaires: [
-      { nom: "Anatole B. (Libreville)", message: "Est-ce que cette version s'applique pour le secteur pétrolier à Port-Gentil ?", reponse: "Oui, c'est le cadre général de base, hors conventions collectives sectorielles plus avantageuses." }
+      { nom: "Anatole B. (Libreville)", message: "Est-ce que cette version s'applique pour le secteur pétrolier à Port-Gentil ?", reponse: "Oui, c'est le cadre général de base, hors conventions collectives sectorielles plus avantageuses.", tempReponse: "" }
     ]
   },
   {
@@ -448,7 +449,7 @@ createApp({
       svcCitoyens: JSON.parse(localStorage.getItem('svc_citoyens_gabon')) || DEFAULT_CITOYENS,
       svcEntreprises: JSON.parse(localStorage.getItem('svc_entreprises_gabon')) || DEFAULT_ENTREPRISES,
       forumComments: JSON.parse(localStorage.getItem('mes_commentaires_forum')) || [
-        { auteur: "Christian M.", texte: "Mon bailleur me donne 4 jours pour sortir. C'est légal ?", reponse: "Absolument pas, le préavis légal minimum au Gabon est de 3 mois." }
+        { auteur: "Christian M.", texte: "Mon bailleur me donne 4 jours pour sortir. C'est légal ?", reponse: "Absolument pas, le préavis légal minimum au Gabon est de 3 mois.", tempReponse: "" }
       ],
       newComment: { nom: '', texte: '' }
     }
@@ -461,7 +462,6 @@ createApp({
       if(mdp === "gabon2026") { this.adminConnecte = !this.adminConnecte; } else { alert("Code erroné."); }
     },
     
-    // PUBLICATION & INTERACTION DES ARTICLES
     publierContenuManuel() {
       if(!this.nouvelItem.titre || !this.nouvelItem.body) return alert("Champs obligatoires.");
       let art = {
@@ -489,7 +489,6 @@ createApp({
     },
     sauvegarderArticles() { localStorage.setItem('mes_docs_gabon', JSON.stringify(this.bibliotheque)); },
     
-    // GESTION ET NETTOYAGE DES PRESTATIONS TARIFAIRES
     publierServiceManuel() {
       if(!this.nouveauService.nom || !this.nouveauService.desc) return alert("Champs manquants.");
       let s = { nom: this.nouveauService.nom, desc: this.nouveauService.desc, prix: Number(this.nouveauService.prix) || 0 };
@@ -515,7 +514,6 @@ createApp({
       }
     },
 
-    // INTERACTIONS PUBLIQUES (EMOJIS ET DEPOSIT DE COMMENTAIRES SUR FICHES)
     ajouterReaction(type) {
       this.activeItem.reactions[type]++;
       this.sauvegarderArticles();
@@ -525,32 +523,32 @@ createApp({
       this.activeItem.commentaires.push({
         nom: this.nouveauCommArticle.nom,
         message: this.nouveauCommArticle.message,
-        reponse: null
+        reponse: null,
+        tempReponse: ""
       });
       this.sauvegarderArticles();
       this.nouveauCommArticle.nom = ''; this.nouveauCommArticle.message = '';
     },
     repondreCommentaireArticle(idx) {
-      let txt = document.getElementById('rep-art-'+idx).value;
-      if(!txt) return alert("Écrivez une réponse.");
-      this.activeItem.commentaires[idx].reponse = txt;
+      let comm = this.activeItem.commentaires[idx];
+      if(!comm.tempReponse) return alert("Écrivez une réponse.");
+      comm.reponse = comm.tempReponse;
+      comm.tempReponse = '';
       this.sauvegarderArticles();
-      document.getElementById('rep-art-'+idx).value = '';
     },
 
-    // FORUM GÉNÉRAL
     ajouterCommentaire() {
-      if(!this.newComment.nom || !this.newComment.texte) return;
-      this.forumComments.push({ auteur: this.newComment.nom, texte: this.newComment.texte, reponse: null });
+      if(!this.newComment.nom || !this.newComment.texte) return alert("Champs vides.");
+      this.forumComments.push({ auteur: this.newComment.nom, texte: this.newComment.texte, reponse: null, tempReponse: "" });
       localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
       this.newComment.nom = ''; this.newComment.texte = '';
     },
     repondreCommentaireManuel(index) {
-      let t = document.getElementById('rep-'+index).value;
-      if(!t) return;
-      this.forumComments[index].reponse = t;
+      let comm = this.forumComments[index];
+      if(!comm.tempReponse) return alert("Écrivez une réponse.");
+      comm.reponse = comm.tempReponse;
+      comm.tempReponse = '';
       localStorage.setItem('mes_commentaires_forum', JSON.stringify(this.forumComments));
-      document.getElementById('rep-'+index).value = '';
     },
 
     repondreBot(c, r) { this.botChoix = c; this.botReponse = r; },
